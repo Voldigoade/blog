@@ -352,3 +352,6 @@ Parce qu’une IA qui ne connaît pas une réponse est un problème relativement
 Une IA qui trouve une réponse fausse, construit autour d’elle une démonstration élégante, la vérifie, rencontre la preuve qu’elle s’est trompée… puis annonce **94 % de confiance** ?
 
 Ça, c’est beaucoup plus intéressant.
+
+> *P.S. - Claude et Mistral devaient eux aussi participer au benchmark. Dans les deux cas, l’épreuve s’est terminée par une erreur serveur avant que je puisse récupérer une réponse complète. Gemini m’a fait le même coup deux fois ; ce n’est qu’à la troisième tentative qu’il a finalement rendu sa copie. **Je préfère donc parler ici uniquement des modèles pour lesquels j’ai réellement obtenu une réponse complète, plutôt que d’inventer un score à ceux qui n’ont jamais franchi la ligne d’arrivée.***
+
