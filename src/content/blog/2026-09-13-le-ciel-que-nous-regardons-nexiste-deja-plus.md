@@ -44,8 +44,6 @@ On peut résumer ce décalage avec quelques exemples :
 
 | Ce que nous observons | Ce que nous voyons approximativement |
 
-|---|---:|
-
 | La Lune | il y a 1,3 seconde |
 
 | Le Soleil | il y a 8 min 20 s |
