@@ -12,6 +12,16 @@ section: science
 contentType: article
 tags:
   - astronomie
+  - espace
+  - temps
+  - lumière
+  - relativité
+  - Big Bang
+  - Univers
+  - cosmologie
+coverImage: /blog/images/posts/univers.png
+coverAlt: Illustration montrant que plus nous regardons loin dans l’Univers,
+  plus nous observons une époque ancienne de son histoire.
 author: Voldigoade
 ---
 Il y a quelque chose de profondément trompeur dans le ciel.
