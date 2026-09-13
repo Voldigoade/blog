@@ -1,0 +1,41 @@
+﻿---
+interface Props {
+  variant?: "inline" | "block";
+  summary?: string;
+}
+
+const { variant = "inline", summary = "Alerte divulgâchis" } = Astro.props;
+---
+
+{
+  variant === "block" ? (
+    <details class="spoiler-block">
+      <summary class="spoiler-block__summary">{summary}</summary>
+      <div class="spoiler-block__content">
+        <slot />
+      </div>
+    </details>
+  ) : (
+    <button
+      type="button"
+      class="spoiler"
+      data-spoiler
+      aria-expanded="false"
+      aria-label="Contenu masqué, cliquer pour révéler"
+    >
+      <slot />
+    </button>
+  )
+}
+
+<script is:inline>
+  (() => {
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-spoiler]");
+      if (!btn) return;
+      const isRevealed = btn.dataset.revealed === "true";
+      btn.dataset.revealed = isRevealed ? "false" : "true";
+      btn.setAttribute("aria-expanded", isRevealed ? "false" : "true");
+    });
+  })();
+</script>

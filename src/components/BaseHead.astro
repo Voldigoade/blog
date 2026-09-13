@@ -1,0 +1,217 @@
+---
+import { AUTHOR, SITE } from "../config";
+import { BASE_URL, withBase, withoutBase } from "../utils/url";
+
+export interface ArticleMeta {
+  publishedTime: string;
+  modifiedTime?: string;
+  tags: string[];
+}
+
+export interface AlternateLink {
+  lang: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  article?: ArticleMeta;
+  author?: string;
+  canonicalUrl?: string;
+  lang?: string;
+  ogLocale?: string;
+  ogAlternates?: string[];
+  alternates?: AlternateLink[];
+  xDefault?: string;
+  feedPath?: string;
+  feedTitle?: string;
+  breadcrumbHome?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage,
+  article,
+  author,
+  canonicalUrl,
+  lang = SITE.lang,
+  ogLocale = SITE.locale,
+  ogAlternates = [],
+  alternates = [],
+  xDefault,
+  feedPath,
+  feedTitle,
+  breadcrumbHome = "Accueil",
+} = Astro.props;
+
+const canonical = new URL(withBase(canonicalUrl ?? Astro.url.pathname), Astro.site);
+const image = new URL(withBase(ogImage ?? SITE.defaultOgImage), Astro.site);
+const feed = feedPath ? new URL(withBase(feedPath), Astro.site) : undefined;
+const publicHome = new URL(BASE_URL, Astro.site).href;
+
+const authorName = author ?? AUTHOR.name;
+const person = {
+  "@type": "Person",
+  name: authorName,
+  url: AUTHOR.url,
+};
+
+const pathSegments = withoutBase(Astro.url.pathname).split("/").filter(Boolean);
+const breadcrumbs =
+  pathSegments.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: breadcrumbHome,
+            item: publicHome,
+          },
+          ...pathSegments.map((segment, idx) => ({
+            "@type": "ListItem",
+            position: idx + 2,
+            name: segment,
+            item: new URL(withBase(`/${pathSegments.slice(0, idx + 1).join("/")}/`), Astro.site).href,
+          })),
+        ],
+      }
+    : null;
+
+const structuredData = [
+  article
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: title,
+        description,
+        url: canonical.href,
+        image: image.href,
+        datePublished: article.publishedTime,
+        dateModified: article.modifiedTime ?? article.publishedTime,
+        keywords: article.tags.join(", "),
+        inLanguage: lang,
+        author: person,
+        publisher: person,
+        mainEntityOfPage: { "@type": "WebPage", "@id": canonical.href },
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: SITE.title,
+        description: SITE.description,
+        url: publicHome,
+        inLanguage: lang,
+        author: person,
+      },
+  breadcrumbs,
+].filter(Boolean);
+
+const absoluteHref = (href: string) => new URL(withBase(href), Astro.site).href;
+const favicon = withBase("/favicon.svg");
+const serifFont = withBase("/fonts/source-serif-4-latin.woff2");
+const monoFont = withBase("/fonts/jetbrains-mono-latin.woff2");
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<script is:inline>
+  try {
+    const stored = localStorage.getItem("voldigoade-theme");
+    if (stored === "light" || stored === "dark") {
+      document.documentElement.dataset.theme = stored;
+    }
+  } catch {}
+</script>
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{alternates.map((alt) => (
+  <link rel="alternate" hreflang={alt.lang} href={absoluteHref(alt.href)} />
+))}
+{xDefault && <link rel="alternate" hreflang="x-default" href={absoluteHref(xDefault)} />}
+
+<link rel="icon" href={favicon} type="image/svg+xml" />
+{feed && (
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title={feedTitle ?? `${SITE.title} — ${SITE.tagline}`}
+    href={feed}
+  />
+)}
+<meta
+  name="theme-color"
+  content="#faf8f5"
+  media="(prefers-color-scheme: light)"
+/>
+<meta
+  name="theme-color"
+  content="#0b0c0e"
+  media="(prefers-color-scheme: dark)"
+/>
+
+<link
+  rel="preload"
+  href={serifFont}
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+<link
+  rel="preload"
+  href={monoFont}
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
+
+<meta property="og:type" content={article ? "article" : "website"} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={image} />
+<meta property="og:site_name" content={SITE.title} />
+<meta property="og:locale" content={ogLocale} />
+{ogAlternates.map((locale) => (
+  <meta property="og:locale:alternate" content={locale} />
+))}
+
+{
+  article && (
+    <>
+      <meta
+        property="article:published_time"
+        content={article.publishedTime}
+      />
+      {article.modifiedTime && (
+        <meta
+          property="article:modified_time"
+          content={article.modifiedTime}
+        />
+      )}
+      <meta property="article:author" content={AUTHOR.name} />
+      {article.tags.map((tag) => (
+        <meta property="article:tag" content={tag} />
+      ))}
+    </>
+  )
+}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+
+<script
+  type="application/ld+json"
+  is:inline
+  set:html={JSON.stringify(structuredData)}
+/>

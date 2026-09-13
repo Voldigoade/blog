@@ -1,0 +1,85 @@
+---
+import type { Page } from "astro";
+
+import { getDict } from "../i18n/dict";
+import { DEFAULT_LOCALE } from "../i18n/locales";
+import { withBase } from "../utils/url";
+
+interface Props {
+  page: Page<unknown>;
+  label?: string;
+  locale?: string;
+}
+
+const { page, label, locale = DEFAULT_LOCALE } = Astro.props;
+const dict = getDict(locale);
+const resolvedLabel = label ?? dict.pubsTitle;
+
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+{
+  page.lastPage > 1 && (
+    <nav class="pagination" aria-label={`${dict.paginationOf} ${resolvedLabel.toLowerCase()}`}>
+      {page.url.prev ? (
+        <a class="pagination__step" href={withBase(page.url.prev)} rel="prev">
+          {dict.pagePrev}
+        </a>
+      ) : (
+        <span class="pagination__step pagination__step--off">{dict.pagePrev}</span>
+      )}
+
+      <p class="pagination__count">
+        <span class="visually-hidden">{dict.pageWord} </span>
+        {pad(page.currentPage)}
+        <span aria-hidden="true"> / </span>
+        <span class="visually-hidden">{dict.pageOf} </span>
+        {pad(page.lastPage)}
+      </p>
+
+      {page.url.next ? (
+        <a class="pagination__step" href={withBase(page.url.next)} rel="next">
+          {dict.pageNext}
+        </a>
+      ) : (
+        <span class="pagination__step pagination__step--off">{dict.pageNext}</span>
+      )}
+    </nav>
+  )
+}
+
+<style>
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  .pagination__step {
+    padding: var(--space-3) var(--space-4);
+    border: var(--rule-width) solid var(--color-rule);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .pagination__step:hover {
+    border-color: var(--color-accent);
+  }
+
+  .pagination__step--off {
+    color: var(--color-fg-faint);
+    border-color: transparent;
+  }
+
+  .pagination__count {
+    color: var(--color-fg-faint);
+  }
+</style>

@@ -1,0 +1,130 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import "../../styles/prose.css";
+
+import PageHeader from "../../components/PageHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SOCIAL } from "../../config";
+import { getDict } from "../../i18n/dict";
+import { NON_DEFAULT_LOCALES } from "../../i18n/locales";
+
+export const getStaticPaths = (() =>
+  NON_DEFAULT_LOCALES.map((locale) => ({ params: { locale } }))) satisfies GetStaticPaths;
+
+const { locale } = Astro.params as { locale: string };
+const dict = getDict(locale);
+
+const colophon = [
+  { term: dict.colophonEngine, value: dict.colophonEngineValue },
+  { term: dict.colophonType, value: dict.colophonTypeValue },
+  { term: dict.colophonMatter, value: dict.colophonMatterValue },
+  { term: dict.colophonLicense, value: dict.colophonLicenseValue },
+];
+---
+
+<BaseLayout title={dict.aboutTitle} description={dict.aboutBio} locale={locale}>
+  <div class="wrap">
+    <PageHeader eyebrow={dict.aboutEyebrow} title={dict.aboutTitle} lede={dict.aboutBio} />
+
+    <div class="about">
+      <div class="prose about__body">
+        <p>
+          {dict.aboutP1}
+        </p>
+
+        <p>
+          {dict.aboutP2}
+        </p>
+
+        <h2>{dict.aboutEditorialTitle}</h2>
+
+        <p>
+          {dict.aboutEditorialBody}
+        </p>
+
+        <h2>{dict.aboutElsewhere}</h2>
+
+        <ul>
+          {
+            SOCIAL.map((link) => (
+              <li>
+                <a href={link.href} rel="noopener">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <aside class="about__aside">
+        <p class="tategaki about__rail" aria-hidden="true">
+          墨と余白 — INK AND SPACE
+        </p>
+
+        <dl class="about__colophon">
+          {
+            colophon.map((row) => (
+              <div class="about__row">
+                <dt class="label">{row.term}</dt>
+                <dd>{row.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, var(--width-prose)) 13rem;
+    gap: clamp(var(--space-8), 6vw, var(--space-16));
+    justify-content: center;
+    align-items: start;
+    padding-block: var(--space-12);
+  }
+
+  .about__aside {
+    display: flex;
+    gap: var(--space-6);
+  }
+
+  .about__rail {
+    height: 12rem;
+  }
+
+  .about__colophon {
+    flex: 1;
+    margin: 0;
+  }
+
+  .about__row + .about__row {
+    margin-top: var(--space-6);
+  }
+
+  .about__row dd {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--color-fg-muted);
+  }
+
+  @media (max-width: 60rem) {
+    .about {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .about__aside {
+      padding-top: var(--space-8);
+      border-top: var(--rule-width) solid var(--color-rule);
+    }
+
+    .about__rail {
+      display: none;
+    }
+  }
+</style>

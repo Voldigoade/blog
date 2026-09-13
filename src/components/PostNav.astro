@@ -1,0 +1,101 @@
+---
+import { getDict } from "../i18n/dict";
+import { DEFAULT_LOCALE } from "../i18n/locales";
+
+interface Neighbor {
+  href: string;
+  title: string;
+}
+
+interface Props {
+  previous?: Neighbor;
+  next?: Neighbor;
+  locale?: string;
+}
+
+const { previous, next, locale = DEFAULT_LOCALE } = Astro.props;
+const dict = getDict(locale);
+---
+
+{
+  (previous || next) && (
+    <nav class="post-nav" aria-label={dict.postNavLabel}>
+      {previous ? (
+        <a class="post-nav__link" href={previous.href} rel="prev">
+          <span class="post-nav__label label">{dict.postPrev}</span>
+          <span class="post-nav__title">{previous.title}</span>
+        </a>
+      ) : (
+        <span />
+      )}
+
+      {next && (
+        <a
+          class="post-nav__link post-nav__link--next"
+          href={next.href}
+          rel="next"
+        >
+          <span class="post-nav__label label">{dict.postNext}</span>
+          <span class="post-nav__title">{next.title}</span>
+        </a>
+      )}
+    </nav>
+  )
+}
+
+<style>
+  .post-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--rule-width);
+    margin-top: var(--space-16);
+    background: var(--color-rule);
+    border-block: var(--rule-width) solid var(--color-rule);
+  }
+
+  .post-nav__link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-8) var(--space-6);
+    background: var(--color-bg);
+    text-decoration: none;
+    transition: background var(--duration-fast) var(--ease-out);
+  }
+
+  .post-nav__link:hover {
+    background: var(--color-bg-subtle);
+    color: inherit;
+  }
+
+  .post-nav__link--next {
+    text-align: right;
+  }
+
+  .post-nav__title {
+    font-size: var(--text-base);
+    line-height: var(--leading-snug);
+  }
+
+  .post-nav__link:hover .post-nav__title {
+    color: var(--color-accent);
+  }
+
+  .post-nav > span {
+    background: var(--color-bg);
+  }
+
+  @media (max-width: 40rem) {
+    .post-nav {
+      grid-template-columns: 1fr;
+    }
+
+    .post-nav__link--next {
+      text-align: left;
+    }
+
+    .post-nav > span {
+      display: none;
+    }
+  }
+</style>

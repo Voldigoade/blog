@@ -1,0 +1,107 @@
+---
+import { getDict } from "../i18n/dict";
+import { DEFAULT_LOCALE } from "../i18n/locales";
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const dict = getDict(locale);
+---
+
+<button
+  class="theme-toggle"
+  type="button"
+  data-theme-toggle
+  data-theme-to-light={dict.themeToLight}
+  data-theme-to-dark={dict.themeToDark}
+  aria-label={dict.themeToDark}
+>
+  <span class="theme-toggle__icon" aria-hidden="true"></span>
+</button>
+
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    const scope = window;
+    if (!scope.__voldigoadeTheme) {
+      const media = window.matchMedia("(prefers-color-scheme: dark)");
+      const labelFor = (btn, theme) =>
+        theme === "dark" ? btn.dataset.themeToLight || "light" : btn.dataset.themeToDark || "dark";
+      const resolve = () => root.dataset.theme || (media.matches ? "dark" : "light");
+      const syncLabels = () => {
+        const current = resolve();
+        for (const btn of document.querySelectorAll("[data-theme-toggle]")) {
+          btn.setAttribute("aria-label", labelFor(btn, current));
+        }
+      };
+      const syncThemeColor = () => {
+        if (!root.dataset.theme) return;
+        let pinned = document.querySelector('meta[name="theme-color"]:not([media])');
+        if (!pinned) {
+          for (const meta of document.querySelectorAll('meta[name="theme-color"][media]')) {
+            meta.remove();
+          }
+          pinned = document.createElement("meta");
+          pinned.setAttribute("name", "theme-color");
+          document.head.appendChild(pinned);
+        }
+        pinned.setAttribute("content", getComputedStyle(document.body).backgroundColor);
+      };
+      const toggle = () => {
+        const next = resolve() === "dark" ? "light" : "dark";
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem("voldigoade-theme", next);
+        } catch {}
+        syncLabels();
+        syncThemeColor();
+      };
+      scope.__voldigoadeTheme = { media, resolve, syncLabels, syncThemeColor, toggle };
+      media.addEventListener("change", syncLabels);
+    }
+    const state = scope.__voldigoadeTheme;
+    for (const btn of document.querySelectorAll('[data-theme-toggle]:not([data-theme-bound])')) {
+      btn.dataset.themeBound = "true";
+      btn.addEventListener("click", state.toggle);
+    }
+    state.syncLabels();
+    state.syncThemeColor();
+  })();
+</script>
+
+<style>
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--color-fg-muted);
+    border-radius: var(--radius);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .theme-toggle:hover {
+    color: var(--color-fg);
+  }
+
+  .theme-toggle__icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    background: linear-gradient(
+      to right,
+      currentColor 0 50%,
+      transparent 50% 100%
+    );
+    transition: rotate var(--duration-base) var(--ease-out);
+  }
+
+  :root[data-theme="dark"] .theme-toggle__icon {
+    rotate: 180deg;
+  }
+</style>

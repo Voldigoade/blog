@@ -1,0 +1,107 @@
+---
+import type { GetStaticPaths, Page } from "astro";
+import { render } from "astro:content";
+
+import PageHeader from "../../components/PageHeader.astro";
+import Pagination from "../../components/Pagination.astro";
+import PostCard from "../../components/PostCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostLayout from "../../layouts/PostLayout.astro";
+import { BLOG } from "../../config";
+import { getDict } from "../../i18n/dict";
+import { DEFAULT_LOCALE, NON_DEFAULT_LOCALES, type LocaleRoute } from "../../i18n/locales";
+import { getTranslatedPosts, translatedLocalesFor } from "../../i18n/posts";
+import { getAdjacentPosts, getPublishedPosts, type Post } from "../../utils/posts";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getPublishedPosts();
+  const translatedCounts = new Map(
+    await Promise.all(NON_DEFAULT_LOCALES.map(async (locale) => [locale, (await getTranslatedPosts(locale)).length] as const)),
+  );
+  const archivePaths = paginate(posts, { pageSize: BLOG.postsPerPage }).map((path) => {
+    const pageNumber = path.props.page.currentPage;
+    const alternateRoutes: LocaleRoute[] = [
+      DEFAULT_LOCALE,
+      ...NON_DEFAULT_LOCALES.filter((locale) => pageNumber === 1 || (translatedCounts.get(locale) || 0) > (pageNumber - 1) * BLOG.postsPerPage),
+    ];
+    return { ...path, props: { ...path.props, alternateRoutes } };
+  });
+  const articlePaths = await Promise.all(
+    posts.map(async (post) => ({
+      params: { page: post.id },
+      props: {
+        post,
+        ...getAdjacentPosts(posts, post.id),
+        alternateRoutes: await translatedLocalesFor(post.id),
+      },
+    })),
+  );
+  return [...archivePaths, ...articlePaths];
+}) satisfies GetStaticPaths;
+
+interface ArchiveProps {
+  page: Page<Post>;
+  alternateRoutes: LocaleRoute[];
+}
+
+interface ArticleProps {
+  post: Post;
+  previous?: Post;
+  next?: Post;
+  alternateRoutes: LocaleRoute[];
+}
+
+const props = Astro.props as ArchiveProps | ArticleProps;
+const isArticle = "post" in props;
+const rendered = isArticle ? await render(props.post) : undefined;
+const dict = getDict(DEFAULT_LOCALE);
+const archiveTitle = !isArticle && props.page.currentPage > 1
+  ? `${dict.pubsTitle} — ${dict.pageWord.toLowerCase()} ${props.page.currentPage}`
+  : dict.pubsTitle;
+---
+
+{
+  isArticle && rendered ? (
+    <PostLayout
+      post={props.post}
+      headings={rendered.headings}
+      previous={props.previous}
+      next={props.next}
+      locale={DEFAULT_LOCALE}
+      alternateRoutes={props.alternateRoutes}
+    >
+      <rendered.Content />
+    </PostLayout>
+  ) : !isArticle ? (
+    <BaseLayout
+      title={archiveTitle}
+      description={dict.pubsMeta}
+      locale={DEFAULT_LOCALE}
+      alternateRoutes={props.alternateRoutes}
+    >
+      <div class="wrap">
+        <PageHeader
+          eyebrow={dict.pubsEyebrow}
+          title={dict.pubsTitle}
+          lede={dict.pubsLede}
+        />
+
+        <div class="post-list">
+          {props.page.data.map((post) => <PostCard post={post} locale={DEFAULT_LOCALE} />)}
+        </div>
+
+        <Pagination page={props.page} label={dict.pubsTitle} locale={DEFAULT_LOCALE} />
+      </div>
+    </BaseLayout>
+  ) : null
+}
+
+<style>
+  .post-list {
+    margin-top: var(--space-4);
+  }
+
+  .post-list :global(.post-card:last-child) {
+    border-bottom: none;
+  }
+</style>

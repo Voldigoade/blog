@@ -1,0 +1,187 @@
+---
+import { getDict } from "../i18n/dict";
+import { DEFAULT_LOCALE, LOCALES, localizedPath, type LocaleRoute } from "../i18n/locales";
+
+interface Props {
+  locale?: string;
+  currentPath?: string;
+  availableRoutes?: LocaleRoute[];
+  position?: "down" | "up";
+}
+
+const { locale = DEFAULT_LOCALE, currentPath = "/", availableRoutes, position = "down" } = Astro.props;
+const dict = getDict(locale);
+const routes = (LOCALES as readonly { route: LocaleRoute; native: string }[]).map(({ route, native }) => ({
+  route,
+  native,
+  href: localizedPath(!availableRoutes || availableRoutes.includes(route) ? currentPath : "/", route),
+  current: route === locale,
+}));
+const currentCode = (locale as string).toUpperCase();
+---
+
+<div class="lang" data-lang data-lang-position={position}>
+  <button
+    type="button"
+    class="lang__button"
+    data-lang-button
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    aria-label={dict.langButton}
+  >
+    <span class="lang__glyph" aria-hidden="true">A/文</span>
+    <span class="lang__code" aria-hidden="true">{currentCode}</span>
+  </button>
+  <ul class="lang__panel" data-lang-panel role="listbox" aria-label={dict.langLabel} hidden>
+    {routes.map(({ native, href, current }) => (
+      <li role="none">
+        <a
+          class="lang__option"
+          role="option"
+          href={href}
+          aria-selected={current ? "true" : "false"}
+          aria-current={current ? "true" : undefined}
+          tabindex="-1"
+        >
+          <span class="lang__native">{native}</span>
+          {current && <span class="lang__mark" aria-hidden="true">●</span>}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<script is:inline>
+  (() => {
+    for (const root of document.querySelectorAll('[data-lang]:not([data-lang-bound])')) {
+      root.dataset.langBound = "true";
+      const button = root.querySelector("[data-lang-button]");
+      const panel = root.querySelector("[data-lang-panel]");
+      if (!button || !panel) continue;
+      const options = Array.from(panel.querySelectorAll(".lang__option"));
+      const close = (refocus) => {
+        button.setAttribute("aria-expanded", "false");
+        panel.hidden = true;
+        if (refocus) button.focus();
+      };
+      const open = () => {
+        for (const other of document.querySelectorAll("[data-lang]")) {
+          if (other !== root) {
+            other.querySelector("[data-lang-button]")?.setAttribute("aria-expanded", "false");
+            const otherPanel = other.querySelector("[data-lang-panel]");
+            if (otherPanel) otherPanel.hidden = true;
+          }
+        }
+        button.setAttribute("aria-expanded", "true");
+        panel.hidden = false;
+        const current = panel.querySelector('[aria-current="true"]') || options[0];
+        if (current) current.focus();
+      };
+      button.addEventListener("click", () => {
+        if (panel.hidden) open();
+        else close(false);
+      });
+      document.addEventListener("click", (event) => {
+        if (!root.contains(event.target) && !panel.hidden) close(false);
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !panel.hidden) close(true);
+      });
+      panel.addEventListener("keydown", (event) => {
+        const index = options.indexOf(document.activeElement);
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          const next = options[(index + 1) % options.length];
+          if (next) next.focus();
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          const prev = options[(index - 1 + options.length) % options.length];
+          if (prev) prev.focus();
+        }
+      });
+    }
+  })();
+</script>
+
+<style>
+  .lang {
+    position: relative;
+  }
+
+  .lang__button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.5rem;
+    padding: var(--space-1) var(--space-3);
+    background: transparent;
+    border: var(--rule-width) solid var(--color-rule);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--color-fg-muted);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .lang__button:hover,
+  .lang__button[aria-expanded="true"] {
+    color: var(--color-fg);
+    border-color: var(--color-accent);
+  }
+
+  .lang__glyph {
+    color: var(--color-accent);
+  }
+
+  .lang__panel {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    z-index: 20;
+    min-width: 11rem;
+    margin: 0;
+    padding: var(--space-2);
+    list-style: none;
+    background: var(--color-bg-raised);
+    border: var(--rule-width) solid var(--color-rule-strong);
+    border-radius: var(--radius);
+  }
+
+  .lang[data-lang-position="up"] .lang__panel {
+    top: auto;
+    bottom: calc(100% + var(--space-2));
+  }
+
+  .lang__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 2.75rem;
+    padding: var(--space-2) var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    white-space: nowrap;
+    color: var(--color-fg-muted);
+    border-radius: var(--radius);
+  }
+
+  .lang__option:hover {
+    color: var(--color-fg);
+    background: var(--color-bg-subtle);
+  }
+
+  .lang__option[aria-current="true"] {
+    color: var(--color-accent);
+  }
+
+  .lang__mark {
+    font-size: 0.5rem;
+  }
+</style>

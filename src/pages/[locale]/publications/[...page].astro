@@ -1,0 +1,154 @@
+---
+import type { GetStaticPaths, Page } from "astro";
+import { render } from "astro:content";
+
+import PageHeader from "../../../components/PageHeader.astro";
+import Pagination from "../../../components/Pagination.astro";
+import PostCard from "../../../components/PostCard.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import PostLayout from "../../../layouts/PostLayout.astro";
+import { BLOG } from "../../../config";
+import { getDict } from "../../../i18n/dict";
+import { DEFAULT_LOCALE, NON_DEFAULT_LOCALES, type LocaleRoute } from "../../../i18n/locales";
+import { getTranslatedPosts, translatedLocalesFor, type TranslatedPost } from "../../../i18n/posts";
+import { getAdjacentPosts, getPublishedPosts } from "../../../utils/posts";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const paths = [];
+  const postsByLocale = new Map(
+    await Promise.all(NON_DEFAULT_LOCALES.map(async (locale) => [locale, await getTranslatedPosts(locale)] as const)),
+  );
+  const frenchCount = (await getPublishedPosts()).length;
+  for (const locale of NON_DEFAULT_LOCALES) {
+    const posts = postsByLocale.get(locale) || [];
+    paths.push(
+      ...paginate(posts, {
+        params: { locale },
+        pageSize: BLOG.postsPerPage,
+      }).map((path) => {
+        const pageNumber = path.props.page.currentPage;
+        const alternateRoutes: LocaleRoute[] = [
+          ...(pageNumber === 1 || frenchCount > (pageNumber - 1) * BLOG.postsPerPage ? [DEFAULT_LOCALE] : []),
+          ...NON_DEFAULT_LOCALES.filter((route) => pageNumber === 1 || (postsByLocale.get(route)?.length || 0) > (pageNumber - 1) * BLOG.postsPerPage),
+        ];
+        return { ...path, props: { ...path.props, alternateRoutes } };
+      }),
+    );
+    for (const post of posts) {
+      const slug = post.data.sourceSlug;
+      const alternateRoutes = await translatedLocalesFor(slug);
+      const xDefault: string | false | undefined = alternateRoutes.includes(DEFAULT_LOCALE)
+        ? undefined
+        : false;
+      paths.push({
+        params: { locale, page: slug },
+        props: {
+          post,
+          ...getAdjacentPosts(posts, post.id),
+          alternateRoutes,
+          xDefault,
+        },
+      });
+    }
+  }
+  return paths;
+}) satisfies GetStaticPaths;
+
+interface ArchiveProps {
+  page: Page<TranslatedPost>;
+  alternateRoutes: LocaleRoute[];
+}
+
+interface ArticleProps {
+  post: TranslatedPost;
+  previous?: TranslatedPost;
+  next?: TranslatedPost;
+  alternateRoutes: LocaleRoute[];
+  xDefault?: string | false;
+}
+
+const props = Astro.props as ArchiveProps | ArticleProps;
+const { locale } = Astro.params as { locale: string };
+const isArticle = "post" in props;
+const rendered = isArticle ? await render(props.post) : undefined;
+const dict = getDict(locale);
+const archiveTitle = !isArticle && props.page.currentPage > 1
+  ? `${dict.pubsTitle} — ${dict.pageWord.toLowerCase()} ${props.page.currentPage}`
+  : dict.pubsTitle;
+---
+
+{
+  isArticle && rendered ? (
+    <PostLayout
+      post={props.post}
+      headings={rendered.headings}
+      previous={props.previous}
+      next={props.next}
+      locale={locale}
+      alternateRoutes={props.alternateRoutes}
+      xDefault={props.xDefault}
+    >
+      <rendered.Content />
+    </PostLayout>
+  ) : !isArticle ? (
+    <BaseLayout
+      title={archiveTitle}
+      description={dict.pubsMeta}
+      locale={locale}
+      alternateRoutes={props.alternateRoutes}
+    >
+      <div class="wrap">
+        <PageHeader
+          eyebrow={dict.pubsEyebrow}
+          title={dict.pubsTitle}
+          lede={dict.pubsLede}
+        />
+
+        {props.page.data.length > 0 ? (
+          <div class="post-list">
+            {props.page.data.map((post) => <PostCard post={post} locale={locale} slug={post.data.sourceSlug} />)}
+          </div>
+        ) : (
+          <div class="home-empty">
+            <p class="home-empty__title">{dict.emptyTitle}</p>
+            <p class="home-empty__desc">{dict.emptyDesc}</p>
+          </div>
+        )}
+
+        <Pagination page={props.page} label={dict.pubsTitle} locale={locale} />
+      </div>
+    </BaseLayout>
+  ) : null
+}
+
+<style>
+  .post-list {
+    margin-top: var(--space-4);
+  }
+
+  .post-list :global(.post-card:last-child) {
+    border-bottom: none;
+  }
+
+  .home-empty {
+    margin-top: var(--space-12);
+    padding: var(--space-16) var(--space-8);
+    border: var(--rule-width) dashed var(--color-rule);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+
+  .home-empty__title {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-fg);
+  }
+
+  .home-empty__desc {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+  }
+</style>

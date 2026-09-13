@@ -1,0 +1,85 @@
+---
+import type { GetStaticPaths } from "astro";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getDict } from "../../i18n/dict";
+import { NON_DEFAULT_LOCALES, localizedPath } from "../../i18n/locales";
+
+export const getStaticPaths = (() =>
+  NON_DEFAULT_LOCALES.map((locale) => ({ params: { locale } }))) satisfies GetStaticPaths;
+
+const { locale } = Astro.params as { locale: string };
+const dict = getDict(locale);
+---
+
+<BaseLayout
+  title={dict.notFoundTitle}
+  description={dict.notFoundMeta}
+  locale={locale}
+  pagefindIgnore
+>
+  <section class="notfound wrap">
+    <p class="notfound__code" aria-hidden="true">404</p>
+    <p class="notfound__mark" aria-hidden="true">無</p>
+
+    <h1 class="notfound__title">{dict.notFoundHeading}</h1>
+    <p class="lede notfound__lede">
+      {dict.notFoundLede}
+    </p>
+
+    <p class="notfound__actions label">
+      <a href={localizedPath("/", locale)}>{dict.notFoundHome}</a>
+      <span aria-hidden="true">·</span>
+      <a href={localizedPath("/publications/", locale)}>{dict.notFoundPubs}</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 60svh;
+    padding-block: var(--space-24);
+    text-align: center;
+  }
+
+  .notfound__code {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-accent);
+  }
+
+  .notfound__mark {
+    margin-top: var(--space-6);
+    font-size: clamp(5rem, 18vw, 9rem);
+    line-height: 1;
+    color: var(--color-fg-faint);
+  }
+
+  .notfound__title {
+    margin-top: var(--space-8);
+    font-size: var(--text-xl);
+  }
+
+  .notfound__lede {
+    max-width: 32rem;
+    margin-top: var(--space-4);
+  }
+
+  .notfound__actions {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+  }
+
+  .notfound__actions a {
+    text-decoration: none;
+  }
+
+  .notfound__actions a:hover {
+    color: var(--color-accent);
+  }
+</style>

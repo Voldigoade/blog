@@ -1,0 +1,159 @@
+---
+import PageHeader from "../../components/PageHeader.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SECTIONS } from "../../config";
+import { countText, getDict, sectionText } from "../../i18n/dict";
+import { DEFAULT_LOCALE, localizedPath } from "../../i18n/locales";
+import { getPublishedPosts, postsBySection } from "../../utils/posts";
+
+const locale = DEFAULT_LOCALE;
+const dict = getDict(locale);
+const posts = await getPublishedPosts();
+const sectionKeys = Object.keys(SECTIONS) as Array<keyof typeof SECTIONS>;
+
+const sectionData = sectionKeys.map((key) => {
+  const meta = sectionText(locale, key);
+  const secPosts = postsBySection(posts, key);
+  return {
+    id: key,
+    ...meta,
+    count: secPosts.length,
+    latest: secPosts[0],
+  };
+});
+---
+
+<BaseLayout
+  title={dict.sectionsPageTitle}
+  description={dict.sectionsMeta}
+  locale={locale}
+>
+  <div class="wrap">
+    <PageHeader
+      eyebrow={dict.sectionsEyebrow}
+      title={dict.sectionsTitle}
+      lede={dict.sectionsLede}
+    />
+
+    <div class="section-grid rule-grid">
+      {
+        sectionData.map((item, idx) => (
+          <article class="section-card" data-section={item.id}>
+            <div class="section-card__top">
+              <span class="label section-card__index">0{idx + 1}</span>
+              <span class="section-card__motif" aria-hidden="true">
+                {item.id === "science" && "∫ ∇ · dF"}
+                {item.id === "computing" && "[ 0x1 / sys ]"}
+                {item.id === "anime-manga" && "絵 · 画"}
+              </span>
+            </div>
+
+            <h2 class="section-card__title">
+              <a href={localizedPath(`/sections/${item.id}/`, locale)}>{item.title}</a>
+            </h2>
+
+            <p class="section-card__desc">{item.description}</p>
+
+            <div class="section-card__bottom label">
+              <span>{countText(locale, item.count)}</span>
+              <a class="section-card__link" href={localizedPath(`/sections/${item.id}/`, locale)}>
+                {dict.sectionsExplore}
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .section-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+    margin-top: var(--space-12);
+  }
+
+  .section-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-8);
+    background: var(--color-bg);
+    transition: background var(--duration-fast) var(--ease-out);
+  }
+
+  .section-card:hover {
+    background: var(--color-bg-subtle);
+  }
+
+  .section-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-8);
+  }
+
+  .section-card__index {
+    color: var(--color-accent);
+  }
+
+  .section-card__motif {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-fg-faint);
+  }
+
+  .section-card__title {
+    font-size: var(--text-xl);
+    line-height: var(--leading-tight);
+  }
+
+  .section-card__title a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .section-card:hover .section-card__title a {
+    color: var(--color-accent);
+  }
+
+  .section-card__desc {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-muted);
+  }
+
+  .section-card__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: var(--space-8);
+    color: var(--color-fg-faint);
+  }
+
+  .section-card__link {
+    text-decoration: none;
+    color: var(--color-fg-muted);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .section-card:hover .section-card__link {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 40rem) {
+    .section-grid {
+      margin-top: var(--space-8);
+    }
+
+    .section-card {
+      padding: var(--space-6) var(--space-5);
+    }
+
+    .section-card__top {
+      margin-bottom: var(--space-6);
+    }
+  }
+</style>

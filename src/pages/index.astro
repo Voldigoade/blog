@@ -1,0 +1,336 @@
+---
+import FluidInk from "../components/FluidInk.astro";
+import PostCard from "../components/PostCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { BLOG, INK, SECTIONS, SITE } from "../config";
+import { getDict, sectionText } from "../i18n/dict";
+import { DEFAULT_LOCALE, localizedPath } from "../i18n/locales";
+import { getPublishedPosts } from "../utils/posts";
+
+const locale = DEFAULT_LOCALE;
+const dict = getDict(locale);
+const posts = (await getPublishedPosts()).slice(0, BLOG.postsOnHome);
+const sectionKeys = Object.keys(SECTIONS) as Array<keyof typeof SECTIONS>;
+---
+
+<BaseLayout overlayHeader locale={locale}>
+  <FluidInk variant="hero" enabled={INK.hero}>
+    <div class="hero">
+      <p class="hero__eyebrow">{dict.heroEyebrow}</p>
+      <h1 class="hero__title">{SITE.title}</h1>
+      <p class="hero__lede">{dict.siteTagline}</p>
+      <p class="hero__cta">
+        <a href="#publications">{dict.heroCta}</a>
+      </p>
+    </div>
+
+    {
+      SITE.titleMark && (
+        <p class="hero__rail tategaki" aria-hidden="true">
+          墨と水 — INK IN WATER
+        </p>
+      )
+    }
+
+    {
+      INK.hero && (
+        <p class="hero__notes" aria-hidden="true">
+          <span>{dict.heroNotesLeft}</span>
+          <span class="hero__notes-mid">{dict.heroNotesMid}</span>
+          <span>{dict.heroNotesRight}</span>
+        </p>
+      )
+    }
+  </FluidInk>
+
+  <section class="section wrap universes">
+    <div class="universes__head">
+      <h2 class="eyebrow">{dict.universesEyebrow}</h2>
+      <a class="universes__all label" href={localizedPath("/sections/", locale)}>{dict.universesAll}</a>
+    </div>
+    <div class="universes__grid rule-grid">
+      {
+        sectionKeys.map((key, idx) => {
+          const sec = sectionText(locale, key);
+          return (
+            <a class="universe-card" href={localizedPath(`/sections/${key}/`, locale)}>
+              <span class="universe-card__idx label">0{idx + 1}</span>
+              <h3 class="universe-card__title">{sec.name}</h3>
+              <p class="universe-card__desc">{sec.description}</p>
+              <span class="universe-card__link label">{dict.universesOpen}</span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <section class="section wrap" id="publications">
+    <div class="latest__head">
+      <h2 class="eyebrow">{dict.latestEyebrow}</h2>
+      <a class="latest__all label" href={localizedPath("/publications/", locale)}>{dict.latestAll}</a>
+    </div>
+
+    {
+      posts.length > 0 ? (
+        <div class="latest__list">
+          {posts.map((post) => <PostCard post={post} locale={locale} />)}
+        </div>
+      ) : (
+        <div class="home-empty">
+          <p class="home-empty__title">{dict.emptyTitle}</p>
+          <p class="home-empty__desc">
+            {dict.emptyDesc}
+          </p>
+        </div>
+      )
+    }
+  </section>
+
+  {
+    INK.divider && (
+      <FluidInk variant="divider" strength={INK.strength * 0.7}>
+        <p class="divider__label label">{dict.dividerLabel}</p>
+      </FluidInk>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .hero {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    padding: var(--space-24) var(--gutter);
+    text-align: center;
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .hero__title {
+    font-family: var(--font-mono);
+    font-size: var(--text-hero);
+    font-weight: 600;
+    line-height: 0.9;
+    letter-spacing: var(--tracking-hero);
+    text-transform: uppercase;
+  }
+
+  .hero__lede {
+    max-width: 32rem;
+    font-size: var(--text-md);
+    color: var(--color-fg-muted);
+  }
+
+  .hero__cta a {
+    display: inline-block;
+    max-width: min(100%, 24rem);
+    min-height: 3rem;
+    padding: var(--space-3) var(--space-6);
+    border: var(--rule-width) solid var(--color-accent);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    text-decoration: none;
+    text-wrap: balance;
+    color: var(--color-accent);
+    transition:
+      background var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+  }
+
+  .hero__cta a:hover {
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+
+  .hero__rail {
+    position: absolute;
+    top: 50%;
+    right: var(--gutter);
+    translate: 0 -50%;
+  }
+
+  .hero__notes {
+    display: none;
+    position: absolute;
+    inset-inline: var(--gutter);
+    bottom: var(--space-6);
+    justify-content: space-between;
+    gap: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-fg-faint);
+  }
+
+  :global(.ink:has([data-ink-active])) .hero__notes {
+    display: flex;
+  }
+
+  .universes {
+    padding-bottom: var(--space-8);
+  }
+
+  .universes__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+    padding-bottom: var(--space-6);
+    border-bottom: var(--rule-width) solid var(--color-rule);
+  }
+
+  .universes__all {
+    text-decoration: none;
+  }
+
+  .universes__all:hover {
+    color: var(--color-accent);
+  }
+
+  .universes__grid {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    margin-top: 0;
+  }
+
+  .universe-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    text-decoration: none;
+    color: inherit;
+    background: var(--color-bg);
+    transition: background var(--duration-fast) var(--ease-out);
+  }
+
+  .universe-card:hover {
+    background: var(--color-bg-subtle);
+  }
+
+  .universe-card__idx {
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+  }
+
+  .universe-card__title {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  .universe-card:hover .universe-card__title {
+    color: var(--color-accent);
+  }
+
+  .universe-card__desc {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-fg-muted);
+  }
+
+  .universe-card__link {
+    margin-top: auto;
+    padding-top: var(--space-6);
+    color: var(--color-fg-faint);
+  }
+
+  .universe-card:hover .universe-card__link {
+    color: var(--color-accent);
+  }
+
+  .latest__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+    padding-bottom: var(--space-6);
+    border-bottom: var(--rule-width) solid var(--color-rule);
+  }
+
+  .latest__all {
+    text-decoration: none;
+  }
+
+  .latest__all:hover {
+    color: var(--color-accent);
+  }
+
+  .latest__list :global(.post-card:last-child) {
+    border-bottom: none;
+  }
+
+  .home-empty {
+    margin-top: var(--space-12);
+    padding: var(--space-16) var(--space-8);
+    border: var(--rule-width) dashed var(--color-rule);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+
+  .home-empty__title {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-fg);
+  }
+
+  .home-empty__desc {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+  }
+
+  .divider__label {
+    margin: auto;
+    text-align: center;
+  }
+
+  @media (max-width: 55rem) {
+    .hero__rail,
+    .hero__notes-mid {
+      display: none;
+    }
+  }
+
+  @media (max-width: 48rem) {
+    .hero {
+      padding: var(--space-16) var(--gutter) var(--space-12);
+      gap: var(--space-4);
+    }
+
+    .hero__title {
+      font-size: clamp(2.25rem, 11.2vw, 4.25rem);
+      letter-spacing: -0.01em;
+      line-height: 0.95;
+    }
+
+    .hero__lede {
+      font-size: var(--text-sm);
+    }
+  }
+
+  @media (max-width: 34rem) {
+    :global(.ink:has([data-ink-active])) .hero__notes {
+      display: none;
+    }
+  }
+</style>

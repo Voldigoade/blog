@@ -1,0 +1,117 @@
+name: Translate published articles
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src/content/blog/**
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: Optional French source slug
+        required: false
+        type: string
+      locale:
+        description: Optional target locale (en, es, de, pt-br, it, ja or zh-cn)
+        required: false
+        type: string
+      force:
+        description: Regenerate current automatic translations
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: translations-main
+  cancel-in-progress: false
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      generated: ${{ steps.changes.outputs.generated }}
+    env:
+      TRANSLATION_ENDPOINT: ${{ vars.TRANSLATION_ENDPOINT }}
+      TRANSLATION_API_KEY: ${{ secrets.TRANSLATION_API_KEY }}
+      TRANSLATION_MODEL: ${{ vars.TRANSLATION_MODEL }}
+      TRANSLATE_SLUG: ${{ inputs.slug }}
+      TRANSLATE_LOCALE: ${{ inputs.locale }}
+      TRANSLATE_FORCE: ${{ inputs.force }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Sync main
+        run: git pull --rebase origin main
+      - name: Generate translations
+        shell: bash
+        run: |
+          args=(--translate)
+          if [[ -n "$TRANSLATE_SLUG" ]]; then args+=(--slug "$TRANSLATE_SLUG"); fi
+          if [[ -n "$TRANSLATE_LOCALE" ]]; then args+=(--locale "$TRANSLATE_LOCALE"); fi
+          if [[ "$TRANSLATE_FORCE" == "true" ]]; then args+=(--force); fi
+          npm run translate -- "${args[@]}"
+      - name: Detect generated files
+        id: changes
+        shell: bash
+        run: |
+          if [[ -n "$(git status --porcelain -- src/content/translations)" ]]; then
+            echo "generated=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "generated=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Check
+        if: steps.changes.outputs.generated == 'true'
+        run: npm run check
+      - name: Build
+        if: steps.changes.outputs.generated == 'true'
+        run: npm run build
+      - name: Verify production output
+        if: steps.changes.outputs.generated == 'true'
+        run: npm run verify
+      - name: Configure Pages
+        if: steps.changes.outputs.generated == 'true'
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        if: steps.changes.outputs.generated == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+      - name: Commit translations
+        if: steps.changes.outputs.generated == 'true'
+        shell: bash
+        run: |
+          git config user.name "Voldigoade"
+          git config user.email "245930475+Voldigoade@users.noreply.github.com"
+          git add src/content/translations
+          git commit -m "Publish article translations"
+          git push origin main
+
+  deploy:
+    if: needs.translate.outputs.generated == 'true'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: translate
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

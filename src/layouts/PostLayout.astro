@@ -1,0 +1,405 @@
+---
+import type { MarkdownHeading } from "astro";
+import { Image } from "astro:assets";
+
+import "../styles/prose.css";
+
+import CodeBlockEnhancer from "../components/CodeBlockEnhancer.astro";
+import PostCard from "../components/PostCard.astro";
+import PostNav from "../components/PostNav.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+import BaseLayout from "./BaseLayout.astro";
+import { BLOG, OG } from "../config";
+import { getDict, readingText, sectionText } from "../i18n/dict";
+import { DEFAULT_LOCALE, htmlLang, localizedPath, publicationPath, type LocaleRoute } from "../i18n/locales";
+import { getTranslatedPosts, type TranslatedPost } from "../i18n/posts";
+import { formatDate, isoDate } from "../utils/date";
+import { readingTime } from "../utils/reading-time";
+import { getPublishedPosts, getRelatedPosts, type Post } from "../utils/posts";
+import { withBase } from "../utils/url";
+
+interface Props {
+  post: Post | TranslatedPost;
+  headings: MarkdownHeading[];
+  previous?: Post | TranslatedPost;
+  next?: Post | TranslatedPost;
+  locale?: string;
+  alternateRoutes?: LocaleRoute[];
+  xDefault?: string | false;
+}
+
+const { post, headings, previous, next, locale = DEFAULT_LOCALE, alternateRoutes, xDefault } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  tags,
+  heroImage,
+  heroImageAlt,
+  coverImage,
+  coverAlt,
+  section,
+  series,
+  author,
+  canonicalUrl,
+} = post.data;
+
+const dict = getDict(locale);
+const minutes = readingTime(post.body);
+const pool: (Post | TranslatedPost)[] = locale === DEFAULT_LOCALE ? await getPublishedPosts() : await getTranslatedPosts(locale);
+const related = getRelatedPosts(post, pool, 2);
+
+const article = {
+  publishedTime: isoDate(pubDate),
+  modifiedTime: updatedDate ? isoDate(updatedDate) : undefined,
+  tags,
+};
+
+const sectionInfo = section ? sectionText(locale, section) : undefined;
+const neighborHref = (entry: Post | TranslatedPost) => {
+  const id = "sourceSlug" in entry.data ? (entry.data as { sourceSlug: string }).sourceSlug : entry.id;
+  return publicationPath(id, locale);
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={OG.enabled && locale === DEFAULT_LOCALE ? `/og/${post.id}.png` : undefined}
+  article={article}
+  author={author}
+  canonicalUrl={locale === DEFAULT_LOCALE ? canonicalUrl : undefined}
+  locale={locale}
+  alternateRoutes={alternateRoutes}
+  xDefault={xDefault}
+>
+  <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+
+  <article class="post wrap" data-pagefind-body>
+    <header class="post__header">
+      <div class="post__kicker eyebrow">
+        {
+          sectionInfo && (
+            <a class="post__section-link" href={localizedPath(`/sections/${section}/`, locale)}>
+              {sectionInfo.name}
+            </a>
+          )
+        }
+      </div>
+
+      <h1 class="post__title">{title}</h1>
+      <p class="lede post__lede">{description}</p>
+
+      {
+        series && (
+          <div class="post__series label">
+            <span>{dict.seriesLabel} : <strong>{series.title || series.id}</strong></span>
+            <span>· {dict.episodeLabel} {series.order}</span>
+          </div>
+        )
+      }
+
+      <div class="post__stamp-row">
+        <p class="post__stamp label">
+          <time datetime={isoDate(pubDate)}>{formatDate(pubDate, htmlLang(locale))}</time>
+          {
+            updatedDate && (
+              <span class="post__updated">
+                · {dict.updatedOn}{" "}
+                <time datetime={isoDate(updatedDate)}>
+                  {formatDate(updatedDate, htmlLang(locale))}
+                </time>
+              </span>
+            )
+          }
+        </p>
+
+        <button
+          type="button"
+          class="post__share label"
+          id="share-btn"
+          data-share-label={dict.share}
+          data-copied-label={dict.copied}
+        >
+          {dict.share}
+        </button>
+      </div>
+
+      {BLOG.showReadingTime && (
+        <p class="post__meta label">
+          <span>{readingText(locale, minutes)}</span>
+        </p>
+      )}
+
+      <span data-pagefind-filter="section" hidden>{section}</span>
+      <span data-pagefind-meta="section" hidden>{section}</span>
+    </header>
+
+    {
+      heroImage && (
+        <figure class="post__hero">
+          <Image
+            src={heroImage}
+            alt={heroImageAlt ?? ""}
+            widths={[640, 960, 1280]}
+            sizes="(min-width: 60rem) 60rem, 100vw"
+            loading="eager"
+          />
+        </figure>
+      )
+    }
+
+    {
+      !heroImage && coverImage && (
+        <figure class="post__hero">
+          <img
+            src={withBase(coverImage)}
+            alt={coverAlt ?? ""}
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+      )
+    }
+
+    <div class="post__grid">
+      <aside class="post__aside">
+        <TableOfContents headings={headings} locale={locale} />
+      </aside>
+
+      <div class="prose post__body">
+        <slot />
+      </div>
+    </div>
+
+    <PostNav
+      locale={locale}
+      previous={previous ? { href: neighborHref(previous), title: previous.data.title } : undefined}
+      next={next ? { href: neighborHref(next), title: next.data.title } : undefined}
+    />
+
+    {
+      related.length > 0 && (
+        <section class="post__related">
+          <h2 class="eyebrow">{dict.related}</h2>
+          <div class="related-list">
+            {related.map((r) => (
+              <PostCard
+                post={r}
+                locale={locale}
+                slug={"sourceSlug" in r.data ? (r.data as { sourceSlug: string }).sourceSlug : undefined}
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </article>
+
+  <CodeBlockEnhancer locale={locale} />
+
+  <script is:inline>
+    (() => {
+      const bar = document.getElementById("reading-progress");
+      if (!bar) return;
+
+      const updateProgress = () => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        if (total <= 0) {
+          bar.style.width = "0%";
+          return;
+        }
+        const current = window.scrollY;
+        const pct = Math.min(100, Math.max(0, (current / total) * 100));
+        bar.style.width = `${pct}%`;
+      };
+
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      updateProgress();
+
+      const shareBtn = document.getElementById("share-btn");
+      if (shareBtn) {
+        shareBtn.addEventListener("click", async () => {
+          if (navigator.share) {
+            try {
+              await navigator.share({
+                title: document.title,
+                url: window.location.href,
+              });
+            } catch {}
+          } else {
+            try {
+              await navigator.clipboard.writeText(window.location.href);
+              const orig = shareBtn.dataset.shareLabel || shareBtn.textContent;
+              shareBtn.textContent = shareBtn.dataset.copiedLabel || "Copied";
+              setTimeout(() => {
+                shareBtn.textContent = orig;
+              }, 2000);
+            } catch {}
+          }
+        });
+      }
+    })();
+  </script>
+</BaseLayout>
+
+<style>
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--color-accent);
+    z-index: 100;
+    transition: width 0.1s linear;
+  }
+
+  .post__header {
+    max-width: var(--width-prose);
+    padding-block: var(--space-12) var(--space-8);
+  }
+
+  .post__kicker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .post__section-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .post__section-link:hover {
+    text-decoration: underline;
+  }
+
+  .post__title {
+    margin-top: var(--space-2);
+    font-size: var(--text-2xl);
+  }
+
+  .post__lede {
+    margin-top: var(--space-6);
+  }
+
+  .post__series {
+    margin-top: var(--space-4);
+    padding: var(--space-2) var(--space-4);
+    border-left: 2px solid var(--color-accent);
+    background: var(--color-bg-subtle);
+    font-size: var(--text-xs);
+    color: var(--color-fg-muted);
+  }
+
+  .post__stamp-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-4);
+    margin-top: var(--space-6);
+  }
+
+  .post__share {
+    background: transparent;
+    border: var(--rule-width) solid var(--color-rule);
+    border-radius: var(--radius);
+    min-height: 2.75rem;
+    padding: var(--space-2) var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .post__share:hover {
+    color: var(--color-fg);
+    border-color: var(--color-accent);
+  }
+
+  .post__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    text-transform: none;
+  }
+
+  .post__meta span {
+    text-transform: uppercase;
+  }
+
+  .post__hero {
+    margin-bottom: var(--space-12);
+  }
+
+  .post__hero img {
+    width: 100%;
+    border-radius: var(--radius);
+  }
+
+  .post__grid {
+    display: grid;
+    grid-template-columns: minmax(0, var(--width-prose)) 13rem;
+    gap: clamp(var(--space-8), 6vw, var(--space-16));
+    justify-content: center;
+    align-items: start;
+    padding-top: var(--space-8);
+    border-top: var(--rule-width) solid var(--color-rule);
+  }
+
+  .post__aside {
+    grid-area: 1 / 2;
+  }
+
+  .post__body {
+    grid-area: 1 / 1;
+  }
+
+  .post__related {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: var(--rule-width) solid var(--color-rule);
+  }
+
+  .post__related h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  @media (max-width: 60rem) {
+    .post__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
+    }
+
+    .post__aside,
+    .post__body {
+      grid-area: auto;
+    }
+  }
+
+  @media print {
+    .reading-progress,
+    .post__aside,
+    .post__share,
+    .post__related {
+      display: none !important;
+    }
+    .post__grid {
+      display: block;
+      border: none;
+    }
+  }
+</style>

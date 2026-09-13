@@ -1,0 +1,114 @@
+﻿media:
+  input: public/images/posts
+  output: /blog/images/posts
+
+content:
+  - name: blog
+    label: Publications
+    type: collection
+    path: src/content/blog
+    view:
+      fields: [title, pubDate, section, draft]
+      primary: title
+      sort: [pubDate:desc]
+    fields:
+      - name: title
+        label: Titre
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: string
+        required: true
+      - name: pubDate
+        label: Date de publication
+        type: date
+        required: true
+      - name: updatedDate
+        label: Date de mise à jour
+        type: date
+        default: ""
+      - name: draft
+        label: Brouillon
+        type: boolean
+        default: true
+      - name: featured
+        label: À la une
+        type: boolean
+        default: false
+      - name: section
+        label: Section
+        type: select
+        options:
+          values:
+            - name: science
+              label: Sciences & Mathématiques
+            - name: computing
+              label: Informatique & Ingénierie
+            - name: anime-manga
+              label: Anime & Manga
+        default: computing
+      - name: contentType
+        label: Type de contenu
+        type: select
+        options:
+          values:
+            - name: article
+              label: Article
+            - name: research
+              label: Recherche
+            - name: essay
+              label: Essai
+            - name: project
+              label: Projet
+            - name: review
+              label: Critique
+            - name: note
+              label: Note
+        default: article
+      - name: tags
+        label: Tags internes
+        type: string
+        list: true
+        description: Facultatif. Utilisé uniquement pour la recherche, les recommandations et les métadonnées internes.
+      - name: series
+        label: Série
+        type: object
+        description: Facultatif. Laissez entièrement vide si cette publication ne fait pas partie d'une série.
+        fields:
+          - name: id
+            label: Identifiant
+            type: string
+            required: true
+            description: Identifiant stable de la série, par exemple comprendre-webgl.
+          - name: order
+            label: Ordre
+            type: number
+            required: true
+            description: Position de cet article dans la série.
+          - name: title
+            label: Titre de la série
+            type: string
+            description: Titre lisible de la série.
+      - name: coverImage
+        label: Image de couverture
+        type: image
+      - name: coverAlt
+        label: Description de l'image
+        type: string
+        description: Texte alternatif décrivant l'image pour l'accessibilité.
+      - name: author
+        label: Auteur
+        type: string
+        default: Voldigoade
+      - name: canonicalUrl
+        label: URL canonique
+        type: string
+        description: Laissez vide pour une publication originale sur Voldigoade. À renseigner uniquement si une autre URL doit être considérée comme la source canonique.
+      - name: body
+        label: Corps du texte
+        type: rich-text
+        description: Contenu principal de la publication. Utilisez l'éditeur visuel ou passez en mode Source pour écrire directement en Markdown.
+        options:
+          format: markdown
+          switcher: true

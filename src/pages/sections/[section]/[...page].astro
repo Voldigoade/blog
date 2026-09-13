@@ -1,0 +1,124 @@
+---
+import type { GetStaticPaths, Page } from "astro";
+
+import PageHeader from "../../../components/PageHeader.astro";
+import Pagination from "../../../components/Pagination.astro";
+import PostCard from "../../../components/PostCard.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { BLOG, SECTIONS, type SectionMeta } from "../../../config";
+import { getDict, sectionPubsText, sectionText } from "../../../i18n/dict";
+import { DEFAULT_LOCALE, localizedPath } from "../../../i18n/locales";
+import {
+  getPublishedPosts,
+  postsBySection,
+  type Post,
+} from "../../../utils/posts";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getPublishedPosts();
+  const sectionKeys = Object.keys(SECTIONS) as Array<keyof typeof SECTIONS>;
+
+  return sectionKeys.flatMap((key) => {
+    const secPosts = postsBySection(posts, key);
+    return paginate(secPosts, {
+      params: { section: key },
+      pageSize: BLOG.postsPerPage,
+      props: { sectionKey: key },
+    });
+  });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page<Post>;
+  sectionKey: keyof typeof SECTIONS;
+}
+
+const { page, sectionKey } = Astro.props;
+const locale = DEFAULT_LOCALE;
+const dict = getDict(locale);
+const sectionMeta: SectionMeta = { id: sectionKey, ...sectionText(locale, sectionKey) };
+const suffix = page.currentPage > 1 ? ` — ${dict.pageWord.toLowerCase()} ${page.currentPage}` : "";
+
+const motifs: Record<string, string> = {
+  science: "∫ ∇ · dF",
+  computing: "[ 0x1 / sys ]",
+  "anime-manga": "絵 · 画",
+};
+---
+
+<BaseLayout
+  title={`${sectionMeta.title}${suffix}`}
+  description={sectionMeta.description}
+  locale={locale}
+>
+  <div class="wrap">
+    <PageHeader
+      eyebrow={`${dict.sectionEyebrow} — ${motifs[sectionMeta.id] ?? ""}`}
+      title={sectionMeta.title}
+      lede={sectionMeta.description}
+    >
+      <p class="section-page__back label">
+        <a href={localizedPath("/sections/", locale)}>{dict.sectionsBack}</a>
+      </p>
+    </PageHeader>
+
+    {page.data.length > 0 ? (
+      <div class="post-list">
+        {page.data.map((post) => (
+          <PostCard post={post} locale={locale} />
+        ))}
+      </div>
+    ) : (
+      <div class="section-page__empty">
+        <p class="section-page__empty-title">{dict.emptyTitle}</p>
+        <p class="section-page__empty-desc">
+          {dict.sectionEmptyDesc}
+        </p>
+      </div>
+    )}
+
+    {page.total > BLOG.postsPerPage && (
+      <Pagination page={page} label={sectionPubsText(locale, sectionMeta.title)} locale={locale} />
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .section-page__back {
+    margin-top: var(--space-6);
+  }
+
+  .section-page__back a {
+    text-decoration: none;
+  }
+
+  .post-list {
+    margin-top: var(--space-4);
+  }
+
+  .post-list :global(.post-card:last-child) {
+    border-bottom: none;
+  }
+
+  .section-page__empty {
+    margin-top: var(--space-12);
+    padding: var(--space-16) var(--space-8);
+    border: var(--rule-width) dashed var(--color-rule);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+
+  .section-page__empty-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-fg);
+  }
+
+  .section-page__empty-desc {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-fg-muted);
+  }
+</style>

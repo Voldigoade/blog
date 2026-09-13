@@ -1,0 +1,43 @@
+﻿---
+import { getDict } from "../i18n/dict";
+
+interface Props {
+  locale: string;
+}
+
+const dict = getDict(Astro.props.locale);
+---
+
+<script is:inline define:vars={{ codeCopy: dict.codeCopy, codeCopyLabel: dict.codeCopyLabel, codeCopied: dict.codeCopied }}>
+  (() => {
+    const pres = document.querySelectorAll(".prose pre");
+    for (const pre of pres) {
+      if (pre.parentElement && pre.parentElement.classList.contains("code-wrapper")) continue;
+      const wrapper = document.createElement("div");
+      wrapper.className = "code-wrapper";
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "code-copy-btn";
+      btn.setAttribute("aria-label", codeCopyLabel);
+      btn.textContent = codeCopy;
+
+      btn.addEventListener("click", async () => {
+        const code = pre.querySelector("code")?.innerText || pre.innerText;
+        try {
+          await navigator.clipboard.writeText(code);
+          btn.textContent = codeCopied;
+          btn.dataset.copied = "true";
+          setTimeout(() => {
+            btn.textContent = codeCopy;
+            btn.dataset.copied = "false";
+          }, 2000);
+        } catch {}
+      });
+
+      wrapper.appendChild(btn);
+    }
+  })();
+</script>

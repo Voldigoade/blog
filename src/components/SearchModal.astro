@@ -1,0 +1,517 @@
+---
+import { getDict } from "../i18n/dict";
+import { DEFAULT_LOCALE } from "../i18n/locales";
+import { BASE_URL, withBase } from "../utils/url";
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const dict = getDict(locale);
+
+const filters = [
+  { value: "", label: dict.filterAll },
+  { value: "science", label: dict.sectionScienceName },
+  { value: "computing", label: dict.sectionComputingName },
+  { value: "anime-manga", label: dict.sectionAnimeName },
+];
+---
+
+<dialog
+  id="search-dialog"
+  class="search-dialog"
+  aria-label={dict.searchDialog}
+  data-msg-idle={dict.searchIdle}
+  data-msg-busy={dict.searchBusy}
+  data-msg-noindex={dict.searchNoIndex}
+  data-msg-none={dict.searchNone}
+  data-msg-one={dict.searchOne}
+  data-msg-many={dict.searchMany}
+  data-msg-site={dict.searchSite}
+  data-pagefind-url={withBase("/pagefind/pagefind.js")}
+  data-pagefind-base={BASE_URL}
+>
+  <div class="search-dialog__inner">
+    <div class="search-dialog__header">
+      <div class="search-dialog__input-wrap">
+        <span class="search-dialog__icon" aria-hidden="true">⌕</span>
+        <input
+          id="search-input"
+          class="search-dialog__input"
+          type="search"
+          placeholder={dict.searchPlaceholder}
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+      <button
+        type="button"
+        id="search-close"
+        class="search-dialog__close"
+        aria-label={dict.searchClose}
+      >
+        <span class="search-dialog__key search-dialog__key--desktop" aria-hidden="true">Esc</span>
+        <span class="search-dialog__key search-dialog__key--mobile" aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <div class="search-dialog__filters">
+      {filters.map(({ value, label }, index) => (
+        <button type="button" class:list={["filter-chip", index === 0 && "is-active"]} data-section={value}>
+          {label}
+        </button>
+      ))}
+    </div>
+
+    <div id="search-results-wrap" class="search-dialog__body">
+      <p id="search-status" class="search-dialog__status label">
+        {dict.searchIdle}
+      </p>
+      <ul id="search-results" class="search-dialog__list" role="listbox"></ul>
+    </div>
+  </div>
+</dialog>
+
+<script is:inline>
+  (() => {
+    const dialog = document.getElementById("search-dialog");
+    if (!dialog) return;
+    const baseSite = dialog.dataset.msgSite || "Search";
+    const isMac = typeof navigator !== "undefined" && (
+      navigator.userAgentData?.platform
+        ? /mac/i.test(navigator.userAgentData.platform)
+        : /Mac|iPhone|iPod|iPad/i.test(navigator.platform || navigator.userAgent || "")
+    );
+    const shortcutLabel = isMac ? "⌘K" : "Ctrl+K";
+    document.querySelectorAll("[data-search-kbd]").forEach((el) => {
+      el.textContent = shortcutLabel;
+    });
+    document.querySelectorAll("[data-search-trigger]").forEach((el) => {
+      el.setAttribute("aria-label", `${baseSite} (${shortcutLabel})`);
+    });
+
+    let pagefindModule = null;
+    let selectedIndex = -1;
+    let currentFilter = "";
+
+    const input = document.getElementById("search-input");
+    const closeBtn = document.getElementById("search-close");
+    const statusEl = document.getElementById("search-status");
+    const listEl = document.getElementById("search-results");
+    const filterBtns = document.querySelectorAll(".filter-chip");
+
+    if (!input) return;
+
+    const msg = (key) => dialog.dataset[key] || "";
+
+    async function getPagefind() {
+      if (!pagefindModule) {
+        try {
+          const pagefindUrl = dialog.dataset.pagefindUrl;
+          if (!pagefindUrl) return null;
+          pagefindModule = await import(pagefindUrl);
+          await pagefindModule.options({ baseUrl: dialog.dataset.pagefindBase || "/" });
+          await pagefindModule.init();
+        } catch {
+          pagefindModule = null;
+        }
+      }
+      return pagefindModule;
+    }
+
+    function openModal() {
+      if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute("open", "");
+      }
+      document.body.style.overflow = "hidden";
+      input.focus();
+      getPagefind();
+    }
+
+    function closeModal() {
+      if (typeof dialog.close === "function") {
+        dialog.close();
+      } else {
+        dialog.removeAttribute("open");
+      }
+      document.body.style.overflow = "";
+      input.value = "";
+      listEl.innerHTML = "";
+      statusEl.textContent = msg("msgIdle");
+      selectedIndex = -1;
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        if (dialog.open) {
+          closeModal();
+        } else {
+          openModal();
+        }
+      }
+      if (e.key === "Escape" && dialog.open) {
+        closeModal();
+      }
+    });
+
+    closeBtn?.addEventListener("click", closeModal);
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) closeModal();
+    });
+
+    document.querySelectorAll("[data-search-trigger]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterBtns.forEach((b) => b.classList.remove("is-active"));
+        btn.classList.add("is-active");
+        currentFilter = btn.dataset.section || "";
+        executeSearch();
+      });
+    });
+
+    async function executeSearch() {
+      const query = input.value.trim();
+      selectedIndex = -1;
+
+      if (query.length < 2) {
+        listEl.innerHTML = "";
+        statusEl.textContent = msg("msgIdle");
+        return;
+      }
+
+      statusEl.textContent = msg("msgBusy");
+      const pagefind = await getPagefind();
+
+      if (!pagefind) {
+        statusEl.textContent = msg("msgNoindex");
+        return;
+      }
+
+      const options = {};
+      if (currentFilter) {
+        options.filters = { section: currentFilter };
+      }
+
+      const search = await pagefind.search(query, options);
+      const results = search.results;
+
+      if (!results || results.length === 0) {
+        listEl.innerHTML = "";
+        statusEl.textContent = `${msg("msgNone")} "${query}".`;
+        return;
+      }
+
+      statusEl.textContent = results.length === 1 ? msg("msgOne") : `${results.length} ${msg("msgMany")}`;
+      listEl.innerHTML = "";
+
+      const displayed = results.slice(0, 10);
+      for (let i = 0; i < displayed.length; i++) {
+        const item = await displayed[i].data();
+        const li = document.createElement("li");
+        li.className = "search-item";
+        li.setAttribute("role", "option");
+        li.dataset.index = String(i);
+
+        const link = document.createElement("a");
+        link.href = item.url;
+        link.className = "search-item__link";
+
+        const title = document.createElement("span");
+        title.className = "search-item__title";
+        title.textContent = item.meta?.title || item.url;
+
+        const excerpt = document.createElement("p");
+        excerpt.className = "search-item__excerpt";
+        excerpt.innerHTML = item.excerpt || "";
+
+        link.appendChild(title);
+        link.appendChild(excerpt);
+        li.appendChild(link);
+        listEl.appendChild(li);
+      }
+    }
+
+    input.addEventListener("input", () => {
+      executeSearch();
+    });
+
+    input.addEventListener("keydown", (e) => {
+      const items = listEl.querySelectorAll(".search-item");
+      if (items.length === 0) return;
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        selectedIndex = (selectedIndex + 1) % items.length;
+        updateSelection(items);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+        updateSelection(items);
+      } else if (e.key === "Enter" && selectedIndex >= 0) {
+        e.preventDefault();
+        const activeLink = items[selectedIndex]?.querySelector("a");
+        if (activeLink) activeLink.click();
+      }
+    });
+
+    function updateSelection(items) {
+      items.forEach((item, idx) => {
+        if (idx === selectedIndex) {
+          item.classList.add("is-selected");
+          item.scrollIntoView({ block: "nearest" });
+        } else {
+          item.classList.remove("is-selected");
+        }
+      });
+    }
+  })();
+</script>
+
+<style>
+  .search-dialog {
+    width: min(44rem, calc(100vw - var(--gutter) * 2));
+    max-height: 80vh;
+    padding: 0;
+    border: var(--rule-width) solid var(--color-rule-strong);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-fg);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    margin: auto;
+  }
+
+  .search-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .search-dialog__inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 80vh;
+  }
+
+  .search-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    border-bottom: var(--rule-width) solid var(--color-rule);
+  }
+
+  .search-dialog__input-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex: 1;
+  }
+
+  .search-dialog__icon {
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    color: var(--color-accent);
+  }
+
+  .search-dialog__input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-fg);
+  }
+
+  .search-dialog__input::placeholder {
+    color: var(--color-fg-faint);
+    font-style: italic;
+    font-size: var(--text-base);
+  }
+
+  .search-dialog__close {
+    display: grid;
+    place-items: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-1);
+  }
+
+  .search-dialog__key {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+    padding: var(--space-1) var(--space-2);
+    border: var(--rule-width) solid var(--color-rule);
+    border-radius: var(--radius);
+    color: var(--color-fg-muted);
+  }
+
+  .search-dialog__key--mobile {
+    display: none;
+    font-size: var(--text-lg);
+    line-height: 1;
+    padding: var(--space-1) var(--space-3);
+  }
+
+  .search-dialog__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    border-bottom: var(--rule-width) solid var(--color-rule);
+    background: var(--color-bg-subtle);
+  }
+
+  .filter-chip {
+    min-height: 2.25rem;
+    padding: var(--space-1) var(--space-3);
+    border: var(--rule-width) solid var(--color-rule);
+    border-radius: var(--radius);
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-fg-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .filter-chip:hover {
+    color: var(--color-fg);
+  }
+
+  .filter-chip.is-active {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .search-dialog__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-4) var(--space-6);
+  }
+
+  .search-dialog__status {
+    padding-bottom: var(--space-3);
+    color: var(--color-fg-faint);
+  }
+
+  .search-dialog__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .search-item {
+    border-radius: var(--radius);
+    transition: background var(--duration-fast) var(--ease-out);
+  }
+
+  .search-item.is-selected,
+  .search-item:hover {
+    background: var(--color-bg-subtle);
+  }
+
+  .search-item__link {
+    display: block;
+    padding: var(--space-3) var(--space-4);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .search-item__title {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: var(--text-md);
+    font-weight: 500;
+    color: var(--color-fg);
+  }
+
+  .search-item:hover .search-item__title,
+  .search-item.is-selected .search-item__title {
+    color: var(--color-accent);
+  }
+
+  .search-item__excerpt {
+    margin-top: var(--space-1);
+    font-size: var(--text-xs);
+    line-height: var(--leading-relaxed);
+    color: var(--color-fg-muted);
+  }
+
+  .search-item__excerpt :global(mark) {
+    background: transparent;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  @media (max-width: 40rem) {
+    .search-dialog {
+      width: calc(100vw - 1rem);
+      max-height: 90vh;
+      margin: auto;
+    }
+
+    .search-dialog__key--desktop {
+      display: none;
+    }
+
+    .search-dialog__key--mobile {
+      display: inline-block;
+    }
+
+    .search-dialog__inner {
+      max-height: 90vh;
+    }
+
+    .search-dialog__header {
+      padding: var(--space-3) var(--space-4);
+      gap: var(--space-2);
+    }
+
+    .search-dialog__input {
+      font-size: var(--text-base);
+    }
+
+    .search-dialog__filters {
+      padding: var(--space-3) var(--space-4);
+      gap: var(--space-2);
+    }
+
+    .filter-chip {
+      min-height: 2.5rem;
+      padding: var(--space-2) var(--space-3);
+      font-size: var(--text-xs);
+      white-space: nowrap;
+    }
+
+    .search-dialog__body {
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .search-item__link {
+      padding: var(--space-2) var(--space-3);
+    }
+  }
+</style>
