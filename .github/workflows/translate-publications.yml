@@ -43,7 +43,7 @@ jobs:
     outputs:
       generated: ${{ steps.changes.outputs.generated }}
     env:
-      HF_HOME: ${{ runner.temp }}/huggingface
+      HF_HOME: ${{ github.workspace }}/.hf-cache
       M2M100_BATCH: "4"
       M2M100_THREADS: "2"
       TRANSLATE_SLUG: ${{ inputs.slug }}
@@ -70,7 +70,7 @@ jobs:
       - name: Restore model cache
         uses: actions/cache@v5
         with:
-          path: ${{ runner.temp }}/huggingface
+          path: ${{ github.workspace }}/.hf-cache
           key: m2m100-${{ runner.os }}-55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636-${{ hashFiles('requirements-translation.txt') }}
           restore-keys: |
             m2m100-${{ runner.os }}-55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636-
