@@ -5,7 +5,6 @@ description: "Regarder le ciel, c’est recevoir des images en retard. Huit
   l’histoire de l’Univers pour le fond cosmologique : jusqu’où peut-on
   réellement regarder dans le passé ?"
 pubDate: 2026-09-13
-updatedDate: 2026-09-13
 draft: false
 featured: true
 section: science
