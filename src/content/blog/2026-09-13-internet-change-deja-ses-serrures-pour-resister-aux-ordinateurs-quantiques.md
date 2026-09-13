@@ -16,6 +16,10 @@ tags:
   - HTTPS
   - web
   - sécurité
+series:
+  id: internet-face-au-quantique
+  order: 1
+  title: Internet face au quantique
 coverImage: /blog/images/posts/68974f6a-7fbc-457d-bd8d-ebaf89c49a16.png
 coverAlt: Un cadenas numérique protégé par une nouvelle couche cryptographique
   face à un ordinateur quantique.
