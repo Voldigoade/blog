@@ -214,6 +214,7 @@ class TranslateGemmaEngine:
             or os.path.join(os.getcwd(), ".translation-cache")
         )
         os.makedirs(cache_dir, exist_ok=True)
+        self.cache_dir = cache_dir
 
         model_path = os.environ.get("TRANSLATEGEMMA_MODEL_PATH")
         if not model_path or not os.path.exists(model_path):
@@ -284,13 +285,12 @@ class TranslateGemmaEngine:
             str(self.threads),
             "--no-jinja",
         ]
+        log_path = os.path.join(self.cache_dir, "llama-server.log")
+        self.log_file = open(log_path, "w", encoding="utf-8")
         self.proc = subprocess.Popen(
             cmd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
+            stdout=subprocess.DEVNULL,
+            stderr=self.log_file,
         )
         atexit.register(self.close)
 
@@ -298,7 +298,13 @@ class TranslateGemmaEngine:
         health_url = f"http://127.0.0.1:{self.port}/health"
         for _ in range(60):
             if self.proc.poll() is not None:
-                err = self.proc.stderr.read() if self.proc.stderr else ""
+                self.log_file.flush()
+                err = ""
+                try:
+                    with open(log_path, "r", encoding="utf-8", errors="replace") as f:
+                        err = f.read()
+                except Exception:
+                    pass
                 raise TranslationError(f"llama-server exited prematurely: {err[-2000:]}")
             try:
                 req = urllib.request.Request(health_url)
@@ -331,6 +337,11 @@ class TranslateGemmaEngine:
                 self.proc.wait(timeout=5)
             except Exception:
                 self.proc.kill()
+        if hasattr(self, "log_file") and self.log_file and not self.log_file.closed:
+            try:
+                self.log_file.close()
+            except Exception:
+                pass
 
     def count_tokens(self, text, src=None):
         if text in self.token_cache:
@@ -434,11 +445,58 @@ class TranslateGemmaEngine:
         req = urllib.request.Request(
             url, data=req_data, headers={"Content-Type": "application/json"}
         )
-        with urllib.request.urlopen(req, timeout=120) as resp:
+        with urllib.request.urlopen(req, timeout=300) as resp:
             data = json.loads(resp.read().decode("utf-8"))
             content = data.get("content", "").strip()
             truncated = int(data.get("truncated", False))
             return content, truncated
+
+    def chunk_sentences(self, sentences, src):
+        chunks = []
+        current = []
+        current_tokens = 0
+        for sentence in sentences:
+            tokens = self.count_tokens(sentence, src)
+            if tokens > TRANSLATEGEMMA_SAFE_INPUT_TOKENS:
+                if current:
+                    chunks.append(current)
+                    current = []
+                    current_tokens = 0
+                chunks.extend(self.chunk_sentences(self.subdivide(sentence, src), src))
+                continue
+            if current and current_tokens + 1 + tokens > TRANSLATEGEMMA_SAFE_INPUT_TOKENS:
+                chunks.append(current)
+                current = []
+                current_tokens = 0
+            current.append(sentence)
+            current_tokens += 1 + tokens if current_tokens else tokens
+        if current:
+            chunks.append(current)
+        return chunks
+
+    def subdivide(self, sentence, src):
+        clauses = split_clauses(sentence)
+        if len(clauses) > 1 and all(
+            self.count_tokens(clause, src) <= TRANSLATEGEMMA_SAFE_INPUT_TOKENS for clause in clauses
+        ):
+            return clauses
+        words = sentence.split()
+        hard = []
+        piece = []
+        piece_tokens = 0
+        for word in words:
+            tokens = self.count_tokens(word, src)
+            if piece and piece_tokens + 1 + tokens > TRANSLATEGEMMA_SAFE_INPUT_TOKENS:
+                hard.append(" ".join(piece))
+                piece = []
+                piece_tokens = 0
+            piece.append(word)
+            piece_tokens += 1 + tokens if piece_tokens else tokens
+        if piece:
+            hard.append(" ".join(piece))
+        if len(hard) > 1:
+            log({"event": "hard-split", "tokens": self.count_tokens(sentence, src)})
+        return hard or [sentence]
 
     def refine_units(self, units, src):
         if len(units) > 1:
@@ -491,13 +549,10 @@ class TranslateGemmaEngine:
         return results
 
     def prepare_chunks(self, core, src):
+        if self.count_tokens(core, src) <= TRANSLATEGEMMA_SAFE_INPUT_TOKENS:
+            return [[core]]
         sentences = split_sentences(core) or [core]
-        chunks = []
-        for sentence in sentences:
-            if self.count_tokens(sentence, src) <= TRANSLATEGEMMA_SAFE_INPUT_TOKENS:
-                chunks.append([sentence])
-            else:
-                chunks.extend(self.chunk_sentences([sentence], src))
+        chunks = self.chunk_sentences(sentences, src)
         reconstructed = " ".join(" ".join(chunk) for chunk in chunks)
         if " ".join(reconstructed.split()) != " ".join(core.split()):
             raise TranslationError("source coverage changed during token subdivision")
@@ -951,6 +1006,20 @@ def self_test():
         "Une très longue phrase; avec plusieurs clauses: il faut la découper proprement."
     )
     check("clause splitting", len(clauses) >= 3, f"got={clauses}")
+
+    multi = engine.refine_units(["a", "b", "c"], "fr")
+    check("refine multi", multi == [["a"], ["b", "c"]], f"got={multi}")
+
+    long_text = " ".join(
+        f"Ceci est la phrase numéro {n} d'un long paragraphe de validation."
+        for n in range(60)
+    )
+    long_sentences = split_sentences(long_text)
+    real_chunks = engine.chunk_sentences(long_sentences, "fr")
+    check("chunk_sentences", len(real_chunks) > 1, f"chunks={len(real_chunks)}")
+
+    prep = engine.prepare_chunks("Une courte phrase.", "fr")
+    check("prepare_chunks short", prep == [["Une courte phrase."]], f"got={prep}")
 
     critical_source = "Il y a quelque chose de profondément trompeur dans le ciel."
     en_translation, _ = engine.generate_single(critical_source, "fr", "en")
