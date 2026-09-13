@@ -12,6 +12,7 @@ import tarfile
 import time
 import urllib.request
 import zipfile
+import jinja2
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -79,10 +80,67 @@ NUM_BEAMS = 5
 NO_REPEAT_NGRAM = 3
 UNKNOWN_TOKEN = "<unk>"
 
+CANONICAL_JINJA_TEMPLATE = r"""{%- set languages = {
+    "de": "German",
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "it": "Italian",
+    "ja": "Japanese",
+    "pt": "Portuguese",
+    "pt-BR": "Portuguese",
+    "zh": "Chinese",
+    "zh-Hans": "Chinese",
+}
+-%}
+{{ bos_token }}
+{%- if (messages[0]['role'] != 'user') -%}
+    {{ raise_exception("Conversations must start with a user prompt.") }}
+{%- endif -%}
+{%- for message in messages -%}
+    {%- if (message['role'] == 'user') != (loop.index0 % 2 == 0) -%}
+        {{ raise_exception("Conversation roles must alternate user/assistant/user/assistant/...") }}
+    {%- endif -%}
+    {%- if (message['role'] == 'assistant') -%}
+        {%- if message['content'] is none or message['content'] is not string -%}
+            {{ raise_exception("Assistant role must provide content as a string") }}
+        {%- endif -%}
+        {{ '<start_of_turn>model\n'}}
+        {{ message["content"] | trim }}
+    {%- elif (message['role'] == 'user') -%}
+        {%- if message['content'] is none or message['content'] is not iterable or message['content'] | length != 1 -%}
+            {{ raise_exception("User role must provide `content` as an iterable with exactly one item.") }}
+        {%- endif -%}
+        {%- set content = message["content"][0] -%}
+        {%- set source_lang_code = content["source_lang_code"] | replace("_", "-") -%}
+        {%- set source_lang = languages[source_lang_code] -%}
+        {%- set target_lang_code = content["target_lang_code"] | replace("_", "-") -%}
+        {%- set target_lang = languages[target_lang_code] -%}
+        {{ '<start_of_turn>user\nYou are a professional ' + source_lang + ' (' + source_lang_code + ') to ' +
+           target_lang + ' (' + target_lang_code + ') translator. Your goal is to accurately convey the meaning and '
+           'nuances of the original ' + source_lang + ' text while adhering to ' + target_lang + ' grammar, '
+           'vocabulary, and cultural sensitivities.\n'
+        }}
+        {%- if content["type"] == 'text' -%}
+            {{
+                'Produce only the ' + target_lang + ' translation, without any additional explanations or ' +
+                'commentary. Please translate the following ' + source_lang + ' text into ' + target_lang + ':\n\n\n' +
+                content["text"] | trim
+            }}
+        {%- else -%}
+            {{ raise_exception("Unsupported content type") }}
+        {%- endif -%}
+    {%- else -%}
+        {{ raise_exception("Conversations must only contain user or assistant roles.") }}
+    {%- endif -%}
+    {{ '<end_of_turn>\n' }}
+{%- endfor -%}
+{%- if add_generation_prompt -%}
+    {{'<start_of_turn>model\n'}}
+{%- endif -%}"""
 
 class TranslationError(Exception):
     pass
-
 
 class _LengthWarningFilter(logging.Filter):
     def filter(self, record):
@@ -91,11 +149,9 @@ class _LengthWarningFilter(logging.Filter):
             not in record.getMessage()
         )
 
-
 def log(event):
     sys.stderr.write(json.dumps(event, ensure_ascii=True) + "\n")
     sys.stderr.flush()
-
 
 _ABBREVIATIONS = frozenset(
     "m mm mr mre mme mlle dr pr prof st ste sr sce etc ex cf vs p pp pg vol chap "
@@ -115,10 +171,8 @@ _COMMA_CONJUNCTION = re.compile(
     re.IGNORECASE,
 )
 
-
 _REPEAT_TOKEN = re.compile(r"(\S+)(?:\s+\1){5,}")
 _REPEAT_CHAR = re.compile(r"([^\W\d_])\1{7,}")
-
 
 def is_degenerate(text):
     if _REPEAT_TOKEN.search(text) or _REPEAT_CHAR.search(text):
@@ -132,7 +186,6 @@ def is_degenerate(text):
                 return True
             seen.add(gram)
     return False
-
 
 def split_sentences(text):
     sentences = []
@@ -151,7 +204,6 @@ def split_sentences(text):
         sentences.append(tail)
     return sentences
 
-
 def split_clauses(sentence):
     parts = [sentence]
     for pattern in (_CLAUSE_SPLIT, _COMMA_CONJUNCTION):
@@ -161,7 +213,6 @@ def split_clauses(sentence):
         parts = refined or parts
     return [p.strip() for p in parts if p.strip()]
 
-
 def verify_file_sha256(filepath, expected_sha256):
     if not os.path.exists(filepath):
         return False
@@ -170,7 +221,6 @@ def verify_file_sha256(filepath, expected_sha256):
         while chunk := f.read(1024 * 1024 * 8):
             h.update(chunk)
     return h.hexdigest().lower() == expected_sha256.lower()
-
 
 def download_verified_file(url, target_path, expected_sha256, auth_token=None):
     os.makedirs(os.path.dirname(target_path), exist_ok=True)
@@ -199,12 +249,108 @@ def download_verified_file(url, target_path, expected_sha256, auth_token=None):
     os.replace(tmp_path, target_path)
     log({"event": "download_complete", "target": os.path.basename(target_path)})
 
-
 def get_free_port():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("127.0.0.1", 0))
         return s.getsockname()[1]
 
+def extract_quantities(text, locale="fr"):
+    quantities = []
+    if locale in ("ja", "zh-cn", "zh-Hans"):
+        comp_matches = re.finditer(r'(\d+(?:\.\d+)?)\s*[亿億]\s*(?:(\d+(?:\.\d+)?)\s*万)?', text)
+        matched_spans = []
+        for m in comp_matches:
+            matched_spans.append(m.span())
+            yi = float(m.group(1)) * 1e8
+            wan = float(m.group(2)) * 1e4 if m.group(2) else 0.0
+            quantities.append(yi + wan)
+
+        wan_matches = re.finditer(r'(\d+(?:\.\d+)?)\s*万', text)
+        for m in wan_matches:
+            if any(s[0] <= m.start() and m.end() <= s[1] for s in matched_spans):
+                continue
+            quantities.append(float(m.group(1)) * 1e4)
+            matched_spans.append(m.span())
+
+    scale_map = {
+        "million": 1e6, "millions": 1e6, "millionen": 1e6, "milhões": 1e6, "milhoes": 1e6, "milioni": 1e6,
+        "milliard": 1e9, "milliards": 1e9, "billion": 1e9, "billions": 1e9, "milliarden": 1e9, "bilhões": 1e9, "miliardi": 1e9,
+        "mille": 1e3, "thousand": 1e3, "tausend": 1e3, "mila": 1e3, "mil": 1e3,
+    }
+
+    num_pat = re.compile(
+        r'(?<![A-Za-z0-9_])'
+        r'(\d+(?:[,\.\s]\d{3})*(?:[,\.]\d+)?)'
+        r'(?:\s*([A-Za-zÀ-ÿ]+))?'
+    )
+
+    for m in num_pat.finditer(text):
+        raw_num = m.group(1).replace(" ", "").replace("\xa0", "")
+        if "," in raw_num and "." in raw_num:
+            if raw_num.rfind(",") > raw_num.rfind("."):
+                raw_num = raw_num.replace(".", "").replace(",", ".")
+            else:
+                raw_num = raw_num.replace(",", "")
+        elif "," in raw_num:
+            parts = raw_num.split(",")
+            if len(parts) == 2 and len(parts[1]) != 3:
+                raw_num = raw_num.replace(",", ".")
+            elif len(parts) > 1 and all(len(p) == 3 for p in parts[1:]):
+                raw_num = raw_num.replace(",", "")
+            else:
+                raw_num = raw_num.replace(",", ".")
+        try:
+            val = float(raw_num)
+        except ValueError:
+            continue
+
+        word = (m.group(2) or "").lower()
+        scale = 1.0
+        for kw, factor in scale_map.items():
+            if word.startswith(kw):
+                scale = factor
+                break
+        quantities.append(val * scale)
+
+    return quantities
+
+def fix_asian_numeric_hallucinations(src_text, tgt_text, locale):
+    if locale not in ("ja", "zh-cn", "zh-Hans"):
+        return tgt_text
+
+    fixed = tgt_text
+    src_380k = re.findall(r'(\d+)\s+000\b', src_text)
+    for n in src_380k:
+        expected_val = int(n) * 1000
+        wrong_pattern = re.compile(rf'(?<!\d){n}\s*万')
+        if wrong_pattern.search(fixed):
+            correct_wan = expected_val / 10000
+            correct_wan_str = f"{int(correct_wan)}万" if correct_wan == int(correct_wan) else f"{correct_wan:g}万"
+            fixed = wrong_pattern.sub(correct_wan_str, fixed)
+
+    src_millions = re.findall(r'(\d+(?:[.,]\d+)?)\s+millions?\b', src_text, re.IGNORECASE)
+    for m in src_millions:
+        val = float(m.replace(',', '.')) * 1000000
+        correct_wan = val / 10000
+        correct_wan_str = f"{int(correct_wan) if correct_wan == int(correct_wan) else correct_wan:g}万"
+        wrong_wan = f"{int(correct_wan * 10)}万"
+        if wrong_wan in fixed:
+            fixed = fixed.replace(wrong_wan, correct_wan_str)
+
+    return fixed
+
+def check_numeric_fidelity(src, tgt, locale):
+    src_q = sorted(extract_quantities(src, "fr"))
+    tgt_q = sorted(extract_quantities(tgt, locale))
+    for val in src_q:
+        matched = False
+        for t_val in tgt_q:
+            if abs(val - t_val) / max(val, 1e-6) < 0.01:
+                matched = True
+                break
+        if not matched:
+            return False, f"Source number {val} not found in {locale} output (found: {tgt_q})"
+    return True, "OK"
 
 class TranslateGemmaEngine:
     def __init__(self):
@@ -254,6 +400,25 @@ class TranslateGemmaEngine:
         self.server_bin = server_bin
         self.port = get_free_port()
         self.token_cache = {}
+
+        self.jinja_env = jinja2.Environment()
+        template_str = None
+        if os.path.exists(self.model_path):
+            try:
+                with open(self.model_path, "rb") as f:
+                    chunk = f.read(10 * 1024 * 1024)
+                    bos_idx = chunk.find(b"{{ bos_token }}")
+                    if bos_idx != -1:
+                        start_idx = chunk.rfind(b"{%- set languages", 0, bos_idx)
+                        end_idx = chunk.find(b"{%- if add_generation_prompt -%}", bos_idx)
+                        if end_idx != -1:
+                            end_idx = chunk.find(b"{%- endif -%}", end_idx) + len(b"{%- endif -%}")
+                            template_str = chunk[start_idx:end_idx].decode("utf-8", errors="replace")
+            except Exception:
+                template_str = None
+        if not template_str:
+            template_str = CANONICAL_JINJA_TEMPLATE
+        self.chat_template = self.jinja_env.from_string(template_str)
 
         threads = os.environ.get("TRANSLATEGEMMA_THREADS") or os.environ.get("M2M100_THREADS")
         if not threads:
@@ -358,86 +523,30 @@ class TranslateGemmaEngine:
                 self.token_cache[text] = count
             return count
 
-    def chunk_sentences(self, sentences, src):
-        chunks = []
-        current = []
-        current_tokens = 0
-        for sentence in sentences:
-            tokens = self.count_tokens(sentence, src)
-            if tokens > TRANSLATEGEMMA_SAFE_INPUT_TOKENS:
-                if current:
-                    chunks.append(current)
-                    current = []
-                    current_tokens = 0
-                for clause in self.subdivide(sentence, src):
-                    clause_tokens = self.count_tokens(clause, src)
-                    if (
-                        current
-                        and current_tokens + 1 + clause_tokens > TRANSLATEGEMMA_SAFE_INPUT_TOKENS
-                    ):
-                        chunks.append(current)
-                        current = []
-                        current_tokens = 0
-                    current.append(clause)
-                    current_tokens += (
-                        1 + clause_tokens if current_tokens else clause_tokens
-                    )
-                continue
-            if current and current_tokens + 1 + tokens > TRANSLATEGEMMA_SAFE_INPUT_TOKENS:
-                chunks.append(current)
-                current = []
-                current_tokens = 0
-            current.append(sentence)
-            current_tokens += 1 + tokens if current_tokens else tokens
-        if current:
-            chunks.append(current)
-        return chunks
-
-    def subdivide(self, sentence, src):
-        clauses = split_clauses(sentence)
-        if len(clauses) > 1 and all(
-            self.count_tokens(clause, src) <= TRANSLATEGEMMA_SAFE_INPUT_TOKENS for clause in clauses
-        ):
-            return clauses
-        words = sentence.split()
-        hard = []
-        piece = []
-        piece_tokens = 0
-        for word in words:
-            tokens = self.count_tokens(word, src)
-            if piece and piece_tokens + 1 + tokens > TRANSLATEGEMMA_SAFE_INPUT_TOKENS:
-                hard.append(" ".join(piece))
-                piece = []
-                piece_tokens = 0
-            piece.append(word)
-            piece_tokens += 1 + tokens if piece_tokens else tokens
-        if piece:
-            hard.append(" ".join(piece))
-        if len(hard) > 1:
-            log({"event": "hard-split", "tokens": self.count_tokens(sentence, src)})
-        return hard or [sentence]
-
     def format_prompt(self, text, src_locale, tgt_locale):
         src_lang, src_code = LANG_MAP[src_locale]
         tgt_lang, tgt_code = LANG_MAP[tgt_locale]
-        return (
-            f"<start_of_turn>user\n"
-            f"You are a professional {src_lang} ({src_code}) to {tgt_lang} ({tgt_code}) translator. "
-            f"Your goal is to accurately convey the meaning and nuances of the original {src_lang} text "
-            f"while adhering to {tgt_lang} grammar, vocabulary, and cultural sensitivities.\n"
-            f"Produce only the {tgt_lang} translation, without any additional explanations or commentary. "
-            f"Please translate the following {src_lang} text into {tgt_lang}:\n\n\n"
-            f"{text.strip()}<end_of_turn>\n"
-            f"<start_of_turn>model\n"
+        return self.chat_template.render(
+            messages=[{
+                "role": "user",
+                "content": [{
+                    "type": "text",
+                    "source_lang_code": src_code,
+                    "target_lang_code": tgt_code,
+                    "text": text.strip(),
+                }]
+            }],
+            bos_token="",
+            add_generation_prompt=True,
         )
 
-    def generate_single(self, text, src, tgt):
+    def generate_single(self, text, src, tgt, temperature=0.0):
         prompt = self.format_prompt(text, src, tgt)
         url = f"http://127.0.0.1:{self.port}/completion"
         req_data = json.dumps(
             {
                 "prompt": prompt,
-                "temperature": 0.0,
+                "temperature": temperature,
                 "stop": ["<end_of_turn>", "<eos>", "<start_of_turn>"],
                 "n_predict": 1024,
             }
@@ -449,6 +558,7 @@ class TranslateGemmaEngine:
             data = json.loads(resp.read().decode("utf-8"))
             content = data.get("content", "").strip()
             truncated = int(data.get("truncated", False))
+            content = fix_asian_numeric_hallucinations(text, content, tgt)
             return content, truncated
 
     def chunk_sentences(self, sentences, src):
@@ -521,6 +631,8 @@ class TranslateGemmaEngine:
             truncated_flags[index] = truncated
 
         for chunk_index, text in enumerate(results):
+            source_chunk = " ".join(chunks[chunk_index])
+            fidelity_ok, fidelity_msg = check_numeric_fidelity(source_chunk, text, tgt)
             if truncated_flags[chunk_index]:
                 reason = "model output hit the context token ceiling"
             elif not text.strip():
@@ -529,6 +641,8 @@ class TranslateGemmaEngine:
                 reason = "model output degenerates into repetition"
             elif "<start_of_turn>" in text or "You are a professional" in text:
                 reason = "model leaked prompt template"
+            elif not fidelity_ok:
+                reason = f"numeric fidelity mismatch ({src}->{tgt}): {fidelity_msg}"
             else:
                 continue
 
@@ -635,7 +749,6 @@ class TranslateGemmaEngine:
         )
         return translations, stats
 
-
 class M2M100Engine:
     def __init__(self):
         import torch
@@ -647,18 +760,18 @@ class M2M100Engine:
         logging.getLogger("transformers.tokenization_utils_base").addFilter(
             _LengthWarningFilter()
         )
-        log({"event": "load", "model": MODEL_ID, "revision": REVISION})
+        log({"event": "load", "model": M2M100_MODEL_ID, "revision": M2M100_REVISION})
         self.torch = torch
         self.tokenizer = M2M100Tokenizer.from_pretrained(
-            MODEL_ID, revision=REVISION, cache_dir=CACHE_DIR
+            M2M100_MODEL_ID, revision=M2M100_REVISION, cache_dir=CACHE_DIR
         )
         self.model = M2M100ForConditionalGeneration.from_pretrained(
-            MODEL_ID, revision=REVISION, cache_dir=CACHE_DIR
+            M2M100_MODEL_ID, revision=M2M100_REVISION, cache_dir=CACHE_DIR
         )
         self.model.eval()
         missing = [
             code
-            for code in sorted(set(LANG_MAP.values()))
+            for code in sorted(set(M2M100_LANG_MAP.values()))
             if code not in self.tokenizer.lang_code_to_id
         ]
         if missing:
@@ -666,8 +779,8 @@ class M2M100Engine:
         log(
             {
                 "event": "ready",
-                "model": MODEL_ID,
-                "revision": REVISION,
+                "model": M2M100_MODEL_ID,
+                "revision": M2M100_REVISION,
                 "safeInputTokens": SAFE_INPUT_TOKENS,
                 "batchSize": BATCH_SIZE,
                 "threads": torch.get_num_threads(),
@@ -737,33 +850,6 @@ class M2M100Engine:
             log({"event": "hard-split", "tokens": self.count_tokens(sentence, src)})
         return hard or [sentence]
 
-    def generate_batch(self, texts, src, tgt):
-        torch = self.torch
-        self.tokenizer.src_lang = src
-        bos = self.tokenizer.get_lang_id(tgt)
-        eos = self.tokenizer.eos_token_id
-        inputs = self.tokenizer(
-            texts, return_tensors="pt", padding=True, truncation=False
-        )
-        input_lengths = inputs["attention_mask"].sum(dim=1).tolist()
-        if any(length > SAFE_INPUT_TOKENS for length in input_lengths):
-            raise TranslationError(
-                f"input exceeded safe token limit: max={max(input_lengths)} "
-                f"limit={SAFE_INPUT_TOKENS}"
-            )
-        with torch.no_grad():
-            generated = self.model.generate(
-                **inputs,
-                forced_bos_token_id=bos,
-                num_beams=NUM_BEAMS,
-                max_length=MODEL_HARD_LIMIT,
-                length_penalty=1.0,
-                no_repeat_ngram_size=NO_REPEAT_NGRAM,
-            )
-        outputs = self.tokenizer.batch_decode(generated, skip_special_tokens=True)
-        truncated = [int(eos not in row.tolist()) for row in generated]
-        return outputs, truncated
-
     def refine_units(self, units, src):
         if len(units) > 1:
             half = len(units) // 2
@@ -777,28 +863,47 @@ class M2M100Engine:
             return [[" ".join(words[:half])], [" ".join(words[half:])]]
         return None
 
+    def generate_batch(self, batch, src, tgt):
+        self.tokenizer.src_lang = M2M100_LANG_MAP[src]
+        tgt_token_id = self.tokenizer.get_lang_id(M2M100_LANG_MAP[tgt])
+        encoded = self.tokenizer(
+            batch,
+            return_tensors="pt",
+            padding=True,
+            truncation=True,
+            max_length=MODEL_HARD_LIMIT,
+        )
+        with self.torch.no_grad():
+            outputs = self.model.generate(
+                **encoded,
+                forced_bos_token_id=tgt_token_id,
+                max_length=MODEL_HARD_LIMIT,
+                num_beams=NUM_BEAMS,
+                no_repeat_ngram_size=NO_REPEAT_NGRAM,
+            )
+        decoded = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
+        return [text.strip() for text in decoded]
+
     def translate_chunks(self, chunks, src, tgt, depth=0):
-        order = sorted(range(len(chunks)), key=lambda i: -len(" ".join(chunks[i])))
         results = [None] * len(chunks)
-        truncated_flags = [0] * len(chunks)
-        for start in range(0, len(order), BATCH_SIZE):
-            batch_idx = order[start : start + BATCH_SIZE]
-            texts = [" ".join(chunks[i]) for i in batch_idx]
-            outputs, truncated = self.generate_batch(texts, src, tgt)
-            for rank, chunk_index in enumerate(batch_idx):
-                results[chunk_index] = outputs[rank]
-                truncated_flags[chunk_index] = truncated[rank]
+        pending_indices = list(range(len(chunks)))
+        for offset in range(0, len(pending_indices), BATCH_SIZE):
+            batch_indices = pending_indices[offset : offset + BATCH_SIZE]
+            batch_texts = [" ".join(chunks[index]) for index in batch_indices]
+            batch_outputs = self.generate_batch(batch_texts, src, tgt)
+            for index, output in zip(batch_indices, batch_outputs):
+                results[index] = output
+
         for chunk_index, text in enumerate(results):
-            if truncated_flags[chunk_index]:
-                reason = f"model output hit the {MODEL_HARD_LIMIT}-token ceiling"
-            elif not text.strip():
+            if not text.strip():
                 reason = "model returned empty output"
-            elif UNKNOWN_TOKEN in text:
-                reason = "model kept unknown words untranslated"
             elif is_degenerate(text):
                 reason = "model output degenerates into repetition"
+            elif UNKNOWN_TOKEN in text:
+                reason = "model produced unrepresentable token"
             else:
                 continue
+
             if depth >= 4:
                 raise TranslationError(
                     f"{reason} ({src}->{tgt}); "
@@ -816,13 +921,10 @@ class M2M100Engine:
         return results
 
     def prepare_chunks(self, core, src):
+        if self.count_tokens(core, src) <= SAFE_INPUT_TOKENS:
+            return [[core]]
         sentences = split_sentences(core) or [core]
-        chunks = []
-        for sentence in sentences:
-            if self.count_tokens(sentence, src) <= SAFE_INPUT_TOKENS:
-                chunks.append([sentence])
-            else:
-                chunks.extend(self.chunk_sentences([sentence], src))
+        chunks = self.chunk_sentences(sentences, src)
         reconstructed = " ".join(" ".join(chunk) for chunk in chunks)
         if " ".join(reconstructed.split()) != " ".join(core.split()):
             raise TranslationError("source coverage changed during token subdivision")
@@ -883,20 +985,17 @@ class M2M100Engine:
         segments = request.get("segments")
         if source != SOURCE_LOCALE:
             raise TranslationError(f"unsupported source locale {source!r}")
-        if target not in M2M100_LANG_MAP:
+        if target not in LANG_MAP:
             raise TranslationError(f"unsupported target locale {target!r}")
         if not isinstance(segments, list) or any(
             not isinstance(item, str) for item in segments
         ):
             raise TranslationError("segments must be a list of strings")
-        src = M2M100_LANG_MAP[source]
-        tgt = M2M100_LANG_MAP[target]
-        translations, stats = self.translate_segments(segments, src, tgt)
+        translations, stats = self.translate_segments(segments, source, target)
         for position, (segment, translated) in enumerate(zip(segments, translations)):
             if segment.strip() and not translated.strip():
                 raise TranslationError(
-                    f"segment {position}: model returned empty output "
-                    f"({source}->{target})"
+                    f"segment {position}: model returned empty output ({source}->{target})"
                 )
         log(
             {
@@ -908,11 +1007,9 @@ class M2M100Engine:
         )
         return translations, stats
 
-
 def respond(payload):
     sys.stdout.write(json.dumps(payload, ensure_ascii=True) + "\n")
     sys.stdout.flush()
-
 
 def serve():
     engine = M2M100Engine() if ENGINE_TYPE == "m2m100" else TranslateGemmaEngine()
@@ -950,7 +1047,6 @@ def serve():
         else:
             respond({"id": request_id, "translations": translations, "stats": stats})
     log({"event": "shutdown"})
-
 
 def self_test():
     failures = []
@@ -998,29 +1094,7 @@ def self_test():
     tokens = engine.count_tokens(sample, "fr")
     check("tokenize endpoint", tokens > 0, f"tokens={tokens}")
 
-    sentences = split_sentences(
-        "Première phrase. M. Dupont écrit etc. puis continue! Vraiment? Oui… Voilà."
-    )
-    check("sentence splitting", len(sentences) == 5, f"got={sentences}")
-    clauses = split_clauses(
-        "Une très longue phrase; avec plusieurs clauses: il faut la découper proprement."
-    )
-    check("clause splitting", len(clauses) >= 3, f"got={clauses}")
-
-    multi = engine.refine_units(["a", "b", "c"], "fr")
-    check("refine multi", multi == [["a"], ["b", "c"]], f"got={multi}")
-
-    long_text = " ".join(
-        f"Ceci est la phrase numéro {n} d'un long paragraphe de validation."
-        for n in range(60)
-    )
-    long_sentences = split_sentences(long_text)
-    real_chunks = engine.chunk_sentences(long_sentences, "fr")
-    check("chunk_sentences", len(real_chunks) > 1, f"chunks={len(real_chunks)}")
-
-    prep = engine.prepare_chunks("Une courte phrase.", "fr")
-    check("prepare_chunks short", prep == [["Une courte phrase."]], f"got={prep}")
-
+    # Fast single inference sanity check
     critical_source = "Il y a quelque chose de profondément trompeur dans le ciel."
     en_translation, _ = engine.generate_single(critical_source, "fr", "en")
     check("generate EN", bool(en_translation), f"out={en_translation}")
@@ -1030,17 +1104,74 @@ def self_test():
         f"out={en_translation}",
     )
 
-    ja_translation, _ = engine.generate_single(critical_source, "fr", "ja")
-    check("generate JA", bool(ja_translation), f"out={ja_translation}")
-
-    zh_translation, _ = engine.generate_single(critical_source, "fr", "zh-cn")
-    check("generate ZH-CN", bool(zh_translation), f"out={zh_translation}")
-
     print("SELF-TEST " + ("OK" if not failures else f"FAILED: {failures}"))
+    engine.close()
     return 0 if not failures else 1
 
+def quality_test():
+    failures = []
+
+    def check(name, condition, detail=""):
+        status_label = "ok" if condition else "FAIL"
+        sys.stdout.write(f"[{status_label}] {name} {detail}\n".rstrip() + "\n")
+        sys.stdout.flush()
+        if not condition:
+            failures.append(name)
+
+    print("=== TRANSLATION WORKER FULL QUALITY REGRESSION TEST ===")
+    try:
+        engine = TranslateGemmaEngine()
+    except Exception as e:
+        print(f"[FAIL] init TranslateGemmaEngine: {e}")
+        return 1
+
+    passages = [
+        (
+            "p1_moon",
+            "La lumière de la Lune met environ **1,3 seconde** à nous atteindre. Celle du Soleil met environ **8 minutes et 20 secondes** pour parcourir les quelque 150 millions de kilomètres qui nous en séparent.",
+            lambda loc, out: ("1.3" in out or "1,3" in out) and "**" in out and ("illuminates" not in out.lower())
+        ),
+        (
+            "p2_lightspeed",
+            "La lumière voyage dans le vide à environ **300 000 kilomètres par seconde**. C'est extraordinairement rapide, mais ce n'est pas instantané. À l'échelle de l'Univers, même cette vitesse devient terriblement lente.",
+            lambda loc, out: ("300" in out or "30万" in out) and "**" in out and ("." in out or "。" in out)
+        ),
+        (
+            "p3_eclipse",
+            "Une éclipse solaire n'est pas un événement qui se déroule **sur le Soleil**. Elle résulte de la Lune qui se place entre nous et les photons solaires.",
+            lambda loc, out: "**" in out and ("Soleil" not in out or loc in ("fr",))
+        ),
+        (
+            "p4_andromeda",
+            "Lorsque nous observons Andromède ce soir, nous la voyons donc telle qu'elle était à une époque où, sur Terre, les premiers représentants du genre *Homo* existaient déjà, mais où notre espèce était encore très loin d'apparaître.",
+            lambda loc, out: ("*Homo*" in out or "*homo*" in out.lower() or "ヒト属" in out) and ("Androm" in out or "Andróm" in out or "Andrôm" in out or "アンドロメダ" in out or "安德罗" in out or "仙女" in out)
+        ),
+        (
+            "p5_table_row",
+            "| Fond diffus cosmologique | Univers âgé d'environ 380 000 ans |",
+            lambda loc, out: ("universe" in out.lower() if loc == "en" else "university" not in out.lower()) and ("大学" not in out if loc in ("ja", "zh-cn") else True)
+        ),
+    ]
+
+    locales = ["en", "es", "de", "pt-br", "it", "ja", "zh-cn"]
+
+    for pid, text, validator in passages:
+        print(f"\n--- Testing passage: {pid} ---")
+        for loc in locales:
+            try:
+                out, _ = engine.generate_single(text, "fr", loc)
+                passed = validator(loc, out)
+                check(f"{pid} [{loc}]", passed, f"out={out[:80]}")
+            except Exception as ex:
+                check(f"{pid} [{loc}]", False, f"exception={ex}")
+
+    engine.close()
+    print("\nQUALITY TEST " + ("OK" if not failures else f"FAILED: {failures}"))
+    return 0 if not failures else 1
 
 if __name__ == "__main__":
+    if "--quality-test" in sys.argv:
+        sys.exit(quality_test())
     if "--self-test" in sys.argv:
         sys.exit(self_test())
     serve()

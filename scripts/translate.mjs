@@ -351,42 +351,304 @@ function printStatus(rows, json) {
   console.log(`\n${counts.current} current, ${counts.stale} stale, ${counts.missing} missing (${rows.length} pairs)`);
 }
 
-function structuralSignature(value) {
-  return {
-    syntax: value.match(/[\[\]{}<>`*_~|]/g) || [],
-    destinations: value.match(/(?:https?:\/\/|mailto:)[^\s)]+/gi) || [],
-  };
+export function shieldInline(text) {
+  const placeholders = [];
+  let result = "";
+  let cursor = 0;
+
+  while (cursor < text.length) {
+    const char = text[cursor];
+
+    if (char === "\\") {
+      result += text.slice(cursor, cursor + 2);
+      cursor += 2;
+      continue;
+    }
+
+    if (char === "`") {
+      const delimiter = text.slice(cursor).match(/^`+/)?.[0] || "`";
+      const end = text.indexOf(delimiter, cursor + delimiter.length);
+      const stop = end === -1 ? text.length : end + delimiter.length;
+      const original = text.slice(cursor, stop);
+      const ph = `__CODE_${placeholders.length}__`;
+      placeholders.push({ placeholder: ph, original });
+      result += ph;
+      cursor = stop;
+      continue;
+    }
+
+    if (char === "$" && text[cursor - 1] !== "\\") {
+      const delimiter = text.startsWith("$$", cursor) ? "$$" : "$";
+      const end = text.indexOf(delimiter, cursor + delimiter.length);
+      const stop = end === -1 ? text.length : end + delimiter.length;
+      const original = text.slice(cursor, stop);
+      const ph = `__MATH_${placeholders.length}__`;
+      placeholders.push({ placeholder: ph, original });
+      result += ph;
+      cursor = stop;
+      continue;
+    }
+
+    if (char === "<" && /^[a-zA-Z\/]/.test(text.slice(cursor + 1))) {
+      const end = closingDelimiter(text, cursor, "<", ">");
+      if (end !== -1) {
+        const original = text.slice(cursor, end + 1);
+        const ph = `__TAG_${placeholders.length}__`;
+        placeholders.push({ placeholder: ph, original });
+        result += ph;
+        cursor = end + 1;
+        continue;
+      }
+    }
+
+    if (text.startsWith("http://", cursor) || text.startsWith("https://", cursor) || text.startsWith("mailto:", cursor)) {
+      const match = text.slice(cursor).match(/^[^\s)>\]]+/)?.[0] || text.slice(cursor);
+      const ph = `__URL_${placeholders.length}__`;
+      placeholders.push({ placeholder: ph, original: match });
+      result += ph;
+      cursor += match.length;
+      continue;
+    }
+
+    const isImage = char === "!" && text[cursor + 1] === "[";
+    if (isImage || char === "[") {
+      const bracketStart = cursor + (isImage ? 1 : 0);
+      const bracketEnd = findBracketEnd(text, bracketStart);
+      if (bracketEnd !== -1) {
+        const after = text[bracketEnd + 1];
+        if (after === "(") {
+          const destEnd = closingDelimiter(text, bracketEnd + 1, "(", ")");
+          if (destEnd !== -1) {
+            const label = text.slice(bracketStart + 1, bracketEnd);
+            const destUrl = text.slice(bracketEnd + 2, destEnd);
+            const ph = `__URL_${placeholders.length}__`;
+            placeholders.push({ placeholder: ph, original: destUrl });
+            result += (isImage ? "![" : "[") + label + "](" + ph + ")";
+            cursor = destEnd + 1;
+            continue;
+          }
+        }
+      }
+    }
+
+    result += char;
+    cursor += 1;
+  }
+
+  return { shielded: result, placeholders };
 }
 
-function translationSafetyIssue(sourceValues, translatedValues) {
-  if (!Array.isArray(translatedValues) || translatedValues.length !== sourceValues.length) {
-    return "segment count changed";
+export function unshieldInline(text, placeholders) {
+  const found = text.match(/__(?:CODE|MATH|TAG|URL)_\d+__/g) || [];
+  const expected = placeholders.map((p) => p.placeholder);
+
+  if (found.length !== expected.length) {
+    throw new Error(`Placeholder count mismatch: expected ${expected.length} (${expected.join(",")}) but got ${found.length} (${found.join(",")})`);
   }
-  for (let index = 0; index < translatedValues.length; index += 1) {
-    const value = translatedValues[index];
-    if (typeof value !== "string") return `segment ${index + 1} is not text`;
-    if (/[\r\n]/.test(value)) return `segment ${index + 1} introduced a line break`;
-    const source = structuralSignature(sourceValues[index]);
-    const translated = structuralSignature(value);
-    if (JSON.stringify(source) !== JSON.stringify(translated)) {
-      return `segment ${index + 1} changed protected syntax`;
+
+  for (let i = 0; i < expected.length; i++) {
+    if (found[i] !== expected[i]) {
+      throw new Error(`Placeholder order/identity mismatch at index ${i}: expected ${expected[i]} but got ${found[i]}`);
     }
   }
-  return undefined;
+
+  let restored = text;
+  for (const { placeholder, original } of placeholders) {
+    restored = restored.replaceAll(placeholder, () => original);
+  }
+  return restored;
+}
+
+export function tokenizeBlocks(body) {
+  const lines = body.split(/\r?\n/);
+  const blocks = [];
+  let index = 0;
+  let inCode = false;
+  let codeFence = "";
+  let inMath = false;
+
+  while (index < lines.length) {
+    const line = lines[index];
+    const trimmed = line.trim();
+
+    const fenceMatch = line.trimStart().match(/^(```+|~~~+)/)?.[1];
+    if (inCode) {
+      blocks.push({ type: "raw", content: line + "\n" });
+      if (fenceMatch && fenceMatch.startsWith(codeFence[0]) && fenceMatch.length >= codeFence.length) {
+        inCode = false;
+      }
+      index++;
+      continue;
+    }
+    if (fenceMatch) {
+      inCode = true;
+      codeFence = fenceMatch;
+      blocks.push({ type: "raw", content: line + "\n" });
+      index++;
+      continue;
+    }
+
+    if (/^\s*\$\$\s*$/.test(line)) {
+      inMath = !inMath;
+      blocks.push({ type: "raw", content: line + "\n" });
+      index++;
+      continue;
+    }
+    if (inMath) {
+      blocks.push({ type: "raw", content: line + "\n" });
+      index++;
+      continue;
+    }
+
+    if (!trimmed) {
+      blocks.push({ type: "raw", content: line + "\n" });
+      index++;
+      continue;
+    }
+
+    if (/^\s*\[[^\]]+\]:\s*\S+/.test(line) || /^\s*(?:import|export)\b/.test(line)) {
+      blocks.push({ type: "raw", content: line + "\n" });
+      index++;
+      continue;
+    }
+
+    const headingMatch = line.match(/^(#{1,6}\s+)(.*)$/);
+    if (headingMatch) {
+      blocks.push({
+        type: "heading",
+        prefix: headingMatch[1],
+        content: headingMatch[2],
+        suffix: "\n",
+      });
+      index++;
+      continue;
+    }
+
+    const quoteMatch = line.match(/^((?:>\s*)+)(.*)$/);
+    if (quoteMatch) {
+      blocks.push({
+        type: "quote",
+        prefix: quoteMatch[1],
+        content: quoteMatch[2],
+        suffix: "\n",
+      });
+      index++;
+      continue;
+    }
+
+    const listMatch = line.match(/^(\s*(?:[-+*]|\d+[.)])\s+)(.*)$/);
+    if (listMatch) {
+      blocks.push({
+        type: "list",
+        prefix: listMatch[1],
+        content: listMatch[2],
+        suffix: "\n",
+      });
+      index++;
+      continue;
+    }
+
+    if (line.trim().startsWith("|")) {
+      if (/^\s*\|?\s*:?-+:?\s*(\|?\s*:?-+:?\s*)+\|?\s*$/.test(line)) {
+        blocks.push({ type: "raw", content: line + "\n" });
+      } else {
+        blocks.push({
+          type: "table_row",
+          prefix: "",
+          content: line,
+          suffix: "\n",
+        });
+      }
+      index++;
+      continue;
+    }
+
+    let paraLines = [line];
+    index++;
+    while (index < lines.length) {
+      const nextLine = lines[index];
+      const nextTrimmed = nextLine.trim();
+      if (!nextTrimmed) break;
+      if (nextLine.trimStart().match(/^(```+|~~~+|\$\$)/)) break;
+      if (nextLine.match(/^(?:#{1,6}\s+|(?:\s*[-+*]|\d+[.)])\s+|(?:>\s*)+|\|)/)) break;
+      paraLines.push(nextLine);
+      index++;
+    }
+    blocks.push({
+      type: "paragraph",
+      prefix: "",
+      content: paraLines.join(" "),
+      suffix: "\n",
+    });
+  }
+
+  return blocks;
 }
 
 async function translatedDocument(source, locale, hash) {
   const fields = TRANSLATED_FRONTMATTER.map((field) => pathValue(source.data, field.path) || "");
-  const parts = markdownParts(source.body);
-  const bodySegments = parts.filter((part) => part.translate).map((part) => part.value);
-  const input = [...fields, ...bodySegments];
+  const fieldPlaceholders = [];
+  const shieldedFields = [];
+  for (const field of fields) {
+    if (!field) {
+      shieldedFields.push("");
+      fieldPlaceholders.push([]);
+    } else {
+      const { shielded, placeholders } = shieldInline(field);
+      shieldedFields.push(shielded);
+      fieldPlaceholders.push(placeholders);
+    }
+  }
+
+  const blocks = tokenizeBlocks(source.body);
+  const translatableBlocks = blocks.filter((b) => b.type !== "raw");
+  const blockPlaceholders = [];
+  const shieldedBlocks = [];
+  for (const block of translatableBlocks) {
+    const { shielded, placeholders } = shieldInline(block.content);
+    shieldedBlocks.push(shielded);
+    blockPlaceholders.push(placeholders);
+  }
+
+  const input = [...shieldedFields, ...shieldedBlocks];
   const translated = await translateSegments(input, { sourceLocale: "fr", targetLocale: locale });
-  const safetyIssue = translationSafetyIssue(input, translated);
-  if (safetyIssue) throw new Error(`provider returned structurally unsafe output: ${safetyIssue}`);
-  const translatedFields = translated.slice(0, fields.length);
-  const translatedBody = translated.slice(fields.length);
+  if (!Array.isArray(translated) || translated.length !== input.length) {
+    throw new Error(`provider returned unexpected segment count: expected ${input.length}, got ${translated?.length}`);
+  }
+
+  const translatedFields = translated.slice(0, fields.length).map((val, idx) => {
+    if (!val) return val;
+    return unshieldInline(val, fieldPlaceholders[idx]);
+  });
+  const translatedBodyParts = translated.slice(fields.length);
+
   let cursor = 0;
-  const body = parts.map((part) => part.translate ? translatedBody[cursor++] : part.value).join("");
+  let body = "";
+  for (const block of blocks) {
+    if (block.type === "raw") {
+      body += block.content;
+      continue;
+    }
+    const rawTranslated = translatedBodyParts[cursor];
+    const placeholders = blockPlaceholders[cursor];
+    let restored = unshieldInline(rawTranslated, placeholders);
+
+    if (block.type === "table_row") {
+      const srcTrimmed = block.content.trim();
+      let resTrimmed = restored.trim();
+      if (srcTrimmed.startsWith("|") && !resTrimmed.startsWith("|")) {
+        resTrimmed = "| " + resTrimmed;
+      }
+      if (srcTrimmed.endsWith("|") && !resTrimmed.endsWith("|")) {
+        resTrimmed = resTrimmed + " |";
+      }
+      restored = resTrimmed;
+    }
+
+    body += block.prefix + restored + block.suffix;
+    cursor += 1;
+  }
+
   const data = structuredClone(source.data);
   delete data.canonicalUrl;
   data.locale = locale;
