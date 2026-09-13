@@ -185,9 +185,7 @@ Il consiste à **remplacer certaines fondations mathématiques**.
 En 2024, le NIST a finalisé ses trois premiers standards majeurs de cryptographie post-quantique :
 
 - **ML-KEM**, destiné à établir des secrets partagés ;
-
 - **ML-DSA**, destiné aux signatures numériques ;
-
 - **SLH-DSA**, une autre famille de signatures reposant sur des fonctions de hachage.
 
 Contrairement à RSA, leurs fondations mathématiques sont choisies pour résister aux attaques quantiques connues.
