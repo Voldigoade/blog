@@ -179,14 +179,6 @@ jobs:
       - name: Verify production output
         if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
         run: npm run verify
-      - name: Configure Pages
-        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
-        uses: actions/configure-pages@v5
-      - name: Upload Pages artifact
-        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: dist
       - name: Commit translations
         if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
         shell: bash
@@ -195,7 +187,27 @@ jobs:
           git config user.email "245930475+Voldigoade@users.noreply.github.com"
           git add src/content/translations
           git commit -m "Publish article translations"
-          git push origin main
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+          done
+          exit 1
+      - name: Refresh production output
+        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
+        run: |
+          npm run build
+          npm run verify
+      - name: Configure Pages
+        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
 
   deploy:
     if: needs.translate.outputs.generated == 'true'
