@@ -351,9 +351,28 @@ function printStatus(rows, json) {
   console.log(`\n${counts.current} current, ${counts.stale} stale, ${counts.missing} missing (${rows.length} pairs)`);
 }
 
-function safeTranslations(values) {
-  if (!Array.isArray(values) || values.some((value) => typeof value !== "string")) return false;
-  return values.every((value) => !/[\r\n\[\]{}<>`*_~|]/.test(value) && !/(?:https?:\/\/|mailto:)/i.test(value));
+function structuralSignature(value) {
+  return {
+    syntax: value.match(/[\[\]{}<>`*_~|]/g) || [],
+    destinations: value.match(/(?:https?:\/\/|mailto:)[^\s)]+/gi) || [],
+  };
+}
+
+function translationSafetyIssue(sourceValues, translatedValues) {
+  if (!Array.isArray(translatedValues) || translatedValues.length !== sourceValues.length) {
+    return "segment count changed";
+  }
+  for (let index = 0; index < translatedValues.length; index += 1) {
+    const value = translatedValues[index];
+    if (typeof value !== "string") return `segment ${index + 1} is not text`;
+    if (/[\r\n]/.test(value)) return `segment ${index + 1} introduced a line break`;
+    const source = structuralSignature(sourceValues[index]);
+    const translated = structuralSignature(value);
+    if (JSON.stringify(source) !== JSON.stringify(translated)) {
+      return `segment ${index + 1} changed protected syntax`;
+    }
+  }
+  return undefined;
 }
 
 async function translatedDocument(source, locale, hash) {
@@ -362,9 +381,8 @@ async function translatedDocument(source, locale, hash) {
   const bodySegments = parts.filter((part) => part.translate).map((part) => part.value);
   const input = [...fields, ...bodySegments];
   const translated = await translateSegments(input, { sourceLocale: "fr", targetLocale: locale });
-  if (translated.length !== input.length || !safeTranslations(translated)) {
-    throw new Error("provider returned structurally unsafe output");
-  }
+  const safetyIssue = translationSafetyIssue(input, translated);
+  if (safetyIssue) throw new Error(`provider returned structurally unsafe output: ${safetyIssue}`);
   const translatedFields = translated.slice(0, fields.length);
   const translatedBody = translated.slice(fields.length);
   let cursor = 0;
