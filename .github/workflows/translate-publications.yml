@@ -43,9 +43,9 @@ jobs:
     outputs:
       generated: ${{ steps.changes.outputs.generated }}
     env:
-      HF_HOME: ${{ github.workspace }}/.hf-cache
-      M2M100_BATCH: "4"
-      M2M100_THREADS: "2"
+      TRANSLATION_CACHE_DIR: ${{ github.workspace }}/.translation-cache
+      TRANSLATEGEMMA_THREADS: "2"
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
       TRANSLATE_SLUG: ${{ inputs.slug }}
       TRANSLATE_LOCALE: ${{ inputs.locale }}
       TRANSLATE_FORCE: ${{ inputs.force }}
@@ -70,10 +70,10 @@ jobs:
       - name: Restore model cache
         uses: actions/cache@v5
         with:
-          path: ${{ github.workspace }}/.hf-cache
-          key: m2m100-${{ runner.os }}-55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636-${{ hashFiles('requirements-translation.txt') }}
+          path: ${{ github.workspace }}/.translation-cache
+          key: translategemma-4b-q4_k_m-b10948-${{ runner.os }}-cd39c30302f20fb8b788234d86a0a35a0d050619-526747309109c016
           restore-keys: |
-            m2m100-${{ runner.os }}-55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636-
+            translategemma-4b-q4_k_m-b10948-${{ runner.os }}-
       - name: Install translation dependencies
         run: python -m pip install -r requirements-translation.txt
       - name: Validate translation engine
@@ -123,7 +123,21 @@ jobs:
       - name: Smoke translation
         if: ${{ inputs.smoke }}
         shell: bash
-        run: npm run translate -- --translate --slug zz-smoke-check
+        run: |
+          echo "=== DISK BEFORE INFERENCE ==="
+          df -h
+          if [[ -d "$TRANSLATION_CACHE_DIR" ]]; then
+            echo "=== CACHE DIRECTORY CONTENT ==="
+            du -sh "$TRANSLATION_CACHE_DIR"
+            ls -lh "$TRANSLATION_CACHE_DIR"
+          fi
+          t_start=$(date +%s)
+          npm run translate -- --translate --slug zz-smoke-check
+          t_end=$(date +%s)
+          echo "=== SMOKE RUNTIME ==="
+          echo "Smoke translation finished in $((t_end - t_start))s."
+          echo "=== DISK AFTER INFERENCE ==="
+          df -h
       - name: Validate smoke output
         if: ${{ inputs.smoke }}
         shell: bash

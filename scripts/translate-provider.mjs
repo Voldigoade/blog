@@ -91,7 +91,7 @@ function startLocalWorker() {
       child.stderr.on("data", (chunk) => {
         worker.stderrTail.push(chunk);
         if (worker.stderrTail.length > 20) worker.stderrTail.shift();
-        process.stderr.write(`[m2m100] ${chunk}`);
+        process.stderr.write(`[translation-worker] ${chunk}`);
       });
       readLines(child.stdout, (line) => {
         let message;
