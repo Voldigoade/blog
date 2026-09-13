@@ -370,7 +370,7 @@ export function shieldInline(text) {
       const end = text.indexOf(delimiter, cursor + delimiter.length);
       const stop = end === -1 ? text.length : end + delimiter.length;
       const original = text.slice(cursor, stop);
-      const ph = `__CODE_${placeholders.length}__`;
+      const ph = `%%CODE_${placeholders.length}%%`;
       placeholders.push({ placeholder: ph, original });
       result += ph;
       cursor = stop;
@@ -382,7 +382,7 @@ export function shieldInline(text) {
       const end = text.indexOf(delimiter, cursor + delimiter.length);
       const stop = end === -1 ? text.length : end + delimiter.length;
       const original = text.slice(cursor, stop);
-      const ph = `__MATH_${placeholders.length}__`;
+      const ph = `%%MATH_${placeholders.length}%%`;
       placeholders.push({ placeholder: ph, original });
       result += ph;
       cursor = stop;
@@ -393,7 +393,7 @@ export function shieldInline(text) {
       const end = closingDelimiter(text, cursor, "<", ">");
       if (end !== -1) {
         const original = text.slice(cursor, end + 1);
-        const ph = `__TAG_${placeholders.length}__`;
+        const ph = `%%TAG_${placeholders.length}%%`;
         placeholders.push({ placeholder: ph, original });
         result += ph;
         cursor = end + 1;
@@ -403,7 +403,7 @@ export function shieldInline(text) {
 
     if (text.startsWith("http://", cursor) || text.startsWith("https://", cursor) || text.startsWith("mailto:", cursor)) {
       const match = text.slice(cursor).match(/^[^\s)>\]]+/)?.[0] || text.slice(cursor);
-      const ph = `__URL_${placeholders.length}__`;
+      const ph = `%%URL_${placeholders.length}%%`;
       placeholders.push({ placeholder: ph, original: match });
       result += ph;
       cursor += match.length;
@@ -421,7 +421,7 @@ export function shieldInline(text) {
           if (destEnd !== -1) {
             const label = text.slice(bracketStart + 1, bracketEnd);
             const destUrl = text.slice(bracketEnd + 2, destEnd);
-            const ph = `__URL_${placeholders.length}__`;
+            const ph = `%%URL_${placeholders.length}%%`;
             placeholders.push({ placeholder: ph, original: destUrl });
             result += (isImage ? "![" : "[") + label + "](" + ph + ")";
             cursor = destEnd + 1;
@@ -439,10 +439,21 @@ export function shieldInline(text) {
 }
 
 export function unshieldInline(text, placeholders) {
-  const found = text.match(/__(?:CODE|MATH|TAG|URL)_\d+__/g) || [];
+  if (placeholders.length === 0) return text;
+  const found = text.match(/(?:%%|__)(?:CODE|MATH|TAG|URL)_\d+(?:%%|__)/g) || [];
   const expected = placeholders.map((p) => p.placeholder);
 
   if (found.length !== expected.length) {
+    const relaxedFound = text.match(/(?:%%|__|「)?[A-Z]+_\d+(?:%%|__|」)?/g) || [];
+    if (relaxedFound.length === expected.length) {
+      let restored = text;
+      for (const { placeholder, original } of placeholders) {
+        const id = placeholder.replace(/^[^\w]+|[^\w]+$/g, "");
+        const pat = new RegExp(`(?:%%|__|「)?${id}(?:%%|__|」)?`, "g");
+        restored = restored.replace(pat, () => original);
+      }
+      return restored;
+    }
     throw new Error(`Placeholder count mismatch: expected ${expected.length} (${expected.join(",")}) but got ${found.length} (${found.join(",")})`);
   }
 
