@@ -1,5 +1,6 @@
+import { spawn } from "node:child_process";
 import { isAbsolute, resolve } from "node:path";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const LANGUAGE_NAMES = {
   en: "natural professional English",
@@ -10,9 +11,193 @@ const LANGUAGE_NAMES = {
   ja: "natural Japanese editorial prose",
   "zh-cn": "natural Simplified Chinese editorial prose",
 };
+const SUPPORTED_TARGETS = Object.keys(LANGUAGE_NAMES);
 const BATCH_CHARACTERS = 12000;
 const MAX_ATTEMPTS = 3;
-let adapterPromise;
+
+const WORKER_URL = new URL("./translation-worker.py", import.meta.url);
+let workerPromise;
+
+function pythonCandidates() {
+  if (process.env.PYTHON_BIN) return [[process.env.PYTHON_BIN]];
+  if (process.env.PYTHON) return [[process.env.PYTHON]];
+  if (process.platform === "win32") return [["python"], ["python3"], ["py", "-3"]];
+  return [["python3"], ["python"]];
+}
+
+function readLines(stream, onLine) {
+  let buffer = "";
+  stream.setEncoding("utf8");
+  stream.on("data", (chunk) => {
+    buffer += chunk;
+    let end;
+    while ((end = buffer.indexOf("\n")) !== -1) {
+      const line = buffer.slice(0, end).trim();
+      buffer = buffer.slice(end + 1);
+      if (line) onLine(line);
+    }
+  });
+}
+
+function startLocalWorker() {
+  const attempts = pythonCandidates();
+  return new Promise((resolveStartup, rejectStartup) => {
+    const tryNext = (index, lastError) => {
+      if (index >= attempts.length) {
+        rejectStartup(lastError || new Error("no Python interpreter available for local translation"));
+        return;
+      }
+      const [command, ...prefix] = attempts[index];
+      let child;
+      try {
+        child = spawn(command, [...prefix, fileURLToPath(WORKER_URL)], {
+          stdio: ["pipe", "pipe", "pipe"],
+          env: { ...process.env, TOKENIZERS_PARALLELISM: "false", PYTHONIOENCODING: "utf-8" },
+        });
+      } catch (error) {
+        tryNext(index + 1, error);
+        return;
+      }
+      const worker = {
+        child,
+        pending: new Map(),
+        nextId: 1,
+        ready: false,
+        dead: false,
+        stderrTail: [],
+      };
+      const failAll = (error) => {
+        worker.dead = true;
+        for (const [, entry] of worker.pending) entry.reject(error);
+        worker.pending.clear();
+      };
+      child.on("error", (error) => {
+        if (!worker.ready && error?.code === "ENOENT") {
+          tryNext(index + 1, error);
+          return;
+        }
+        failAll(error);
+        if (!worker.ready) rejectStartup(error);
+      });
+      child.on("exit", (code) => {
+        const tail = worker.stderrTail.join("\n");
+        const error = new Error(
+          `local translation worker exited with code ${code}${tail ? `: ${tail.slice(-2000)}` : ""}`,
+        );
+        failAll(error);
+        if (!worker.ready) rejectStartup(error);
+      });
+      child.stderr.setEncoding("utf8");
+      child.stderr.on("data", (chunk) => {
+        worker.stderrTail.push(chunk);
+        if (worker.stderrTail.length > 20) worker.stderrTail.shift();
+        process.stderr.write(`[m2m100] ${chunk}`);
+      });
+      readLines(child.stdout, (line) => {
+        let message;
+        try {
+          message = JSON.parse(line);
+        } catch {
+          return;
+        }
+        if (!worker.ready) {
+          if (message?.ready === true) {
+            worker.ready = true;
+            resolveStartup(worker);
+          }
+          return;
+        }
+        const entry = worker.pending.get(message?.id);
+        if (entry) {
+          worker.pending.delete(message.id);
+          entry.resolve(message);
+        }
+      });
+    };
+    tryNext(0);
+  });
+}
+
+function localWorker() {
+  workerPromise ??= startLocalWorker();
+  return workerPromise;
+}
+
+export async function closeProvider() {
+  if (!workerPromise) return;
+  const worker = await workerPromise.catch(() => undefined);
+  workerPromise = undefined;
+  if (!worker || worker.dead) return;
+  try {
+    worker.child.stdin.end();
+  } catch {
+    worker.child.kill("SIGKILL");
+    return;
+  }
+  await new Promise((resolveClose) => {
+    const timer = setTimeout(() => {
+      worker.child.kill("SIGKILL");
+      resolveClose();
+    }, 30000);
+    timer.unref?.();
+    worker.child.once("exit", () => {
+      clearTimeout(timer);
+      resolveClose();
+    });
+  });
+}
+
+function sendRequest(worker, payload) {
+  return new Promise((resolveRequest, rejectRequest) => {
+    if (worker.dead) {
+      rejectRequest(new Error("local translation worker is not running"));
+      return;
+    }
+    const id = worker.nextId++;
+    worker.pending.set(id, { resolve: resolveRequest, reject: rejectRequest });
+    worker.child.stdin.write(`${JSON.stringify({ ...payload, id })}\n`, (error) => {
+      if (error) {
+        worker.pending.delete(id);
+        rejectRequest(error);
+      }
+    });
+  });
+}
+
+function hasUrlScheme(value) {
+  return /(?:https?:\/\/|mailto:)/i.test(value);
+}
+
+async function translateWithLocalModel(segments, context) {
+  if (context.sourceLocale !== "fr" || !SUPPORTED_TARGETS.includes(context.targetLocale)) {
+    throw new Error(`unsupported locale pair "${context.sourceLocale}->${context.targetLocale}"`);
+  }
+  const worker = await localWorker();
+  const response = await sendRequest(worker, {
+    sourceLocale: context.sourceLocale,
+    targetLocale: context.targetLocale,
+    segments,
+  });
+  if (response?.error) {
+    throw new Error(`local translation failed (${context.targetLocale}): ${response.error}`);
+  }
+  const output = response?.translations;
+  if (!Array.isArray(output) || output.length !== segments.length) {
+    throw new Error("local translation must return one string for every input segment");
+  }
+  for (const [index, value] of output.entries()) {
+    if (typeof value !== "string") {
+      throw new Error(`local translation segment ${index} is not a string (${context.targetLocale})`);
+    }
+    if (segments[index].trim() && !value.trim()) {
+      throw new Error(`local translation segment ${index} is empty (${context.targetLocale})`);
+    }
+    if (value.trim() && hasUrlScheme(value)) {
+      throw new Error(`local translation segment ${index} introduces a URL (${context.targetLocale})`);
+    }
+  }
+  return output;
+}
 
 function serviceConfiguration() {
   const endpoint = process.env.TRANSLATION_ENDPOINT;
@@ -133,8 +318,7 @@ async function loadModuleAdapter(provider) {
   const specifier = provider.startsWith(".") || isAbsolute(provider)
     ? pathToFileURL(resolve(process.cwd(), provider)).href
     : provider;
-  adapterPromise ??= import(specifier);
-  const adapter = await adapterPromise;
+  const adapter = await import(specifier);
   if (typeof adapter.translateSegments !== "function") {
     throw new Error("custom translation module does not export translateSegments");
   }
@@ -152,11 +336,15 @@ async function translateWithService(segments, context) {
 
 export async function translateSegments(segments, context) {
   const provider = process.env.TRANSLATE_PROVIDER_MODULE;
-  const output = provider
-    ? await (await loadModuleAdapter(provider)).translateSegments(segments, context)
-    : await translateWithService(segments, context);
-  if (!Array.isArray(output) || output.length !== segments.length) {
-    throw new Error("translation service must return one string for every input segment");
+  if (provider) {
+    const output = await (await loadModuleAdapter(provider)).translateSegments(segments, context);
+    if (!Array.isArray(output) || output.length !== segments.length) {
+      throw new Error("translation service must return one string for every input segment");
+    }
+    return output;
   }
-  return output;
+  if (process.env.TRANSLATION_PROVIDER === "remote") {
+    return translateWithService(segments, context);
+  }
+  return translateWithLocalModel(segments, context);
 }

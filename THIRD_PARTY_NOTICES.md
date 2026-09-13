@@ -19,3 +19,7 @@ Vitesse colour themes by Anthony Fu are used through Shiki under the MIT License
 ## Social-image rendering
 
 Satori is distributed under Mozilla Public License 2.0. resvg-js is distributed under Mozilla Public License 2.0 and Apache License 2.0 terms; see their package distributions.
+
+## Publication translation
+
+Automatic translation of published articles uses the `facebook/m2m100_418M` weights (MIT license) through the Transformers library (Apache License 2.0), PyTorch (BSD-style license) and SentencePiece (Apache License 2.0). Model weights are downloaded into the build runner cache and are not distributed with this repository.

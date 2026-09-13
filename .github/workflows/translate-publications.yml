@@ -21,6 +21,11 @@ on:
         required: false
         type: boolean
         default: false
+      smoke:
+        description: Run a local engine smoke test only (no commit, no deploy)
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -32,14 +37,15 @@ concurrency:
 jobs:
   translate:
     runs-on: ubuntu-latest
+    timeout-minutes: 180
     permissions:
       contents: write
     outputs:
       generated: ${{ steps.changes.outputs.generated }}
     env:
-      TRANSLATION_ENDPOINT: ${{ vars.TRANSLATION_ENDPOINT }}
-      TRANSLATION_API_KEY: ${{ secrets.TRANSLATION_API_KEY }}
-      TRANSLATION_MODEL: ${{ vars.TRANSLATION_MODEL }}
+      HF_HOME: ${{ runner.temp }}/huggingface
+      M2M100_BATCH: "4"
+      M2M100_THREADS: "2"
       TRANSLATE_SLUG: ${{ inputs.slug }}
       TRANSLATE_LOCALE: ${{ inputs.locale }}
       TRANSLATE_FORCE: ${{ inputs.force }}
@@ -55,9 +61,58 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-translation.txt
+      - name: Restore model cache
+        uses: actions/cache@v5
+        with:
+          path: ${{ runner.temp }}/huggingface
+          key: m2m100-${{ runner.os }}-55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636-${{ hashFiles('requirements-translation.txt') }}
+          restore-keys: |
+            m2m100-${{ runner.os }}-55c2e61bbf05dfb8d7abccdc3fae6fc8512fd636-
+      - name: Install translation dependencies
+        run: python -m pip install -r requirements-translation.txt
+      - name: Validate translation engine
+        run: python scripts/translation-worker.py --self-test
       - name: Sync main
+        if: ${{ !inputs.smoke }}
         run: git pull --rebase origin main
+      - name: Create smoke fixture
+        if: ${{ inputs.smoke }}
+        shell: bash
+        run: |
+          cat > src/content/blog/zz-smoke-check.md <<'EOF'
+          ---
+          title: Fumée de validation éphémère
+          description: Un article minuscule pour contrôler le moteur local
+          pubDate: 2026-09-01
+          draft: false
+          section: computing
+          contentType: article
+          tags:
+            - validation
+          ---
+
+          ## Contrôle rapide
+
+          Ce texte bref vérifie que le moteur local traduit la prose et préserve la structure.
+
+          Voici un lien vers [la documentation Astro](https://docs.astro.build) et du code en ligne `const exemple = 1`.
+
+          ```js
+          const garde = "ce bloc doit rester intact";
+          ```
+
+          Une formule en ligne $E = mc^2$ doit rester intacte.
+
+          > Une citation à traduire avec soin.
+          EOF
       - name: Generate translations
+        if: ${{ !inputs.smoke }}
         shell: bash
         run: |
           args=(--translate)
@@ -65,7 +120,48 @@ jobs:
           if [[ -n "$TRANSLATE_LOCALE" ]]; then args+=(--locale "$TRANSLATE_LOCALE"); fi
           if [[ "$TRANSLATE_FORCE" == "true" ]]; then args+=(--force); fi
           npm run translate -- "${args[@]}"
+      - name: Smoke translation
+        if: ${{ inputs.smoke }}
+        shell: bash
+        run: npm run translate -- --translate --slug zz-smoke-check
+      - name: Validate smoke output
+        if: ${{ inputs.smoke }}
+        shell: bash
+        run: |
+          node -e '
+            const { existsSync, readFileSync } = require("node:fs");
+            const { join } = require("node:path");
+            const locales = ["en", "es", "de", "pt-br", "it", "ja", "zh-cn"];
+            const required = ["```js", "const garde = \"ce bloc doit rester intact\"", "https://docs.astro.build", "$E = mc^2$", "> "];
+            for (const locale of locales) {
+              const path = join("src", "content", "translations", locale, "zz-smoke-check.md");
+              if (!existsSync(path)) throw new Error(`missing smoke output: ${path}`);
+              const text = readFileSync(path, "utf8");
+              for (const token of required) {
+                if (!text.includes(token)) throw new Error(`${locale}: protected token lost: ${token}`);
+              }
+              if (!text.includes("sourceHash:") || text.includes("manual: true")) {
+                throw new Error(`${locale}: translation metadata is incomplete`);
+              }
+            }
+            console.log("Smoke output is structurally intact for all seven locales.");
+          '
+      - name: Remove smoke artifacts
+        if: ${{ inputs.smoke }}
+        shell: bash
+        run: |
+          rm -f src/content/blog/zz-smoke-check.md
+          for locale in en es de pt-br it ja zh-cn; do
+            rm -f "src/content/translations/$locale/zz-smoke-check.md"
+          done
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git status --porcelain
+            echo "Smoke test left workspace changes behind."
+            exit 1
+          fi
+          echo "Smoke workspace is clean; nothing committed, nothing deployed."
       - name: Detect generated files
+        if: ${{ !inputs.smoke }}
         id: changes
         shell: bash
         run: |
@@ -75,24 +171,24 @@ jobs:
             echo "generated=false" >> "$GITHUB_OUTPUT"
           fi
       - name: Check
-        if: steps.changes.outputs.generated == 'true'
+        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
         run: npm run check
       - name: Build
-        if: steps.changes.outputs.generated == 'true'
+        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
         run: npm run build
       - name: Verify production output
-        if: steps.changes.outputs.generated == 'true'
+        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
         run: npm run verify
       - name: Configure Pages
-        if: steps.changes.outputs.generated == 'true'
+        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
-        if: steps.changes.outputs.generated == 'true'
+        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
       - name: Commit translations
-        if: steps.changes.outputs.generated == 'true'
+        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
         shell: bash
         run: |
           git config user.name "Voldigoade"

@@ -4,7 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
 
-import { translateSegments } from "./translate-provider.mjs";
+import { closeProvider, translateSegments } from "./translate-provider.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SOURCE_DIR = join(ROOT, "src", "content", "blog");
@@ -353,7 +353,7 @@ function printStatus(rows, json) {
 
 function safeTranslations(values) {
   if (!Array.isArray(values) || values.some((value) => typeof value !== "string")) return false;
-  return values.every((value) => !/[\r\n\[\]{}<>`*_~|]/.test(value));
+  return values.every((value) => !/[\r\n\[\]{}<>`*_~|]/.test(value) && !/(?:https?:\/\/|mailto:)/i.test(value));
 }
 
 async function translatedDocument(source, locale, hash) {
@@ -396,7 +396,12 @@ async function runTranslate(filters) {
   const sources = new Map(sourceFiles().map((source) => [source.slug, source]));
   for (const row of rows) {
     const source = sources.get(row.slug);
-    const output = await translatedDocument(source, row.locale, row.hash);
+    let output;
+    try {
+      output = await translatedDocument(source, row.locale, row.hash);
+    } catch (error) {
+      throw new Error(`${row.locale}/${row.slug}: ${error.message}`);
+    }
     const extension = source.name.endsWith(".mdx") ? "mdx" : "md";
     const path = translationPath(row.locale, row.slug, extension);
     mkdirSync(dirname(path), { recursive: true });
@@ -450,3 +455,4 @@ try {
   console.error(error.message);
   process.exitCode = 1;
 }
+await closeProvider();

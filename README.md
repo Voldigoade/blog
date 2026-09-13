@@ -35,7 +35,7 @@ French is authoritative. The supported translated locales are English, Spanish, 
 
 Use `npm run translate` to inspect translation status. Generation can be scoped with `npm run translate -- --translate --slug <slug>` and `npm run translate -- --translate --locale <locale>`. Add `--force` to regenerate current automatic translations.
 
-The GitHub workflow uses the `TRANSLATION_API_KEY` repository secret and the `TRANSLATION_ENDPOINT` and `TRANSLATION_MODEL` repository variables.
+Published French articles are translated into supported locales during the publication workflow. Generated translations are stored as static content; normal builds do not require translation services.
 
 ## Deployment
 

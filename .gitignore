@@ -27,3 +27,8 @@ pnpm-debug.log*
 .vercel/
 .netlify/
 .wrangler/
+
+.venv/
+__pycache__/
+*.py[cod]
+.hf-cache/
