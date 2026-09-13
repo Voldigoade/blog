@@ -1,6 +1,6 @@
 ---
-title: Der Himmel, den wir sehen, existiert nicht mehr.
-description: 'Der Blick auf den Himmel bedeutet, Bilder zu spät zu bekommen. Acht Minuten für die Sonne, 2,5 Millionen Jahre für Andromeda, fast die ganze Geschichte des Universums für den kosmologischen Hintergrund: Wie weit kann man wirklich in die Vergangenheit betrachten?'
+title: Der Himmel, den wir betrachten, existiert nicht mehr.
+description: 'Den Himmel zu betrachten bedeutet, Bilder zu empfangen, die verzögert sind. Acht Minuten für die Sonne, 2,5 Millionen Jahre für Andromeda und fast die gesamte Geschichte des Universums für den kosmischen Hintergrund: Wie weit kann man tatsächlich in die Vergangenheit blicken?'
 pubDate: 2026-09-13
 draft: false
 featured: true
@@ -16,7 +16,7 @@ tags:
   - Univers
   - cosmologie
 coverImage: /blog/images/posts/univers.png
-coverAlt: Eine Illustration zeigt, dass je weiter wir das Universum betrachten, desto mehr wir eine alte Epoche seiner Geschichte beobachten.
+coverAlt: Illustration, die zeigt, dass je weiter wir in das Universum blicken, desto weiter zurück in seine Geschichte schauen wir.
 author: Voldigoade
 locale: de
 sourceSlug: 2026-09-13-le-ciel-que-nous-regardons-nexiste-deja-plus
@@ -24,198 +24,198 @@ sourceHash: 4fb4358618c12c67d057a3ab3c6a139fd2a987f259874ad559757f1824192fc1
 manual: false
 ---
 
-Es gibt etwas tiefgreifendes im Himmel.
+Es gibt etwas sehr Täuschendes am Himmel.
 
-Wenn ich eine Person nur wenige Meter von mir entfernt betrachte, kann mein Gehirn vernünftig so tun, als ob ich sie jetzt sehe. Das Licht braucht so wenig Zeit, um diese Entfernung zu bewegen, dass die Verzögerung unsichtbar ist. Aber diese Annäherung breitet sich, sobald die Entfernungen astronomisch werden.
+Wenn ich eine Person, die sich etwa drei Meter vor mir befindet, betrachte, kann mein Gehirn vernünftigerweise so tun, als ob ich sie "jetzt" sehe. Das Licht benötigt so wenig Zeit, um diese Distanz zurückzulegen, dass die Verzögerung kaum wahrnehmbar ist. Dies gilt jedoch nur, wenn die Distanzen sehr groß sind.
 
-**Der Himmel ist kein Live-Bild des Universums. Es ist eine Sammlung von Bildern aus der Vergangenheit.**
+**Der Himmel ist keine direkte Abbildung des Universums. Er ist eine Sammlung von Bildern aus der Vergangenheit.**
 
-Je weiter man betrachtet, desto älter ist die Vergangenheit.
+Je weiter man zurückblickt, desto weiter zurück liegt diese Vergangenheit.
 
-## Sehen, ist immer nach unten zu schauen
+## Zu sehen bedeutet immer, zurückzublicken.
 
-Das Licht reist in der Leere um **300.000 Kilometer pro Sekunde**. Es ist außergewöhnlich schnell, aber es ist nicht sofortig. Auf der Ebene des Universums wird sogar diese Geschwindigkeit schrecklich langsam.
+Das Licht bewegt sich im Vakuum mit einer Geschwindigkeit von etwa **300.000 Kilometer pro Sekunde**. Es ist außergewöhnlich schnell, aber nicht sofort. Auf kosmischer Ebene wird selbst diese Geschwindigkeit jedoch erschreckend langsam.
 
-Das Licht des Mondes geht um **1,3 Sekunden** um uns zu erreichen. Die Sonne nimmt um **8 Minuten und 20 Sekunden** Die 150 Millionen Kilometer, die uns von ihnen trennen. Wenn wir die Sonne offensichtlich niemals direkt ohne angemessene Schutz betrachten, sehen wir also die sonne nicht so, wie sie in diesem genauen Augenblick ist: wir sehen die photons, die sie etwa acht Minuten früher gesandt hat. 
+Das Mondlicht erzeugt etwa **1,3 Sekunden** uns erreichen. Die Sonne benötigt etwa **8 Minuten und 20 Sekunden** um die etwa 150 Millionen Kilometer zurückzulegen, die uns trennen. Wenn wir die Sonne betrachten – natürlich niemals direkt und ohne geeigneten Schutz – sehen wir die Sonne nicht in dem Moment, in dem sie sich gerade befindet: wir sehen die Photonen, die sie vor etwa acht Minuten ausgesendet hat. 
 
-Diese Regel betrifft nicht nur das sichtbare Licht. Radio, Infrarot, Ultraschall, Röntgen oder Gamma sind auch Formen der elektromagnetischen Strahlung und verbreiten sich mit der gleichen Geschwindigkeit im Vakuum. Ein Teleskop beobachtet daher niemals wirklich ein fernes Objekt "live". 
+Diese Regel gilt nicht nur für sichtbares Licht. Radiowellen, Infrarotstrahlung, Ultraviolettstrahlung, Röntgen- oder Gammastrahlen sind ebenfalls Formen elektromagnetischer Strahlung und breiten sich mit derselben Geschwindigkeit im Vakuum aus. Ein Teleskop beobachtet daher niemals ein ferneres Objekt „direkt“. 
 
-Man kann diese Abweichung mit einigen Beispielen zusammenfassen:
+Dies kann man mit einigen Beispielen zusammenfassen:
 
-| Was wir beobachten | Was wir ungefähr sehen |
+| Was wir beobachten | Das, was wir ungefähr sehen können |
 
-| der Mond | vor 1,3 Sekunden |
+| Der Mond | 1,3 Sekunden |
 
-| die Sonne | vor 8 min 20 s |
+| Die Sonne | vor 8 Minuten und 20 Sekunden |
 
-| Proxima des Centaures | vor etwa 4,2 Jahren |
+| Proxima Centauri | vor etwa 4,2 Jahren |
 
-| Zentrum der Milchstraße | vor etwa 26.000 Jahren |
+| Galaktisches Zentrum | vor etwa 26.000 Jahren |
 
-| Galaxie von Andromeda | vor ca. 2,5 Millionen Jahren |
+| Galaxie von Andromeda | vor etwa 2,5 Millionen Jahren |
 
-| Diffus kosmologischer Hintergrund | Das Universum ist 380.000 Jahre alt |
+| Kosmische Hintergrundstrahlung | Universität, die etwa 380.000 Jahre alt ist |
 
-Mit anderen Worten, **Die Entfernung ist auch eine Maschine, die die Zeit erhöht.**.
+Mit anderen Worten, **Auch die Entfernung ist eine Maschine, die die Zeit zurückdrehen kann.**.
 
-## Wenn die Sonne verschwindet, würden wir es nicht sofort wissen.
+## Wenn die Sonne verschwinden würde, würden wir es nicht sofort bemerken.
 
-Nehmen wir ein unmögliches Denken-Erlebnis an: Stellen wir uns vor, dass die Sonne sofort verschwindet.
+Nehmen wir ein Gedankenexperiment: Stellen wir uns vor, die Sonne verschwindet plötzlich und sofort.
 
-In etwa acht Minuten scheint nichts sich seit der Erde verändert zu haben. Die letzten Fotos, die bereits auf dem Weg sind, würden weiterhin bis zu uns kommen. Noch merkwürdiger ist, dass im Rahmen der allgemeinen Relativität die Veränderung seines gravitativen Einflusses auch uns nicht sofort erreichen könnte: Gravitativen Störungen verbreiten sich mit der Lichtgeschwindigkeit. Während dieser Zeit würde die Erde also weitergehen, als ob die Sonne noch da war. 
+Für etwa acht Minuten scheint nichts verändert zu sein. Die letzten Photonen, die bereits unterwegs waren, würden weiterhin zu uns gelangen. Noch bemerkenswerter ist, dass, im Rahmen der allgemeinen Relativitätstheorie, die Änderung ihrer Gravitationswirkung uns auch nicht sofort erreichen könnte: Gravitationswellen breiten sich mit Lichtgeschwindigkeit aus. Während dieser Zeit würde die Erde ihre Bewegung fortsetzen, als wäre die Sonne immer noch vorhanden. 
 
-Dann wird uns die Information erreicht.
+Dann würden wir die Informationen erhalten.
 
-Dunkelheit und Gravitationsveränderung würden nicht wegen einer defekten Maschine "verzögert" sein. **Diese Zeit ist Teil der Struktur des Universums selbst: Keine physische Information kann einfach überall sofort erscheinen.**
+Die Dunkelheit und die Gravitationsänderung würden nicht aufgrund einer defekten Maschine verzögert werden. **Diese Frist ist ein integraler Bestandteil der Struktur des Universums: keine physikalische Information kann einfach und augenblicklich überall auftreten.**
 
-### Aber achten Sie auf das Beispiel der Eclipse
+### Aber beachten Sie das Beispiel der Sonnenfinsternis.
 
-Hier gibt es eine ziemlich subtile Falle. Man könnte versucht werden, zu sagen: "Wenn ich die Sonne mit acht Minuten Verspätung sehe, wenn ein Sonneneinstreck in meinem Himmel erscheint, war sie bereits acht Minuten früher abgeschlossen."
+Hier gibt es eine relativ subtile Falle. Man könnte argumentieren: „Da ich die Sonne mit acht Minuten Verzögerung sehe, und eine Sonnenfinsternis erscheint in meinem Himmel, ist sie bereits acht Minuten zuvor zu Ende gewesen.“
 
-Das ist nicht genau.
+Das ist nicht korrekt.
 
-Ein Sonnenaufgang ist kein Ereignis, das stattfindet. **auf der Sonne**. Sie stammt aus dem Mond, der zwischen uns und den Sonnenfotonen sitzt und sie in der Nähe der Erde blockiert. Die betroffenen Photon haben die Sonne etwa acht Minuten zuvor verlassen, aber die Beschleunigung selbst hängt von der Position der Mond auf ihrer Reise ab. Daher muss unterschieden werden **Das Alter des Sonnenlichtes, das wir erhalten** von **Das geometrische Ereignis namens Eclipse**.
+Eine Sonnenfinsternis ist kein Ereignis, das einfach passiert. **über die Sonne**. Sie entsteht, wenn der Mond sich zwischen uns und den Sonnenphotonen befindet und diese in der Nähe der Erde blockiert. Die betreffenden Photonen haben den Sonnenaufgang vor etwa acht Minuten verlassen, aber die eigentliche Mondfinsternis hängt von der Position des Mondes auf ihrer Flugbahn ab. Es ist daher wichtig, zwischen **die Lebensdauer des Sonnenlichts, das wir empfangen** de **das geometrische Ereignis, das als Sonnenfinsternis bezeichnet wird**.
 
-Die Initialintuition bleibt gut: Die Sonne, die wir sehen, gehört zu der Vergangenheit. Aber der Himmel wird schnell interessanter, sobald man aufhört, "ein achtminütige Verzögerung" zu einer zu einfachen Regel zu verwandeln.
+Die anfängliche Intuition bleibt bestehen: Die Sonne, die wir sehen, gehört zur Vergangenheit. Aber der Himmel wird schnell interessanter, sobald man aufhört, "acht Minuten Verspätung" in eine zu einfache Regel zu reduzieren.
 
-## Andromeda: 2,5 Millionen Jahre alte Fotografie
+## Andromedagalaxie: Ein Foto aus 2,5 Millionen Jahren
 
-Dann kommt Andromeda.
+Dan kommt Andromeda.
 
-Die große Galaxie von Andromeda befindet sich ungefähr **2,5 Millionen Lichtjahre** von uns. Ein Lichtjahr ist keine Dauer: Es ist die Entfernung, die das Licht in einem Jahr verläuft. Das bedeutet, dass die Photon von Andromeda, die heute auf die Erde kommen, vor etwa 2,5 Millionen Jahren dort verlassen sind. 
+Die große Galaxie Andromed ist etwa **2,5 Millionen Lichtjahre** über uns. Ein Lichtjahr ist keine Zeitspanne: es ist die Entfernung, die das Licht in einem Jahr zurücklegt. Das bedeutet, dass die Photonen von Andromeda, die heute auf der Erde ankommen, vor etwa 2,5 Millionen Jahren dort ausgesendet wurden. 
 
-Wenn wir Andromeda heute Abend beobachten, sehen wir sie also so, wie sie in einer Zeit war, in der die ersten Vertreter des Genres auf der Erde *Homo* Es existierte bereits, aber wo unsere Art noch weit weg war, um zu erscheinen.
+Wenn wir heute Abend Andromedagalaxie beobachten, sehen wir sie also in dem Zustand, in dem sie zu einer Zeit war, als auf der Erde die ersten Vertreter dieser Gattung *Mensch* Es gab sie bereits, aber unsere Art war noch sehr weit entfernt von ihrer Entstehung.
 
-Und hier ist die Vertiefung: **Wir wissen nicht, wie Andromeda „jeden“ aussieht, indem wir ihn von der Erde beobachten.**. Ereignisse treten wahrscheinlich in diesem Moment nach unserer üblichen Art und Weise auf, aber ihr Licht wird noch Millionen von Jahren dauern, um uns zu erreichen.
+Und genau das ist der Schwindel: **Wir wissen nicht, wie sich Andromedagalaxie „derzeit“ von der Erde aus darstellt.**. Wahrscheinlich ereignen sich dort gerade Dinge, wie wir es gewohnt sind, zu sagen, aber das Licht dieser Ereignisse wird noch Millionen von Jahren brauchen, um uns zu erreichen.
 
-Wenn heute eine Sterne von Andromeda explodiert würde, könnte kein lebendiger Mensch diese Explosion von der Erde sehen. Auch nicht unsere Kinder. Nicht ihre Nachkommen für eine schwierige Zeit zu vorstellen.
+Wenn ein Stern von Andromeda heute explodieren würde, könnten keine Menschen, die heute leben, diese Explosion von der Erde aus sehen. Auch unsere Kinder und ihre Nachkommen für eine lange, kaum vorstellbare Zeit nicht.
 
-Die Informationen gibt es vielleicht schon da. Sie existiert einfach noch nicht **Für uns**.
+Diese Information existiert möglicherweise bereits dort. Sie existiert schlichtweg noch nicht. **für uns**.
 
-## Teleskope sind wirklich Maschinen, die die Zeit zurückziehen
+## Teleskope sind tatsächlich Maschinen, die uns in die Vergangenheit zurückversetzen können.
 
-Dies macht Teleskope wie Hubble oder James Webb viel interessanter als ein einfaches "Gigant Zoom".
+Das macht Teleskope wie Hubble oder James Webb zu viel interessanteren Instrumenten als ein einfaches "großes Zoom".
 
-Ihr Ziel ist nicht nur, extrem fern Dinge zu beobachten. Wenn sie das Licht vor Milliarden von Jahren erfasst haben, ermöglichen sie **Verschiedene Zeiten der kosmischen Geschichte**.
+Ihr Ziel ist nicht nur, Dinge zu beobachten, die extrem weit entfernt sind. Durch die Erfassung von Licht, das vor Milliarden von Jahren abgestrahlt wurde, ermöglichen sie die Untersuchung von **verschiedene Epochen der kosmischen Geschichte**.
 
-So beschreibt die NASA Hubble als eine Art Maschine, die in der Zeit reist: Je weit das beobachtete Objekt entfernt ist, desto mehr ist sein Bild aus einer alten Epoche. 
+Die NASA beschreibt das Hubble-Teleskop daher als eine Art Zeitmaschine: Je weiter das beobachtete Objekt entfernt ist, desto älter ist das Bild, das davon stammt. 
 
-James Webb führt dieses Prinzip heute äußerst weit. Beobachtungen, die von Webb bestätigt wurden, zeigen zum Beispiel die Galaxie MoM-z14, wie sie nur etwa existierte **280 Millionen Jahre nach dem Big Bang**. Sein Licht reiste etwa 13,5 Milliarden Jahre, bevor er uns erreichte. 
+James Webb treibt dieses Prinzip heute zu extremen Ausmaßen voran. Beobachtungen, die von Webb bestätigt wurden, zeigen beispielsweise die Galaxie MoM-z14, wie sie vor etwa **280 Millionen Jahre nach dem Urknall**. Ihr Licht hat etwa 13,5 Milliarden Jahre gebraucht, um uns zu erreichen. 
 
-Wir rekonstruieren also nicht nur die Geschichte des Universums aus fossilen oder Simulationen. **Ein Teil dieser Geschichte kommt buchstäblich zu uns in Form von Photon.**
+Wir rekonstruieren also nicht nur die Geschichte des Universums anhand von Fossilien oder Simulationen. **Ein Teil dieser Geschichte erreicht uns buchstäblich in Form von Photonen.**
 
 Der Himmel ist ein Archiv.
 
-## Kann man so weit aussehen, um den Big Bang zu sehen?
+## Kann man also so weit schauen, um den Urknall zu beobachten?
 
-Dort wird die Idee noch faszinierender.
+Genau hier wird die Idee noch faszinierender.
 
-Intuitiv könnte man denken, dass es ausreichend wäre, ein unendlich mächtiges Teleskop herzustellen. Näher bedeutet älter; daher reicht es, weiter zu gehen, bis die Nullzeit erreicht wird.
+Intuitiv könnte man denken, dass es ausreicht, ein unendlich leistungsstarkes Teleskop zu bauen. "Weiter" bedeutet hier "älter", daher müsste man einfach fortfahren, bis man den Nullpunkt erreicht.
 
 Aber nicht.
 
-**Wir können den Big Bang nicht mit Licht selbst sehen.**
+**Wir können den Urknall selbst nicht mit Licht beobachten.**
 
-Das Problem ist nicht die Macht unserer Teleskope. Das ist das primäre Universum selbst.
+Das Problem liegt nicht an der Leistung unserer Teleskope. Es ist das Urunivers selbst.
 
-In den ersten hunderttausenden Jahren war das Universum äußerst warm und voller Plasma mit Elektronen und Atomkern. Die Photone wurden ständig durch die ladende Partikel verbreitet. Das Universum schien, für das Licht, wie eine riesige, unsichtbare Wolke. 
+Während seiner ersten Hunderttausenden von Jahren war das Universum extrem heiß und bestand aus einem dichten Plasma aus Elektronen und Atomkernen. Die Photonen wurden ständig von den geladenen Teilchen gestreut. Für das Licht wirkte das Universum wie ein riesiger, undurchsichtiger Nebel. 
 
-Und dann etwa **380.000 Jahre nach dem Big Bang**Das Universum ist genug gekühlt, um die Elektronen mit den Kerns zu verbinden und neutrale Atome zu bilden. Das Licht konnte schließlich frei über große Entfernungen reisen. 
+Danach, etwa **380.000 Jahre nach dem Urknall**„Das Universum war ausreichend abgekühlt, sodass die Elektronen an die Kerne binden und neutrale Atome bilden konnten. Dadurch konnte das Licht nun endlich über große Entfernungen frei reisen.“ 
 
-Diese Fotonen reisen immer wieder.
+Diese Photonen bewegen sich immer weiter.
 
-Wir erkennen sie heute in Form der **Diffus kosmologischer Hintergrund**oder CMB (*Cosmic Microwave Hintergrund*).
+Wir erkennen sie heute in Form von **kosmologischer Hintergrund**oder CMB (*Kosmischer Mikrowellenhintergrund*).
 
-Das ist das älteste Licht, das wir beobachten können. Eine echte Fotografie des Universums, als es nur etwa 380.000 Jahre alt war. Die Missionen COBE, WMAP und Planck haben diese Strahlung mit außergewöhnlicher Genauigkeit gefilmt. 
+Dies ist das älteste Licht, das wir beobachten können. Es stellt eine Art "Fotografie" des Universums dar, als es nur etwa 380.000 Jahre alt war. Die COBE-, WMAP- und Planck-Missionen haben diese Strahlung mit außergewöhnlicher Präzision kartiert. 
 
-Das ist also nicht ganz:
+Es ist also nicht ganz richtig:
 
-**„Wir können den Big Bang sehen.“**
+**„Wir können den Urknall beobachten.“**
 
-Das ist etwas genauer und nach meiner Sicht noch beeindruckender:
+Das ist etwas Präziseres und meiner Meinung nach noch beeindruckender:
 
-**Wir können heute wirklich das freie Licht empfangen, wenn das Universum nur etwa 0,003% seines jetzigen Alters war.**
+**Wir können heute tatsächlich Licht empfangen, das von einer Zeit stammt, als das Universum nur etwa 0,003 % seines heutigen Alters hatte.**
 
-Zuvor ist das Universum im Wesentlichen opac gegenüber den Photon, die wir zur Beobachtung des Kosmos verwenden.
+Vorher war das Universum im Wesentlichen für die Photonen, die wir zur Beobachtung des Kosmos verwenden, undurchsichtig.
 
-## Und der Big Bang ist nicht irgendwo am Tiefe des Himmels
+## Und der Urknall ist nicht irgendwo tief im Himmel
 
-Man muss sich von einem anderen falschen geistigen Bild loswerden.
+Wir müssen ein weiteres, irreführendes Bild im Kopf loswerden.
 
-Der Big Bang war keine Bombe, die an einem bestimmten Ort in einem riesigen leeren Raum explodierte. Es gibt keine Richtung vom Himmel, auf die ein Teleskop hinweist, um zu sehen, "wo alles begann".
+Der Urknall war keine Explosion an einem bestimmten Ort in einem riesigen, leeren Raum. Es gibt keine Richtung am Himmel, in die man ein Teleskop richten kann, um "den Ort zu beobachten, an dem alles begann".
 
-Nach der modernen Kosmologie, **Die Erweiterung geschah überall.**. Es gibt kein Weltraumzentrum im Big Bang, das wir erkennen könnten. John Mather, Nobelpreisträger und Wissenschaftler des Teleskop James Webb, betont genau den falschen Charakter des Namens "Big Bang", wenn er das Bild einer Explosion mit einem Zentrum erwähnt. 
+Gemäß der modernen Kosmologie, **Die Expansion hat sich überall ereignet.**Es gibt keinen Ort im Weltraum, den wir als „Big Bang“-Zentrum identifizieren könnten. John Mather, Nobelpreisträger und Wissenschaftler des James-Webb-Teleskops, betont genau, dass der Begriff „Big Bang“ irreführend ist, wenn er von einer Explosion mit einem Zentrum spricht. 
 
-Aus diesem Grund umgibt uns auch das diffuse kosmologische Hintergrund in **Alle Richtungen**.
+Dies ist auch der Grund, warum das kosmische Hintergrundlicht uns umgibt. **alle Richtungen**.
 
-Schauen Sie sich weit links: Junge Welt.
+Schauen Sie sehr weit links: Univers der Jugend.
 
-Sehr weit rechts: Junge Welt.
+Sehr weit rechts: Jugendliche Welt.
 
-Über: Die junge Welt.
+Oben: Jünges Universum.
 
-Unter unseren Füßen, wenn die Erde unsere Sicht nicht blockiert: noch der junge Universum.
+Wenn die Erde uns nicht im Weg stehen würde, könnten wir die junge Welt des Universums sehen.
 
-Wir sind im Zentrum von **Unser beobachtbares Universum**Aber das bedeutet nicht, dass wir im Zentrum des Universums sind.
+Wir befinden uns im Zentrum von **Unser beobachtbares Universum**, aber das bedeutet nicht in keiner Weise, dass wir im Zentrum des Universums stehen.
 
-## Wie kann das beobachtbare Universum 92 Milliarden Lichtjahre messen?
+## Wie kann das beobachtbare Univers eine Entfernung von 92 Milliarden Lichtjahren messen?
 
-Dies ist ein weiterer Wunder, der zuerst unmöglich erscheint.
+Hier ist eine weitere Ungewöhnlichkeit, die zunächst unmöglich erscheint.
 
-Das Universum ist um **13,8 Milliarden Jahre**. Man könnte also glauben, dass wir nichts außerhalb von etwa 13,8 Milliarden Lichtjahren beobachten können und dass das beobachtbare Universum bis zu 27,6 Milliarden lichtjahren Durchmesser messen sollte.
+Das Universum ist etwa **13,8 Milliarden Jahre**Man könnte also annehmen, dass wir nur Objekte innerhalb von etwa 13,8 Milliarden Lichtjahren beobachten können, und dass das beobachtbare Universum maximal einen Durchmesser von 27,6 Milliarden Lichtjahren haben sollte.
 
-Der gegenwärtige Durchmesser wird jedoch auf ungefähr **92 Milliarden Lichtjahre**. 
+Allerdings wird sein aktueller Durchmesser auf etwa geschätzt. **92 Lichtjahre**. 
 
 Es gibt keine Widersprüche.
 
-Während die Fotonen für Milliarden von Jahren zu uns reisen, **Der Raum selbst erweitert sich weiter.**. Die Gegend, von der einige dieser Fotons gekommen sind, ist daher heute viel weiter von uns entfernt, als sie zu dem Zeitpunkt ihrer Sendung war.
+Während die Photonen Milliarden von Jahren unterwegs waren, **Der Raum selbst setzte seine Ausdehnung fort.**Daher ist die Region, aus der einige dieser Photonen stammen, heute viel weiter von uns entfernt als zu dem Zeitpunkt, als sie ausgesendet wurden.
 
-Es ist eine grundlegende Unterscheidung zwischen zwei Fragen, die identisch erscheinen, aber nicht:
+Dies ist eine grundlegende Unterscheidung zwischen zwei Fragen, die auf den ersten Blick gleich erscheinen, aber tatsächlich unterschiedlich sind:
 
-„Wie lange reist dieses Licht?“
+„Seit wann ist dieses Licht unterwegs?“
 
 und
 
-„Wie weit ist heute die Region, die es ausgegeben hat?“
+„Wie weit entfernt ist heute die Region, die sie ursprünglich ausgegeben hat?“
 
-Bei kosmologischen Entfernungen können diese beiden Zahlen radikal unterschiedlich sein.
+Bei kosmischen Entfernungen können diese beiden Zahlen jedoch völlig unterschiedlich sein.
 
-## Kann jemand die Dinosaurier auf der Erde sehen?
+## Gibt es jemanden, der die Dinosaurier auf der Erde beobachten könnte?
 
-Diese Idee führt zu einer wunderschönen Denk-Erfahrung.
+Diese Idee führt zu einer wunderschönen Gedankenspiel.
 
-Das Licht, das vor 66 Millionen Jahren von der Erde reflektiert wurde, ist immer noch irgendwo im Universum und reist nach außen.
+Das von der Erde vor 66 Millionen Jahren reflektierte Licht ist immer noch irgendwo im Universum und bewegt sich nach außen.
 
-In der Theorie ist ein Beobachter in der Umgebung **66 Millionen Lichtjahre** Von der Erde wird heute die Photone empfangen, die bis zum Zeitpunkt der Vernichtung der nicht-Affen Dinosaurier verlassen wurden. Mit einem fiktiven Instrument, das eine Auflösung völlig außerhalb unserer Technologien erreicht, würde er eine 66 Millionen Jahre alte Erde betrachten.
+Theoretisch gesehen, wäre ein Beobachter, der sich etwa **66 Millionen Lichtjahre** Heute würden die Photonen, die vor etwa 66 Millionen Jahren von der Erde ausgesendet wurden, die Erde erreichen. Mit einem fiktiven Instrument, das eine Auflösung ermöglicht, die weit über die unserer heutigen Technologien hinausgeht, würde man also eine 66 Millionen Jahre alte Erde beobachten.
 
-Das bedeutet leider nicht, dass wir ein Schiff bauen können, bis dahin gehen und ein Teleskop auf die Erde ziehen können, um unsere eigene Vergangenheit zu betrachten.
+Das bedeutet jedoch nicht, dass wir ein Raumschiff bauen, bis dahin gelangen und ein Teleskop auf die Erde richten, um unsere eigene Vergangenheit zu beobachten.
 
-Die Fotonen sind bereits mit der Lichtgeschwindigkeit gekommen.
+Die Photonen sind bereits mit Lichtgeschwindigkeit fortgewandelt.
 
-Um sie nach ihrer Abreise zurückzufangen, müssen sie übertreffen werden. Die Relativität verbietet einem materiellen Objekt, einfach über die Lichtgeschwindigkeit im Vakuum zu beschleunigen. Das wunderschöne Lichtarchiv unserer Vergangenheit existiert also irgendwo im Weltraum, aber es fährt uns zu einer Geschwindigkeit ab, die wir nicht überschreiten können.
+Um sie nach ihrer Abreise wieder einzuholen, müsste man sie überholen. Allerdings verbietet die Relativitätstheorie einem materiellen Objekt, einfach über die Lichtgeschwindigkeit im Vakuum hinauszukommen. Die beeindruckende Lichtquelle unserer Vergangenheit existiert also irgendwo im Raum, aber sie entfernt sich von uns mit einer Geschwindigkeit, die wir nicht überholen können.
 
-## Und die Zukunft?
+## Und was ist die Zukunft?
 
-Hier wird die Asymmetrie wichtig.
+Hier wird die Asymmetrie besonders wichtig.
 
-Wir können die Vergangenheit sehen, weil **Die Signale der Vergangenheit haben die Zeit, uns zu erreichen**. Wir können die Zukunft nicht auf die gleiche Weise beobachten, weil die Fotos, die Informationen über diese Ereignisse transportieren, noch nicht veröffentlicht wurden.
+Wir können die Vergangenheit betrachten, weil… **Die Zeichen der Vergangenheit haben uns erreicht.**Wir können die Zukunft nicht auf die gleiche Weise beobachten, da die Photonen, die die Informationen über diese Ereignisse transportieren, noch nicht ausgesendet wurden.
 
-In relativität formalisiert man diese idee mit dem, was die physikalischen **Kone von Licht**. Unsere Vergangenes Lichtkone enthält Ereignisse, die ein Signal zu uns senden konnten. Unsere zukünftige Lichtkone enthält Ereignisse, die die Signale, die wir heute senden, möglicherweise beeinflussen können. 
+Im Rahmen der Relativitätstheorie wird diese Idee formalisiert, was die Physiker als den **Lichtstrahl**Unser aktuelles Lichtsignal enthält die Ereignisse, die möglicherweise ein Signal zu uns gesendet haben. Unser zukünftiges Lichtsignal enthält die Ereignisse, die die Signale, die wir heute senden, möglicherweise beeinflussen könnten. 
 
-Und auch unsere Intuition von "Nun überall im Universum" muss mit Vorsicht gehandhabt werden. Die eingeschränkte Relativität zeigt, dass die Synchronität von fernen Ereignissen von der Referenz des Beobachters abhängt: zwei Beobachter, die sich gegenseitig bewegen, können sich nicht darüber einig machen, welche fernen Veranstaltungen gleichzeitig betrachtet werden müssen. 
+Auch unsere Intuition von „dem „Jetzt“ überall im Universum“ muss jedoch mit Vorsicht behandelt werden. Die spezielle Relativitätstheorie zeigt, dass die Gleichzeitigkeit von Ereignissen, die weit voneinander entfernt sind, vom Bezugssystem des Beobachters abhängt: Zwei Beobachter, die relativ zueinander sich bewegen, können sich nicht über Ereignisse einig sein, die als gleichzeitige betrachtet werden sollten. 
 
-Die kosmische Zeit ist daher viel weniger intuitiv als unser tägliches Eindruck eines großen universellen Gegenwartes, der überall mit dem gleichen Tempo voran geht.
+Daher ist die kosmische Zeit viel weniger intuitiv als unsere tägliche Vorstellung eines großen, allgegenwärtigen Universums, das sich mit gleichbleibender Geschwindigkeit ausbreitet.
 
-## Wir sehen nie ein einziges Universum.
+## Wir sehen niemals eine einzige Welt.
 
-Wenn wir die Augen erheben, haben wir das Gefühl, einen Raum voller Objekte zu betrachten, die alle gleichzeitig existieren.
+Wenn wir den Blick nach oben richten, haben wir den Eindruck, eine Umgebung zu betrachten, die voller Objekte ist, die alle gleichzeitig existieren.
 
 Das ist nicht wirklich das, was wir sehen.
 
-Der Mond gehört zu unserer Vergangenheit vor einer Sekunde. Die Sonne, die vor acht Minuten. Einige Sterne erscheinen uns so, wie sie vor der Geburt unserer Großeltern waren. Das Zentrum unserer Galaxie erreicht uns seit einer Zeit vor der Landwirtschaft. Andromeda zeigt uns eine 2,5 Millionen Jahre alte Welt. Und hinter den ältesten Galaxien befindet sich noch dieses fossile Licht aus einem nur 380 000 Jahre alten Universum.
+Der Mond gehört zu unserer Vergangenheit von vor nur einer Sekunde. Die Sonne gehört zu unserer Vergangenheit von vor acht Minuten. Einige Sterne erscheinen uns so, wie sie vor der Geburt unserer Urgroßeltern waren. Das Zentrum unserer Galaxie stammt aus einer Zeit, die vor der Landwirtschaft liegt. Andromeda zeigt uns eine Welt von 2,5 Millionen Jahren. Und hinter den ältesten Galaxien verbirgt sich immer noch dieses Fossillicht, das von einem Universum stammt, das nur 380.000 Jahre alt ist.
 
-**Eine einzige Nacht enthält also mehrere Milliarden Jahre Geschichte, die im gleichen Himmel übergelegt sind.**
+**Daher enthält eine einzelne Nacht mehrere Milliarden Jahre Geschichte, die gleichzeitig am selben Himmel zu sehen sind.**
 
-Wir dachten, in den Raum zu schauen.
+Wir dachten, wir würden den Weltraum betrachten.
 
-In der Tat, jedes Mal, wenn wir weit genug betrachten, **Wir betrachten auch in der Zeit**.
+In Wirklichkeit, jedes Mal, wenn wir weit genug schauen, **Wir betrachten auch die zeitliche Entwicklung.**.

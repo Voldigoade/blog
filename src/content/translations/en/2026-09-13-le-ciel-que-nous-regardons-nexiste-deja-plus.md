@@ -1,6 +1,6 @@
 ---
-title: The sky we look at no longer exists.
-description: 'Looking at the sky is getting pictures late. Eight minutes for the Sun, 2.5 million years for Andromeda, almost the entire history of the Universe for the cosmological background: how far can we really look in the past?'
+title: The sky we see no longer exists.
+description: 'Looking at the sky is like receiving images from the past, delayed by time. Eight minutes for the Sun, 2.5 million years for Andromeda, and almost the entire history of the universe for the cosmic background: how far back can we actually see?'
 pubDate: 2026-09-13
 draft: false
 featured: true
@@ -16,7 +16,7 @@ tags:
   - Univers
   - cosmologie
 coverImage: /blog/images/posts/univers.png
-coverAlt: Illustration showing that the further we look into the Universe, the more we observe an ancient era of its history.
+coverAlt: Illustration showing that the further we look into the Universe, the more we observe a distant period in its history.
 author: Voldigoade
 locale: en
 sourceSlug: 2026-09-13-le-ciel-que-nous-regardons-nexiste-deja-plus
@@ -24,198 +24,198 @@ sourceHash: 4fb4358618c12c67d057a3ab3c6a139fd2a987f259874ad559757f1824192fc1
 manual: false
 ---
 
-There is something profoundly misleading in heaven.
+There's something profoundly unsettling about the sky.
 
-When I look at a person a few meters away from me, my brain can reasonably make it as if I saw it “now.” The light takes so little time to travel this distance that the delay is invisible. But this approximation collapses as soon as the distances become astronomical.
+When I look at someone a few meters away, my brain can reasonably perceive them as if I am seeing them "now." The light takes so little time to travel that distance that the delay is imperceptible. However, this perception breaks down when the distances become astronomical.
 
-**The sky is not a live image of the universe. It is a collection of images from the past.**
+**The sky is not a real-time image of the universe. It is a collection of images from the past.**
 
-And the closer we look, the older the past.
+The further back in time we look, the more distant and ancient that past becomes.
 
 ## Seeing is always looking back.
 
-The light travels in the empty **300,000 kilometers per second**and It’s extremely fast, but it’s not instantaneous. On the scale of the Universe, even this speed becomes terribly slow.
+The light travels through the vacuum at approximately **300,000 kilometers per second**It's incredibly fast, but it's not instantaneous. On a cosmic scale, even this speed becomes incredibly slow.
 
-The light of the moon is about. **1.3 Seconds** to reach us. The sun is about **8 minutes and 20 seconds** It is about 150 million kilometers that separate us. When we look at the Sun obviously never directly without adequate protection we do not see the Sun as it is at this exact moment: we see the photons that it sent about eight minutes earlier. 
+The moonlight illuminates approximately **1.3 seconds** to reach us. The Sun's, for example, takes approximately **8 minutes and 20 seconds** to cover the approximately 150 million kilometers that separate us from it. When we look at the Sun, of course, never directly without appropriate protection, we don't see the Sun as it is at that precise moment: we see the photons it emitted about eight minutes earlier. 
 
-This rule does not apply only to visible light. Radio waves, infrared, ultraviolet, X or gamma rays are also forms of electromagnetic radiation and spread at the same speed in the vacuum. A telescope therefore never really observes a distant object “live.” 
+This rule applies not only to visible light. Radio waves, infrared, ultraviolet, X-rays, or gamma rays are also forms of electromagnetic radiation and travel at the same speed in a vacuum. Therefore, a telescope never truly "sees" a distant object in real-time. 
 
-We can summarize this gap with a few examples:
+This difference can be summarized with a few examples:
 
-| What we observe | What we see approximately |
+| What we are observing | What we are approximately seeing |
 
-| the moon | 1.3 seconds ago |
+| The Moon | 1.3 seconds |
 
-| The Sun | 8 min 20 s ago |
+| The Sun | 8 minutes and 20 seconds ago |
 
-| The Proxima of Centaure | about 4.2 years ago |
+| Proxima Centauri | approximately 4.2 years ago |
 
-| Centre of the Milky Way | About 26,000 years ago |
+| Milky Way Center | approximately 26,000 years ago |
 
-| The galaxy of Andromeda | about 2.5 million years ago |
+| Andromeda Galaxy | approximately 2.5 million years ago |
 
-| Diffus cosmological background | The universe is about 380,000 years old. |
+| Cosmic Microwave Background | An area approximately 380,000 years old |
 
-In other words, **The distance is also a machine to regain time.**.
+In other words, **Distance is also a time-traveling machine.**.
 
-## If the sun disappeared, we’t know it immediately.
+## If the Sun were to disappear, we wouldn't immediately realize it.
 
-Let’s take an impossible thought experience: imagine the sun disappears instantly.
+Let's consider a hypothetical scenario: imagine that the Sun suddenly disappears.
 
-For about eight minutes, nothing seemed to have changed from Earth. The last photographs already on the way would continue to arrive to us. Even more strange, within the framework of general relativity, the change of its gravitational influence could not even reach us instantly: Gravitational disturbances spread at the speed of light. During this time, the Earth would continue its movement as if the Sun was still there. 
+For approximately eight minutes, nothing would seem to have changed on Earth. The last photons already in transit would continue to reach us. Even stranger, according to the theory of general relativity, the change in the Sun's gravitational influence would not reach us instantaneously either: gravitational disturbances propagate at the speed of light. During this period, the Earth would continue to move as if the Sun were still there. 
 
-Then the information will reach us.
+Then, the information would eventually reach us.
 
-Darkness and gravitational change would not be “later” due to a defective machine. **This time is part of the structure of the Universe itself: no physical information can simply appear everywhere instantly.**
+The darkness and gravitational changes would not be "delayed" due to a faulty machine. **This timeframe is an integral part of the very structure of the Universe: no physical information can simply appear instantaneously everywhere.**
 
-### Beware of the eclipse.
+### However, be mindful of the example of a solar eclipse.
 
-There is a very subtle trap here. One might be tempted to say, “Because I see the Sun with eight minutes of delay, when a solar eclipse appears in my sky, it was already completed eight minute earlier.”
+There's a rather subtle trap here. One might be tempted to say: "Since I see the Sun with an eight-minute delay, when a solar eclipse appears in my sky, it must have already been over eight minutes earlier."
 
-This is not accurate.
+That's not quite right.
 
-A solar eclipse is not an event that takes place. **on the sun**and It is a result of the moon that lies between us and the solar photons and blocks them near the Earth. The photographs concerned have left the Sun about eight minutes earlier, but the occultation itself depends on the moon’s position on their journey. It is necessary to distinguish **The age of sunlight we receive** by **The geometric event called eclipse**.
+A solar eclipse is not an event that simply occurs. **about the Sun**It results from the Moon positioning itself between us and the solar photons, blocking them near the Earth. The specific photons have already left the Sun about eight minutes earlier, but the occultation itself depends on the Moon's position along their path. Therefore, it is necessary to distinguish **the age of the solar light that we receive** of **the geometric phenomenon known as an eclipse**.
 
-The initial intuition remains good: the Sun we see belongs to the past. But the sky quickly becomes more interesting as soon as we cease to transform “eight minutes of delay” into a too simplistic rule.
+The initial intuition remains valid: the Sun we see is a relic of the past. However, the sky becomes much more interesting once we stop treating "eight minutes late" as an overly simplistic rule.
 
-## Andromeda: 2.5 million years old photograph
+## Andromeda: A photograph from 2.5 million years ago
 
-And then came Andromeda.
+Then there's Andromeda.
 
-The great galaxy of Andromeda is located around. **2.5 million light years** of us. A light year is not a duration; it is the distance passed by light in a year. This means that the photons of Andromeda that arrive today on Earth have departed from there about 2.5 million years ago. 
+The Andromeda Galaxy is located approximately **2.5 million light-years** about us. A light-year is not a duration; it is the distance that light travels in one year. This means that the photons from Andromeda that arrive on Earth today left there approximately 2.5 million years ago. 
 
-When we observe Andromeda tonight, we then see it as it was at a time when, on Earth, the first representatives of this genre *The Homo* They existed already, but where our species was still far from appearing.
+When we observe Andromeda tonight, we are seeing it as it was at a time when the first representatives of the genus were *Human* They already existed, but our species was still very far away from appearing.
 
-Here is the vertigo: **We don’t know what Andromeda “now” looks like when observing it from Earth.**and Events are probably happening in this moment according to our usual way of speaking, but their light will take millions of years to reach us.
+And that's when the dizziness sets in: **We don't know what Andromeda looks like "now," as observed from Earth.**Events are likely occurring there at this very moment, according to our usual way of thinking, but their light will take millions of years to reach us.
 
-If an Andromeda star exploded today, no human being could see that explosion from Earth. Not our children either. Not their descendants for a difficult time to conceive.
+If the Andromeda galaxy's star exploded today, no living human on Earth would be able to see the explosion. Nor would our children, or their descendants for a period of time that is difficult to imagine.
 
-The information may already exist there. It simply does not exist yet. **for us**.
+The information might already be available there. It simply hasn't been made accessible yet. **for us**.
 
-## The telescopes are machines that take time back.
+## Telescopes are, in a sense, machines that allow us to look back in time.
 
-That’s what makes telescopes like Hubble or James Webb much more interesting than a simple “gigant zoom.”
+This is what makes telescopes like the Hubble and James Webb telescopes so much more interesting than a simple "giant zoom lens."
 
-Their goal is not just to observe things very far away. Having captured the light part billions of years ago, they allow to study **Different periods of cosmic history**.
+Their goal is not simply to observe extremely distant objects. By capturing light that originated billions of years ago, they allow us to study **Different periods in the history of the universe**.
 
-The NASA describes Hubble as a kind of machine to travel in time: the more remote the object is observed, the more its image comes from an ancient era. 
+NASA describes the Hubble telescope as a kind of time-traveling machine: the further away an object is, the older its image appears to be. 
 
-James Webb is now pushing this principle extremely far. Observations confirmed by Webb show, for example, the MoM-z14 galaxy as it existed only around **280 million years after the Big Bang**and His light travelled for about 13.5 billion years before it reached us. 
+James Webb is taking this principle to an extremely advanced level today. Observations confirmed by Webb, for example, show the MoM-z14 galaxy as it existed only about **280 million years after the Big Bang**Its light has traveled for approximately 13.5 billion years before reaching us. 
 
-Therefore, we are not only reconstructing the history of the Universe from fossils or simulations. **Part of this story literally comes to us in the form of photons.**
+Therefore, we are not simply reconstructing the history of the universe based on fossils or simulations. **A portion of this story is literally arriving at us in the form of photons.**
 
-The sky is an archive.
+The sky is a record.
 
-## Can we look far enough to see the Big Bang?
+## So, can we look far enough to see the Big Bang?
 
-This is where the idea becomes even more fascinating.
+That's where the idea becomes even more intriguing.
 
-Intuitively, we could think that it would be enough to make an infinitely powerful telescope. Further means older; therefore it would be enough to continue until it reaches the zero moment.
+Intuitively, one might think that all it would take is to create an infinitely powerful telescope. "Further" means "older," so it would simply be a matter of continuing until we reach the zero point.
 
-But not.
+But no.
 
-**We cannot see the Big Bang itself with light.**
+**We cannot directly observe the Big Bang with light.**
 
-The problem is not the power of our telescopes. It is the primary universe itself.
+The problem isn't the power of our telescopes. It's the primordial universe itself.
 
-During its first hundreds of thousands of years, the Universe was extremely hot and filled with a dense plasma of electrons and atomic nuclei. The photons were constantly spread by the charged particles. The universe seemed, for light, to a giant opaque cloud. 
+During its first hundreds of thousands of years, the Universe was extremely hot and filled with a dense plasma of electrons and atomic nuclei. Photons were constantly scattered by the charged particles. For light, the Universe resembled a gigantic, opaque fog. 
 
-Then, about **380,000 years after the Big Bang**The universe has cooled enough so that the electrons can connect to the nucleus and form neutral atoms. The light was finally able to travel freely on large distances. 
+Then, approximately **380,000 years after the Big Bang**As the universe cooled sufficiently, electrons were able to bind to nuclei, forming neutral atoms. This allowed light to travel freely over vast distances. 
 
-These photographs are still traveling.
+These photons are always in motion.
 
-Today we see them in the form of **Diffus cosmological background**and CMB (*Cosmic Microwave Background*).
+We are now detecting them in the form of... **Cosmic background radiation**, or CMB (*Cosmic Microwave Background*).
 
-This is the oldest light we can see. A real photograph of the Universe when it was just about 380,000 years old. COBE, WMAP and Planck missions have mapped this radiation with extraordinary accuracy. 
+This is the earliest light we can observe. It represents a true "snapshot" of the Universe when it was only about 380,000 years old. Missions such as COBE, WMAP, and Planck have mapped this radiation with extraordinary precision. 
 
-This is not completely:
+Therefore, it's not quite:
 
-**“We can see the Big Bang.”**
+**"We can observe the Big Bang."**
 
-This is something more accurate and even more impressive:
+This is something more specific, and, in my opinion, even more impressive:
 
-**We can actually receive light released today when the Universe was only about 0.003% of its present age.**
+**We can actually receive light that was released when the universe was only about 0.003% of its current age.**
 
-Before that, the Universe is essentially opaque to the photons we use to observe the cosmos.
+Before this, the universe was essentially opaque to the photons that we use to observe the cosmos.
 
-## And the Big Bang is not somewhere in the bottom of the sky.
+## And the Big Bang wasn't located somewhere deep in the sky.
 
 We need to get rid of another misleading mental image.
 
-The Big Bang was not a bomb that exploded in a specific place in an immense empty space. There is no direction from the sky to which a telescope points to look at “the place where everything started.”
+The Big Bang was not an explosion that occurred in a specific location within an immense, empty space. There is no particular direction in the sky to which a telescope should be pointed to observe "the place where everything began."
 
-According to modern cosmology, **Expansion has occurred everywhere.**and There is no Big Bang space center that we could locate. John Mather, Nobel Prize laureate and telescope scientist James Webb, insists just on the misleading character of the name “Big Bang” when he evokes the image of an explosion with a center. 
+According to modern cosmology, **The expansion occurred throughout**There is no "Big Bang" space center that we could locate. John Mather, Nobel laureate and scientist from the James Webb telescope, rightly points out the misleading nature of the term "Big Bang" when it refers to an explosion with a central point. 
 
-This is also why the diffus cosmological background surrounds us in **All directions**.
+This is also why the cosmic microwave background radiation surrounds us. **all directions**.
 
 Look very far to the left: Young Universe.
 
-Very far to the right: Young Universe.
+Far to the right: Young people.
 
-The young universe.
+Above: Young universe.
 
-Under our feet, if the Earth did not block our sight, the Universe was still young.
+If the Earth weren't in the way, we could see it: the young universe, still expanding.
 
-We are at the center of **The observable universe**But this does not mean that we are in the center of the universe.
+We are at the center of **our observable universe**, but this absolutely does not mean that we are at the center of the universe.
 
-## How can the observable universe measure 92 billion light years?
+## How can the observable universe measure 92 billion light-years?
 
-This is another strange thing that first seems impossible.
+Here is another peculiarity that initially seems impossible.
 
-The universe is around **13.8 billion years ago**and Therefore, it could be thought that we cannot observe anything beyond approximately 13.8 billion light years and that the observable universe should measure up to a maximum of 27.6 billion light year diameter.
+The universe is approximately **13.8 billion years**Therefore, one might conclude that we can only observe objects up to about 13.8 billion light-years away, and that the observable universe should have a diameter of no more than 27.6 billion light-years.
 
-The current diameter is estimated at approximately **92 billion light years**. 
+However, its current diameter is estimated to be approximately **92 light-years**. 
 
 There is no contradiction.
 
-While the photons traveled to us for billions of years, **The space itself continued to expand.**and The area from which some of these photons have gone is therefore far more away from us today than it was at the time of their broadcast.
+While the photons were traveling towards us over billions of years, **the space continued to expand**Therefore, the region from which some of these photons originated is now much further away from us than it was at the time they were emitted.
 
-This is a fundamental distinction between two issues that seem identical but are not the same:
+This is a fundamental distinction between two questions that appear to be the same, but are not:
 
-“How long has this light traveled?”
+"How long has this light been traveling?"
 
 and
 
-“How far is the region that has issued it today?”
+"How far away is the region that issued it today?"
 
-At cosmological distances, these two numbers can be radically different.
+At cosmological distances, these two numbers can be vastly different.
 
-## Can anyone see the dinosaurs on Earth?
+## Could someone have observed dinosaurs on Earth?
 
-This idea leads to a wonderful thinking experience.
+This idea leads to a wonderful thought experiment.
 
-The light reflected by the Earth 66 million years ago is still somewhere in the Universe, traveling outside.
+The light reflected by the Earth 66 million years ago is still somewhere in the universe, traveling outwards.
 
-In theory, an observer located around **66 million light years** The Earth would receive today the photons departed from the time of the disappearance of the non-avian dinosaurs. With a fictional instrument capable of obtaining a resolution completely beyond the reach of our technologies, he would look at a 66 million-year-old Earth.
+In theory, an observer located approximately **66 million light-years** Today, Earth would be receiving photons that originated here during the time of the dinosaurs' extinction, 66 million years ago. With a hypothetical instrument capable of achieving a resolution far beyond our current technology, it would be observing a 66-million-year-old Earth.
 
-This, unfortunately, does not mean that we could build a vessel, go to it and steal a telescope toward Earth to look at our own past.
+However, this does not mean that we could build a spacecraft, travel that far, and point a telescope at Earth to observe our own past.
 
-The photons have already gone at the speed of light.
+The photons have already left at the speed of light.
 
-To get them back after their departure, they should be overcome. Relativity prohibits a material object simply accelerating beyond the speed of light in the emptiness. The magnificent bright archive of our past therefore exists somewhere in space, but it goes away from us at a speed that we cannot exceed.
+To catch up with them after their departure, we would need to surpass them. However, the theory of relativity prohibits any physical object from simply accelerating beyond the speed of light in a vacuum. Therefore, the magnificent archive of light from our past exists somewhere in space, but it is receding from us at a speed that we cannot exceed.
 
-## And the future?
+## And what about the future?
 
-This is where asymmetry becomes important.
+This is where asymmetry becomes significant.
 
-We can see the past because **The signs of the past had time to reach us.**and We cannot observe the future in the same way, because the photons carrying information about these events have not yet been released.
+We can see the past because… **The signals from the past have had time to reach us.**We cannot observe the future in the same way, because the photons carrying the information about these events have not yet been emitted.
 
-In relativity, this idea is formalized with what physicists call the **Cone of Light**and Our past light column contains the events that could have sent a signal to us. Our future light column contains the events that the signals we send today will eventually influence. 
+In relativity, this idea is formalized by what physicists call the **light cone**Our past light cone encompasses all the events that could have sent a signal to us. Our future light cone encompasses the events that the signals we send today could potentially influence. 
 
-And even our intuition of “now everywhere in the Universe” must be managed with caution. Restricted relativity shows that the simultaneity of remote events depends on the observer’s reference: two observers moving one against the other may not agree on the remote event that must be considered simultaneous. 
+Even our intuition of "being everywhere in the Universe at once" must be approached with caution. The theory of special relativity demonstrates that the simultaneity of distant events depends on the observer's frame of reference: two observers in relative motion may not agree on events that should be considered simultaneous. 
 
-Cosmic time is therefore much less intuitive than our daily impression of a great universal present moving everywhere at the same pace.
+Therefore, cosmic time is much less intuitive than our everyday perception of a vast, universal present that is advancing uniformly everywhere.
 
 ## We never see a single universe.
 
-When we raise our eyes, we have the impression of contemplating a space full of objects that exist all at the same time.
+When we look up, we feel as though we are gazing at a space filled with objects that all exist simultaneously.
 
-This is not really what we see.
+This isn't really what we're seeing.
 
-The moon belongs to our past a second ago. The sun, the sun of eight minutes ago. Some stars appear to us as they were before the birth of our grandparents. The center of our galaxy has reached us since an era prior to agriculture. Andromeda shows us a world of 2.5 million years old. And behind the oldest galaxies is still this fossil light from a 380,000-year-old universe.
+The Moon belongs to our past, just a few seconds ago. The Sun, to our past, just eight minutes ago. Some stars appear as they did before our great-grandparents were born. The center of our galaxy has been reaching us since a time before agriculture. Andromed is showing us a world that is 2.5 million years old. And behind the oldest galaxies, there is still this ancient light from a universe that is only 380,000 years old.
 
-**One night contains billions of years of history in the same sky.**
+**Therefore, a single night contains several billions of years of history superimposed on the same sky.**
 
-We looked in space.
+We thought we were looking at the stars.
 
-In fact, every time we look far enough, **We also look in time.**.
+In reality, whenever we look far enough, **We also look at the past.**.
