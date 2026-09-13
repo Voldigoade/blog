@@ -17,10 +17,10 @@ tags:
   - LLM
   - benchmark
   - raisonnement
-  - ChatGPT
-  - Gemini
-  - DeepSeek
-  - Kimi
+  - ChatGPT 5.6 Sol
+  - Gemini 3.8 Flash
+  - DeepSeek V4.1 Flash
+  - Kimi K3
   - Grok
 coverImage: /blog/images/posts/831d1e06-afc2-40ec-85b9-b809652bb405.png
 coverAlt: Cinq modèles d’intelligence artificielle confrontés à un benchmark
