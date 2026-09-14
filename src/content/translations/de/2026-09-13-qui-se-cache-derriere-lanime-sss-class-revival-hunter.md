@@ -1,6 +1,6 @@
 ---
-title: Wer versteckt sich hinter dem Anime SSS-Class Revival Hunter?
-description: Studio Fu, Hiroaki Sakurai, Takahiro Yoshimatsu... Die Anpassung von SSS-Class Revival Hunter hat bereits einen wichtigen Teil seines Teams enthüllt. Hier ist, was diese Namen wirklich wissen lassen, ohne Spoiler über die Geschichte.
+title: Wer steckt hinter dem Anime SSS-Class Revival Hunter?
+description: STUDIO fu, Hiroaki Sakurai, Takahiro Yoshimatsu… Die Adaption von SSS-Class Revival Hunter hat bereits einen wichtigen Teil ihres Teams enthüllt. Hier erfahren Sie, was diese Namen wirklich aussagen – ganz ohne Spoiler zur Handlung.
 pubDate: 2026-09-13
 draft: false
 featured: false
@@ -17,9 +17,9 @@ tags:
 series:
   id: sss-class-revival-hunter-anime
   order: 2
-  title: 'SSS-Class Revival Hunter: Die Anime'
+  title: 'SSS-Class Revival Hunter: Der Anime'
 coverImage: /blog/images/posts/f16f59b0-b857-45eb-93d7-86347202c61b.png
-coverAlt: Produktionsdokumente und animierte Zeichnungen über die Schaffung von SSS-Class Revival Hunter.
+coverAlt: Produktionsdokumente und Animationszeichnungen, die an die Entstehung von SSS-Class Revival Hunter erinnern.
 author: Voldigoade
 locale: de
 sourceSlug: 2026-09-13-qui-se-cache-derriere-lanime-sss-class-revival-hunter
@@ -27,73 +27,73 @@ sourceHash: 78e645c449974e43581c8c376a1779ad7e76dd017dd73b4738176715210f40f2
 manual: false
 ---
 
-Die Ankündigung eines neuen Animes wird oft mit den gleichen Informationen begleitet: ein Datum, ein Teaser, ein paar Namen und ein Studio.
+Die Ankündigung eines neuen Animes wird oft von denselben Informationen begleitet: ein Datum, ein Teaser, einige Namen und ein Studio.
 
-Das Problem ist, dass eine Liste von Namen fast nichts an jemanden sagt, der seine Tage nicht an japanischen Generiken liest.
+Das Problem ist, dass eine Namensliste jemandem, der seine Tage nicht damit verbringt, japanische Vorspänne zu lesen, fast nichts sagt.
 
-Für **SSS-Klasse Revival Hunter**Viele wichtige Positionen sind jedoch bereits bekannt.
+Bei **SSS-Class Revival Hunter** sind jedoch bereits mehrere Schlüsselpositionen bekannt.
 
-Und manche Namen verdienen, dass wir daran stoppen.
+Und manche Namen verdienen es, dass man sich bei ihnen aufhält.
 
-Dieser Artikel enthält nicht **Kein Spoiler in der Geschichte**. Es geht nur um die Herstellung des Animes und die offiziell angekündigten Informationen.
+Dieser Artikel enthält **keinerlei Spoiler zur Handlung**. Es geht ausschließlich um die Herstellung des Animes und die offiziell angekündigten Informationen.
 
-## Studio Fu nimmt Bestellungen an
+## STUDIO fu übernimmt die Regie
 
-Die Animation von *SSS-Klasse Revival Hunter* ist zuvertraut **Studio FU**.
+Die Animation von *SSS-Class Revival Hunter* wird **STUDIO fu** anvertraut.
 
-Dies ist wahrscheinlich der am wenigsten unmittelbar identifizierbare Name der Anzeige, vor allem, weil sie noch nicht die internationale Beliebtheit von Studios wie MAPPA, Madhouse, Bones oder Ufo.
+Das ist wahrscheinlich der am wenigsten sofort identifizierbare Name der Ankündigung, nicht zuletzt, weil er noch nicht über die internationale Bekanntheit von Studios wie MAPPA, Madhouse, Bones oder ufotable verfügt.
 
-STUDIO fu ist ein japanisches Animationsstudio mit Sitz in Musashino in Tokio. Ihre offizielle Website zeigt unter anderem Beiträge zu verschiedenen jüngsten Produktionen, aber *SSS-Klasse Revival Hunter* ist eine besonders interessante Produktion zu folgen, weil das Studio hier ausdrücklich für die Animation der Serie vertraut ist. 
+STUDIO fu präsentiert sich als japanisches Animationsstudio mit Sitz in Musashino, Tokio. Die offizielle Website verweist unter anderem auf Beteiligungen an verschiedenen jüngeren Produktionen, aber *SSS-Class Revival Hunter* stellt eine besonders interessante Produktion dar, der man folgen sollte, weil das Studio hier explizit für die Animation der Serie genannt wird.
 
-Es ist jedoch notwendig, einen sehr häufigen Fehler zu vermeiden, wenn man über Anime spricht:
+Man muss jedoch einen sehr häufigen Fehler vermeiden, wenn man über Anime spricht:
 
-**Der Name des Studios erlaubt nicht allein, die endgültige Qualität vorzustellen.**
+**Der Name des Studios allein erlaubt nicht, die endgültige Qualität vorherzusagen.**
 
-Eine animierte Serie hängt stark vom Regisseur, Animationsdirektoren, unabhängigen Animators, Kalender, Vorproduktion und die Art und Weise ab, wie die Episoden zwischen den verschiedenen Teams verteilt werden.
+Eine animierte Serie hängt enorm vom Regisseur, den Animationsregisseuren, den freiberuflich engagierten Animatoren, dem Zeitplan, der Vorproduktion und der Art ab, wie die Episoden auf die verschiedenen Teams verteilt werden.
 
 Ein großes Studio kann eine technisch unregelmäßige Serie produzieren.
 
-Ein weniger bekannter Studio kann eine großartige Überraschung erzeugen.
+Ein weniger bekanntes Studio kann eine hervorragende Überraschung liefern.
 
-Für *SSS-Klasse Revival Hunter*Der Rest des Teams wird daher besonders wichtig.
+Für *SSS-Class Revival Hunter* wird der Rest des Teams daher besonders wichtig.
 
-## Hiroaki Sakurai in der Realisierung
+## Hiroaki Sakurai an der Regie
 
 Der angekündigte Regisseur ist **Hiroaki Sakurai**.
 
-Sein Name ist insbesondere in Verbindung mit *The Disastrous Life von Saiki K.*Eine Serie, in der er auch als Regisseur tätig war. Crunchyroll zitiert dies auch direkt als Referenz bei der Ankündigung von *SSS-Klasse Revival Hunter*. 
+Sein Name ist insbesondere mit *The Disastrous Life of Saiki K.* verbunden, einer Serie, in der er ebenfalls die Regie führte. Crunchyroll nennt ihn im Rahmen der Ankündigung von *SSS-Class Revival Hunter* direkt als Referenz.
 
-Die Rolle eines Anime-Regisseurs ist viel breiter als einfach "den Animatoren sagen, was zu zeichnen".
+Die Rolle eines Anime-Regisseurs ist viel umfassender als nur "den Animatoren zu sagen, was sie zeichnen sollen".
 
-Er beteiligt sich an der allgemeinen Leitung der Anpassung: Rhythmus, Tonalität, Bericht, visuelle Entscheidungen, Koordination mit den Verantwortlichen der verschiedenen Abteilungen und Kohärenz im Gesamt.
+Er wirkt an der allgemeinen Leitung der Adaption mit: Tempo, Tonfall, Inszenierung, visuelle Entscheidungen, Koordination mit den Leitern der verschiedenen Abteilungen und Kohärenz des Ganzen.
 
-In einer Anpassung besteht ein großer Teil der Schwierigkeit auch darin, ein gedanktes Werk zu verwandeln, um gelesen zu werden, in etwas, das gedacht wird, um betrachtet zu werden.
+Bei einer Adaption besteht ein großer Teil der Schwierigkeit auch darin, ein Werk, das zum Lesen gedacht ist, in etwas zu verwandeln, das zum Anschauen gedacht ist.
 
-Ein spektakuläres vertikales Bild in einem Webtoon hat nicht automatisch die gleiche Wirkung auf einem 16:9 Bildschirm.
+Ein spektakuläres vertikales Bild in einem Webtoon hat nicht automatisch dieselbe Wirkung auf einem 16:9-Bildschirm.
 
-Eine Nachfolge von Kisten kann zu einem Dreizehn Sekunden-Szenario werden müssen.
+Eine Abfolge von Panels muss zu einer dreißigsekündigen Szene werden können.
 
-Ein Schweigen kann verlängert werden.
+Eine Stille kann gedehnt werden.
 
-Eine Aktion kann vollständig überdenkt werden.
+Eine Action kann vollständig neu gedacht werden.
 
-Genau dort wird die Erfüllungsarbeit entscheidend.
+Genau hier wird die Regiearbeit entscheidend.
 
-## Ein Charakter Designer, der nirgendwo kommt
+## Ein Character Designer, der nicht aus dem Nichts kommt
 
-Der Name, der wahrscheinlich am meisten meine Aufmerksamkeit in diesem ersten Team aufnimmt, ist **von Takahiro Yoshimatsu**Er ist für das Character Design verantwortlich.
+Der Name, der vermutlich am meisten meine Aufmerksamkeit in diesem ersten Team auf sich zieht, ist **Takahiro Yoshimatsu**, der für das Character Design zuständig ist.
 
-Wenn Sie viel Anime betrachten, haben Sie möglicherweise schon seine Arbeit gesehen, ohne seinen Namen zu wissen.
+Wenn man viel Anime schaut, hat man seine Arbeit vielleicht schon gesehen, ohne seinen Namen zu kennen.
 
-Yoshimatsu arbeitet als Character Designer auf dem Anime **Hunter × Hunter 2011**sowie in verschiedenen Produktionen, die mit **überlord**. Die japanische offizielle JFDB-Basis kreditiert zum Beispiel auf das Character Design der zusammenfassenden Filme*überlord* und in der Hand Character Design der Filme *Hunter × Hunter*. 
+Yoshimatsu arbeitete unter anderem als Character Designer am Anime **Hunter × Hunter von 2011** sowie an mehreren Produktionen im Zusammenhang mit **Overlord**. Die offizielle japanische Datenbank JFDB führt ihn beispielsweise als Character Designer der *Overlord*-Zusammenfassungsfilme und als Main Character Designer der *Hunter × Hunter*-Filme auf.
 
-Ihre Rolle auf *SSS-Klasse Revival Hunter* wird grundlegend sein.
+Seine Rolle bei *SSS-Class Revival Hunter* wird fundamental sein.
 
-Die grafische Anpassung eines Webtoons besteht nicht darin, jedes Zeichnen auf die gleiche Weise zu reproduzieren.
+Die grafische Adaption eines Webtoons besteht nicht darin, jede Zeichnung identisch zu reproduzieren.
 
-Ein Charakter für die Animation muss in der Lage sein, wieder und wieder, in verschiedenen Winkel, von vielen Menschen, manchmal in extrem schnellen Szenen.
+Ein für die Animation bestimmter Charakter muss immer wieder, aus verschiedenen Winkeln, von vielen verschiedenen Personen gezeichnet werden können, manchmal in extrem schnellen Szenen.
 
-Der Charakter Designer sucht daher einen Gleichgewicht:
+Der Character Designer sucht daher ein Gleichgewicht:
 
 ```text
 
@@ -109,102 +109,102 @@ possibilité de les animer efficacement
 
 ```
 
-Ein unglaublich detailliertes Design kann auf einer festen Illustration erstaunlich sein und zu einem Albtraum werden, wenn mehrere Tausende von Zeichnungen hergestellt werden müssen.
+Ein unglaublich detailliertes Design kann auf einer festen Illustration wunderschön sein und zum Albtraum werden, wenn mehrere tausend Zeichnungen produziert werden müssen.
 
-Die Qualität einer Anpassung spielt sich manchmal in dieser Art unsichtbarer Kompromisse.
+Die Qualität einer Adaption entscheidet sich manchmal in genau solchen unsichtbaren Kompromissen.
 
-## Das Drehbuch wird von Sayuri Oba überwacht
+## Das Drehbuch wird von Sayuri Oba betreut
 
-**von Sayuri Oba** Es wird im Szenario angekündigt.
+**Sayuri Oba** wird für das Drehbuch angegeben.
 
-Hier wieder verdient es mehr als eine Linie in einer technischen Datei.
+Auch hier verdient das mehr als eine Zeile in einem technischen Datenblatt.
 
-Wenn ein Webtoon zu einem Anime wird, muss jemand entscheiden, wie man das verfügbare Material in Episoden von ca. zwanzig Minuten organisiert.
+Wenn ein Webtoon zum Anime wird, muss jemand entscheiden, wie man das verfügbare Material in Folgen von etwa zwanzig Minuten organisiert.
 
-Wo soll ein Episode beendet werden?
+Wo eine Folge enden soll?
 
-Welche Szenen müssen mehr atmen?
+Welche Szenen mehr Atem brauchen?
 
-Welche Übergänge funktionieren auf einer Seite, aber weniger gut in der Animation?
+Welche Übergänge auf einer Seite funktionieren, in der Animation aber weniger gut?
 
-Wie viele Inhalte kann man angepasst werden, ohne den Eindruck zu geben, dass die Geschichte nach ihrem eigenen Ende-Generik läuft?
+Wie viel Inhalt adaptiert werden kann, ohne den Eindruck zu erwecken, die Geschichte hetze ihrem eigenen Abspann entgegen?
 
-Dies sind Entscheidungen, die die Wahrnehmung einer Anpassung vollständig verändern können, auch wenn die erzählten Ereignisse identisch bleiben wie das ursprüngliche Werk.
+Das sind Entscheidungen, die die Wahrnehmung einer Adaption vollständig verändern können, selbst wenn die erzählten Ereignisse identisch mit dem Originalwerk bleiben.
 
-Zurzeit gibt es keine ausreichend detaillierten offiziellen Informationen, um die genaue Geschwindigkeit der Produktion zu kennen.
+Derzeit liegt keine hinreichend detaillierte offizielle Information vor, um den von der Produktion gewählten genauen Rhythmus zu kennen.
 
-Und das ist wahrscheinlich besser: Ein Team zu verkünden bedeutet noch nicht, dass wir genau vorstellen können, wie die Serie strukturiert wird.
+Und das ist vermutlich besser so: Ein Team anzukündigen bedeutet noch nicht, dass wir präzise vorhersagen können, wie die Serie strukturiert sein wird.
 
-## Zwei wichtige Stimmen sind bereits bekannt.
+## Zwei Hauptstimmen sind bereits bekannt
 
-Der erste offenbarte Casting umfasst:
+Das erste enthüllte Casting umfasst:
 
-**von Takeo Otsuka**Er wird Kim Gongja interpretieren.
+**Takeo Otsuka**, der Kim Gongja sprechen wird.
 
-**Satoshi Hino**Er spielt Sword Emperor.
+**Satoshi Hino**, der Sword Emperor sprechen wird.
 
-Beide Rollen wurden von der offiziellen japanischen Website und Crunchyroll bestätigt. 
+Diese beiden Rollen wurden sowohl von der offiziellen japanischen Website als auch von Crunchyroll bestätigt.
 
-Ich werde freiwillig nicht weiter über die Charaktere gehen.
+Ich werde bewusst nicht weiter auf die Charaktere eingehen.
 
-Selbst die offiziellen Präsentationen offenbaren bereits einige Ausgangspunkt, die jemand, der die Anime völlig blind entdecken möchte, lieber ignorieren könnte.
+Selbst die offiziellen Präsentationen verraten bereits bestimmte Ausgangselemente, die jemand, der den Anime völlig unvoreingenommen entdecken möchte, vielleicht lieber ignorieren würde.
 
-Für den Moment, zu wissen, wer seine Stimme an die beiden vorgeführten Charaktere verleiht genug.
+Für den Moment reicht es völlig zu wissen, wer den beiden hervorgehobenen Charakteren seine Stimme leiht.
 
-## Der erste Teaser lässt die Animation noch nicht beurteilen
+## Der erste Teaser erlaubt noch kein Urteil über die Animation
 
-Ein Teaser und ein erstes Video wurden bei der Ankündigung veröffentlicht.
+Ein Teaser und ein erstes Visual wurden bei der Ankündigung veröffentlicht.
 
-Sie sind wichtig, weil sie dem Projekt endlich eine audiovisuelle Identität geben, aber man muss vorsichtig sein.
+Sie sind wichtig, weil sie dem Projekt endlich eine audiovisuelle Identität verleihen, aber man muss gewisse Vorsicht walten lassen.
 
-Ein paar Sekunden lassen Sie nicht wissen:
+Ein paar Dutzend Sekunden erlauben nicht zu erfahren:
 
-- Regelmäßigkeit der Animation über eine ganze Saison;
+- die Regelmäßigkeit der Animation über eine ganze Staffel hinweg;
 
-- die Qualität der ambitioniertesten Episoden;
+- die Qualität der ehrgeizigsten Episoden;
 
-- die endgültige Fertigungsstufe;
+- den endgültigen Fertigstellungsgrad;
 
-- die Verwaltung der Kämpfe;
+- das Management der Kämpfe;
 
-- Stabilität der Zeichnungen;
+- die Stabilität der Zeichnungen;
 
-- Der tatsächliche Tempo der Anpassung.
+- den tatsächlichen Adaptionstempo.
 
-Ein Teaser dient zuerst, um eine Produktion zu präsentieren.
+Ein Teaser dient zunächst dazu, eine Produktion vorzustellen.
 
-Das ist kein Benchmark.
+Er ist kein Benchmark.
 
-Das eigentliche Material, um zu beginnen, um ernsthaft die Anpassung zu beurteilen, wird wahrscheinlich mit längeren Bands und vor allem, wenn wir mehr Teammitglieder kennenlernen.
+Das echte Material, um die Adaption ernsthaft beurteilen zu können, wird wahrscheinlich mit längeren Trailern und vor allem dann eintreffen, wenn wir mehr Teammitglieder kennen.
 
-## Was wir wirklich wissen, im September 2026
+## Was wir im September 2026 wirklich wissen
 
-Gegenwärtig sind einige Informationen relativ einfach.
+Für den Moment sind die gesicherten Informationen relativ einfach.
 
-Die Anime ist für **Januar 2027**.
+Der Anime ist für **Januar 2027** geplant.
 
-Hiroaki Sakurai wird es bei **Studio FU**.
+Hiroaki Sakurai wird ihn bei **STUDIO fu** inszenieren.
 
-Sayuri Oba beschäftigt sich mit dem Szenario.
+Sayuri Oba kümmert sich um das Drehbuch.
 
-Takahiro Yoshimatsu entwickelt Character Design.
+Takahiro Yoshimatsu erstellt das Character Design.
 
-Takeo Otsuka und Satoshi Hino sind Teil des bekanntesten Hauptsatzes.
+Takeo Otsuka und Satoshi Hino gehören zum angekündigten Hauptcast.
 
-und **Crunchyroll wird die Serie in Europa verbreiten**Das bestätigt bereits seine offizielle Verfügbarkeit für unsere Region. 
+Und **Crunchyroll wird die Serie in Europa ausstrahlen**, was ihre offizielle Verfügbarkeit für unsere Region bereits bestätigt.
 
-In der Zeit, in der ich diese Zeilen schreibe, wurden jedoch einige wichtige Informationen noch nicht offiziell bekannt gegeben: **den genauen Tag der Veröffentlichung, die Anzahl der Episoden oder die Details einer möglichen französischen Version**.
+Im Gegensatz dazu wurden zum Zeitpunkt, an dem ich diese Zeilen schreibe, mehrere wichtige Informationen noch nicht offiziell angekündigt: **das genaue Ausstrahlungsdatum, die Anzahl der Episoden oder die Details einer eventuellen französischen Fassung**.
 
-Es ist besser, diese Kisten leer zu lassen, als sie mit Gerüchten zu füllen.
+Es ist besser, diese Felder leer zu lassen, als sie mit Gerüchten zu füllen.
 
-## Jetzt müssen wir sehen, was diese Mannschaft damit tun wird.
+## Jetzt muss man sehen, was dieses Team daraus macht
 
-Eine erwartete Anpassung kommt immer mit einem seltsamen Reflex: Wir versuchen sofort zu entscheiden, ob es ausgezeichnet oder missbraucht wird, während wir manchmal nur einen Plakat und dreizehn Sekunden Video haben.
+Eine erwartete Adaption wird immer von einem seltsamen Reflex begleitet: Man sucht sofort zu entscheiden, ob sie hervorragend oder misslungen sein wird, obwohl man manchmal nur ein Poster und dreißig Sekunden Video hat.
 
-Für *SSS-Klasse Revival Hunter*Es ist noch viel zu früh.
+Für *SSS-Class Revival Hunter* ist es noch viel zu früh.
 
-Aber wir haben schon etwas nützlicher als ein einfaches Datum: die ersten Menschen, die eine koreanische Webtoon in eine japanische Animationserie verwandeln müssen.
+Aber wir haben bereits etwas Nützlicheres als ein bloßes Datum: die ersten Personen, die einen koreanischen Webtoon in eine japanische Animationsserie verwandeln müssen.
 
-Und unter ihnen gibt die Anwesenheit von Takahiro Yoshimatsu bei Character Design und Hiroaki Sakurai bei der Realisierung mindestens echte Gründe, die Produktion genau zu verfolgen.
+Und unter ihnen gibt die Anwesenheit von Takahiro Yoshimatsu am Character Design und von Hiroaki Sakurai an der Regie zumindest echte Gründe, die Produktion genau zu verfolgen.
 
-Der nächste Schritt wird viel offensichtlicher sein: **Sehen Sie mehr echte Animation, entdecken Sie den Rest der Mitarbeiter und verstehen Sie die konkrete Ambition von STUDIO fu für diese Anpassung.**
+Der nächste Schritt wird weitaus aufschlussreicher sein: **mehr echte Animation zu sehen, den Rest des Staffs zu entdecken und das konkrete Ambitionsniveau von STUDIO fu für diese Adaption zu verstehen.**
