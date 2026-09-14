@@ -22,4 +22,4 @@ Satori is distributed under Mozilla Public License 2.0. resvg-js is distributed 
 
 ## Publication translation
 
-Automatic translation of published articles uses `google/translategemma-4b-it` weights under the Gemma Terms of Use via llama.cpp (MIT License). The optional rollback engine supports `facebook/m2m100_418M` weights (MIT license) through the Transformers library (Apache License 2.0), PyTorch (BSD-style license) and SentencePiece (Apache License 2.0). Model weights and inference binaries are downloaded into the build runner cache and are not distributed with this repository.
+Automatic translation of published articles uses `google/translategemma-4b-it` weights under the Gemma Terms of Use via llama.cpp (MIT License). Model weights and inference binaries are downloaded into the build runner cache and are not distributed with this repository.

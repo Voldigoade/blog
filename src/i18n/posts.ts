@@ -28,10 +28,16 @@ function hasTranslationFiles(): boolean {
 
 export async function getTranslatedPosts(locale: string): Promise<TranslatedPost[]> {
   if (locale === DEFAULT_LOCALE || !hasTranslationFiles()) return [];
+  const sources = await getCollection("blog", ({ data }) =>
+    (import.meta.env.PROD ? !data.draft : true),
+  );
+  const sourceSlugs = new Set(sources.map((source) => source.id));
   const posts = await getCollection("translations", ({ data }) =>
     (import.meta.env.PROD ? !data.draft : true) && data.locale === locale,
   );
-  return posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  return posts
+    .filter((post) => sourceSlugs.has(post.data.sourceSlug))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 }
 
 export async function getTranslation(locale: string, slug: string): Promise<TranslatedPost | undefined> {
@@ -44,7 +50,8 @@ export async function translatedLocalesFor(slug: string): Promise<LocaleRoute[]>
   const frPosts = await getCollection("blog", ({ data }) =>
     (import.meta.env.PROD ? !data.draft : true),
   );
-  if (frPosts.some((post) => post.id === slug)) found.push(DEFAULT_LOCALE);
+  if (!frPosts.some((post) => post.id === slug)) return found;
+  found.push(DEFAULT_LOCALE);
   if (!hasTranslationFiles()) return orderRoutes(found);
   const posts = await getCollection("translations", ({ data }) =>
     (import.meta.env.PROD ? !data.draft : true) && data.sourceSlug === slug,

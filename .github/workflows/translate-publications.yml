@@ -6,6 +6,14 @@ on:
       - main
     paths:
       - src/content/blog/**
+      - scripts/translate.mjs
+      - scripts/translate-provider.mjs
+      - scripts/translation-plan.mjs
+      - scripts/translation-worker.py
+      - scripts/publish-translation.mjs
+      - scripts/test-translation-scheduler.mjs
+      - requirements-translation.txt
+      - .github/workflows/translate-publications.yml
   workflow_dispatch:
     inputs:
       slug:
@@ -13,16 +21,21 @@ on:
         required: false
         type: string
       locale:
-        description: Optional target locale (en, es, de, pt-br, it, ja or zh-cn)
+        description: Optional target locale (en, es or de)
         required: false
         type: string
       force:
-        description: Regenerate current automatic translations
+        description: Regenerate a current automatic translation
+        required: false
+        type: boolean
+        default: false
+      reconcile:
+        description: Plan every missing or stale automatic translation
         required: false
         type: boolean
         default: false
       smoke:
-        description: Run a local engine smoke test only (no commit, no deploy)
+        description: Run the full TranslateGemma quality suite only
         required: false
         type: boolean
         default: false
@@ -30,25 +43,13 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: translations-main
-  cancel-in-progress: false
-
 jobs:
-  translate:
+  plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
-    permissions:
-      contents: write
     outputs:
-      generated: ${{ steps.changes.outputs.generated }}
-    env:
-      TRANSLATION_CACHE_DIR: ${{ github.workspace }}/.translation-cache
-      TRANSLATEGEMMA_THREADS: "2"
-      HF_TOKEN: ${{ secrets.HF_TOKEN }}
-      TRANSLATE_SLUG: ${{ inputs.slug }}
-      TRANSLATE_LOCALE: ${{ inputs.locale }}
-      TRANSLATE_FORCE: ${{ inputs.force }}
+      has_work: ${{ steps.plan.outputs.has_work }}
+      matrix: ${{ steps.plan.outputs.matrix }}
+      engine_changed: ${{ steps.changes.outputs.engine_changed }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -61,6 +62,147 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Detect translation engine changes
+        id: changes
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          if [[ "${{ github.event_name }}" != "push" ]]; then
+            echo "engine_changed=false" >> "$GITHUB_OUTPUT"
+          elif git diff --quiet "$BEFORE" "$AFTER" -- scripts/translate.mjs scripts/translate-provider.mjs scripts/translation-plan.mjs scripts/translation-worker.py scripts/publish-translation.mjs requirements-translation.txt; then
+            echo "engine_changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "engine_changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Plan translation units
+        id: plan
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          TRANSLATE_SLUG: ${{ inputs.slug }}
+          TRANSLATE_LOCALE: ${{ inputs.locale }}
+          TRANSLATE_FORCE: ${{ inputs.force }}
+          TRANSLATE_RECONCILE: ${{ inputs.reconcile }}
+          TRANSLATE_SMOKE: ${{ inputs.smoke }}
+        run: |
+          args=(--github-output "$GITHUB_OUTPUT")
+          if [[ "$TRANSLATE_SMOKE" == "true" ]]; then
+            args+=(--empty)
+          elif [[ "${{ github.event_name }}" == "push" ]]; then
+            args+=(--before "$BEFORE" --after "$AFTER")
+          else
+            if [[ -n "$TRANSLATE_SLUG" ]]; then args+=(--slug "$TRANSLATE_SLUG"); fi
+            if [[ -n "$TRANSLATE_LOCALE" ]]; then args+=(--locale "$TRANSLATE_LOCALE"); fi
+            if [[ "$TRANSLATE_FORCE" == "true" ]]; then args+=(--force); fi
+            if [[ "$TRANSLATE_RECONCILE" == "true" || -z "$TRANSLATE_SLUG" ]]; then args+=(--reconcile); fi
+          fi
+          node scripts/translation-plan.mjs "${args[@]}"
+
+  translate:
+    if: needs.plan.outputs.has_work == 'true'
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    concurrency:
+      group: translation-${{ matrix.slug }}-${{ matrix.locale }}
+      cancel-in-progress: true
+    env:
+      TRANSLATION_CACHE_DIR: ${{ github.workspace }}/.translation-cache
+      TRANSLATEGEMMA_THREADS: "2"
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Refresh translation unit
+        id: refresh
+        shell: bash
+        env:
+          SLUG: ${{ matrix.slug }}
+          LOCALE: ${{ matrix.locale }}
+          FORCE: ${{ matrix.force }}
+        run: |
+          args=(--slug "$SLUG" --locale "$LOCALE" --github-output "$GITHUB_OUTPUT")
+          if [[ "$FORCE" == "true" ]]; then args+=(--force); fi
+          node scripts/translation-plan.mjs "${args[@]}"
+      - name: Setup Python
+        if: steps.refresh.outputs.action == 'translate'
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-translation.txt
+      - name: Restore model cache
+        if: steps.refresh.outputs.action == 'translate'
+        uses: actions/cache@v5
+        with:
+          path: ${{ github.workspace }}/.translation-cache
+          key: translategemma-4b-q4_k_m-b10948-${{ runner.os }}-cd39c30302f20fb8b788234d86a0a35a0d050619-526747309109c016
+          restore-keys: |
+            translategemma-4b-q4_k_m-b10948-${{ runner.os }}-
+      - name: Install translation dependencies
+        if: steps.refresh.outputs.action == 'translate'
+        run: python -m pip install -r requirements-translation.txt
+      - name: Generate one translation
+        if: steps.refresh.outputs.action == 'translate'
+        shell: bash
+        env:
+          SLUG: ${{ matrix.slug }}
+          LOCALE: ${{ matrix.locale }}
+          FORCE: ${{ matrix.force }}
+        run: |
+          args=(--translate --slug "$SLUG" --locale "$LOCALE")
+          if [[ "$FORCE" == "true" ]]; then args+=(--force); fi
+          npm run translate -- "${args[@]}"
+          npm run translate -- --assert-current --slug "$SLUG" --locale "$LOCALE"
+      - name: Publish completed locale
+        if: steps.refresh.outputs.has_work == 'true'
+        shell: bash
+        env:
+          SLUG: ${{ matrix.slug }}
+          LOCALE: ${{ matrix.locale }}
+          ACTION: ${{ steps.refresh.outputs.action }}
+        run: node scripts/publish-translation.mjs --slug "$SLUG" --locale "$LOCALE" --action "$ACTION"
+      - name: Summarize locale
+        if: always()
+        shell: bash
+        env:
+          SLUG: ${{ matrix.slug }}
+          LOCALE: ${{ matrix.locale }}
+          ACTION: ${{ steps.refresh.outputs.action }}
+        run: |
+          echo "### $SLUG" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "$LOCALE: $ACTION — ${{ job.status }}" >> "$GITHUB_STEP_SUMMARY"
+
+  quality:
+    if: inputs.smoke || needs.plan.outputs.engine_changed == 'true'
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      TRANSLATION_CACHE_DIR: ${{ github.workspace }}/.translation-cache
+      TRANSLATEGEMMA_THREADS: "2"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
@@ -76,164 +218,5 @@ jobs:
             translategemma-4b-q4_k_m-b10948-${{ runner.os }}-
       - name: Install translation dependencies
         run: python -m pip install -r requirements-translation.txt
-      - name: Validate translation engine
-        run: python scripts/translation-worker.py --self-test
-      - name: Sync main
-        if: ${{ !inputs.smoke }}
-        run: git pull --rebase origin main
-      - name: Create smoke fixture
-        if: ${{ inputs.smoke }}
-        shell: bash
-        run: |
-          cat > src/content/blog/zz-smoke-check.md <<'EOF'
-          ---
-          title: Fumée de validation éphémère
-          description: Un article minuscule pour contrôler le moteur local
-          pubDate: 2026-09-01
-          draft: false
-          section: computing
-          contentType: article
-          tags:
-            - validation
-          ---
-
-          ## Contrôle rapide
-
-          Ce texte bref vérifie que le moteur local traduit la prose et préserve la structure.
-
-          Voici un lien vers [la documentation Astro](https://docs.astro.build) et du code en ligne `const exemple = 1`.
-
-          ```js
-          const garde = "ce bloc doit rester intact";
-          ```
-
-          Une formule en ligne $E = mc^2$ doit rester intacte.
-
-          > Une citation à traduire avec soin.
-          EOF
-      - name: Generate translations
-        if: ${{ !inputs.smoke }}
-        shell: bash
-        run: |
-          args=(--translate)
-          if [[ -n "$TRANSLATE_SLUG" ]]; then args+=(--slug "$TRANSLATE_SLUG"); fi
-          if [[ -n "$TRANSLATE_LOCALE" ]]; then args+=(--locale "$TRANSLATE_LOCALE"); fi
-          if [[ "$TRANSLATE_FORCE" == "true" ]]; then args+=(--force); fi
-          npm run translate -- "${args[@]}"
-      - name: Smoke translation
-        if: ${{ inputs.smoke }}
-        shell: bash
-        run: |
-          echo "=== DISK BEFORE INFERENCE ==="
-          df -h
-          if [[ -d "$TRANSLATION_CACHE_DIR" ]]; then
-            echo "=== CACHE DIRECTORY CONTENT ==="
-            du -sh "$TRANSLATION_CACHE_DIR"
-            ls -lh "$TRANSLATION_CACHE_DIR"
-          fi
-          t_start=$(date +%s)
-          npm run translate -- --translate --slug zz-smoke-check
-          t_end=$(date +%s)
-          echo "=== SMOKE RUNTIME ==="
-          echo "Smoke translation finished in $((t_end - t_start))s."
-          echo "=== DISK AFTER INFERENCE ==="
-          df -h
-      - name: Validate smoke output
-        if: ${{ inputs.smoke }}
-        shell: bash
-        run: |
-          node -e '
-            const { existsSync, readFileSync } = require("node:fs");
-            const { join } = require("node:path");
-            const locales = ["en", "es", "de", "pt-br", "it", "ja", "zh-cn"];
-            const required = ["```js", "const garde = \"ce bloc doit rester intact\"", "https://docs.astro.build", "$E = mc^2$", "> "];
-            for (const locale of locales) {
-              const path = join("src", "content", "translations", locale, "zz-smoke-check.md");
-              if (!existsSync(path)) throw new Error(`missing smoke output: ${path}`);
-              const text = readFileSync(path, "utf8");
-              for (const token of required) {
-                if (!text.includes(token)) throw new Error(`${locale}: protected token lost: ${token}`);
-              }
-              if (!text.includes("sourceHash:") || text.includes("manual: true")) {
-                throw new Error(`${locale}: translation metadata is incomplete`);
-              }
-            }
-            console.log("Smoke output is structurally intact for all seven locales.");
-          '
-      - name: Remove smoke artifacts
-        if: ${{ inputs.smoke }}
-        shell: bash
-        run: |
-          rm -f src/content/blog/zz-smoke-check.md
-          for locale in en es de pt-br it ja zh-cn; do
-            rm -f "src/content/translations/$locale/zz-smoke-check.md"
-          done
-          if [[ -n "$(git status --porcelain)" ]]; then
-            git status --porcelain
-            echo "Smoke test left workspace changes behind."
-            exit 1
-          fi
-          echo "Smoke workspace is clean; nothing committed, nothing deployed."
-      - name: Detect generated files
-        if: ${{ !inputs.smoke }}
-        id: changes
-        shell: bash
-        run: |
-          if [[ -n "$(git status --porcelain -- src/content/translations)" ]]; then
-            echo "generated=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "generated=false" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Check
-        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
-        run: npm run check
-      - name: Build
-        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
-        run: npm run build
-      - name: Verify production output
-        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
-        run: npm run verify
-      - name: Commit translations
-        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
-        shell: bash
-        run: |
-          git config user.name "Voldigoade"
-          git config user.email "245930475+Voldigoade@users.noreply.github.com"
-          git add src/content/translations
-          git commit -m "Publish article translations"
-          for attempt in 1 2 3; do
-            git fetch origin main
-            git rebase origin/main
-            if git push origin HEAD:main; then
-              exit 0
-            fi
-          done
-          exit 1
-      - name: Refresh production output
-        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
-        run: |
-          npm run build
-          npm run verify
-      - name: Configure Pages
-        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
-        uses: actions/configure-pages@v5
-      - name: Upload Pages artifact
-        if: ${{ !inputs.smoke && steps.changes.outputs.generated == 'true' }}
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: dist
-
-  deploy:
-    if: needs.translate.outputs.generated == 'true'
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: translate
-    permissions:
-      pages: write
-      id-token: write
-    steps:
-      - name: Deploy Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+      - name: Run TranslateGemma quality suite
+        run: python scripts/translation-worker.py --quality-test

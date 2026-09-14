@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { existsSync, mkdirSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
 
@@ -9,7 +9,7 @@ import { closeProvider, translateSegments } from "./translate-provider.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SOURCE_DIR = join(ROOT, "src", "content", "blog");
 const TRANS_DIR = join(ROOT, "src", "content", "translations");
-const TARGETS = ["en", "es", "de", "pt-br", "it", "ja", "zh-cn"];
+export const TARGETS = ["en", "es", "de"];
 const TRANSLATED_FRONTMATTER = [
   { name: "title", path: ["title"] },
   { name: "description", path: ["description"] },
@@ -301,14 +301,14 @@ export function readTranslation(locale, slug) {
   return undefined;
 }
 
-function selectedValue(flag) {
-  const index = process.argv.indexOf(flag);
-  return index === -1 ? undefined : process.argv[index + 1];
+function selectedValue(args, flag) {
+  const index = args.indexOf(flag);
+  return index === -1 ? undefined : args[index + 1];
 }
 
-function selection() {
-  const slug = selectedValue("--slug");
-  const locale = selectedValue("--locale");
+function selection(args) {
+  const slug = selectedValue(args, "--slug");
+  const locale = selectedValue(args, "--locale");
   if (locale && !TARGETS.includes(locale)) throw new Error(`Unsupported locale "${locale}".`);
   return { slug, locale };
 }
@@ -332,6 +332,61 @@ export function status(filters = {}) {
     }
   }
   return rows;
+}
+
+export function automaticRows(filters = {}) {
+  return selectAutomaticRows(status(filters), filters.force);
+}
+
+export function selectAutomaticRows(rows, force = false) {
+  return rows.filter((row) =>
+    row.state === "missing" || (!row.manual && (row.state === "stale" || force)),
+  );
+}
+
+export function hasPublishedSource(slug) {
+  return sourceFiles().some((source) => source.slug === slug);
+}
+
+export function removeAutomaticTranslation(locale, slug) {
+  if (!TARGETS.includes(locale)) throw new Error(`Unsupported locale "${locale}".`);
+  const existing = readTranslation(locale, slug);
+  if (!existing) return false;
+  if (existing.manual) throw new Error(`Manual translation ${locale}/${slug} cannot be removed automatically.`);
+  unlinkSync(existing.path);
+  console.log(`Removed automatic translation ${locale}/${slug}.`);
+  return true;
+}
+
+export function assertCurrentTranslation(locale, slug) {
+  if (!TARGETS.includes(locale)) throw new Error(`Unsupported locale "${locale}".`);
+  const row = status({ locale, slug })[0];
+  if (!row || row.state !== "current") {
+    throw new Error(`Translation ${locale}/${slug} is not current with the published French source.`);
+  }
+  const source = sourceFiles().find((item) => item.slug === slug);
+  const existing = readTranslation(locale, slug);
+  const translatedText = readFileSync(existing.path, "utf8");
+  const { frontmatter, body } = splitFrontmatter(translatedText);
+  const data = parseFrontmatter(frontmatter);
+  if (
+    data.locale !== locale ||
+    data.sourceSlug !== slug ||
+    data.sourceHash !== row.hash ||
+    typeof data.manual !== "boolean" ||
+    data.draft === true ||
+    !body.trim()
+  ) {
+    throw new Error(`Translation metadata or body is invalid for ${locale}/${slug}.`);
+  }
+  const protectedValues = [
+    ...shieldInline(source.body).placeholders.map(({ original }) => original),
+    ...tokenizeBlocks(source.body).filter(({ type }) => type === "raw").map(({ content }) => content.trim()).filter(Boolean),
+  ];
+  for (const value of protectedValues) {
+    if (!body.includes(value)) throw new Error(`Protected source syntax is missing from ${locale}/${slug}: ${value.slice(0, 80)}`);
+  }
+  return row;
 }
 
 function printStatus(rows, json) {
@@ -394,6 +449,18 @@ export function shieldInline(text) {
       if (end !== -1) {
         const original = text.slice(cursor, end + 1);
         const ph = `%%TAG_${placeholders.length}%%`;
+        placeholders.push({ placeholder: ph, original });
+        result += ph;
+        cursor = end + 1;
+        continue;
+      }
+    }
+
+    if (char === "{") {
+      const end = closingDelimiter(text, cursor, "{", "}");
+      if (end !== -1) {
+        const original = text.slice(cursor, end + 1);
+        const ph = `%%EXPR_${placeholders.length}%%`;
         placeholders.push({ placeholder: ph, original });
         result += ph;
         cursor = end + 1;
@@ -675,9 +742,7 @@ async function translatedDocument(source, locale, hash) {
 
 async function runTranslate(filters) {
   const allRows = status(filters);
-  const rows = allRows.filter((row) =>
-    row.state === "missing" || (!row.manual && (row.state === "stale" || filters.force)),
-  );
+  const rows = automaticRows(filters);
   const manualStale = allRows.filter((row) => row.state === "stale" && row.manual);
   for (const row of manualStale) console.log(`MANUAL  ${row.locale.padEnd(5)} ${row.slug} requires review and will not be overwritten.`);
   if (rows.length === 0) {
@@ -719,22 +784,31 @@ function markReviewed(locale, slug) {
   return 0;
 }
 
-const args = process.argv.slice(2);
-try {
+export async function main(args = process.argv.slice(2)) {
+ try {
   if (args.includes("--help") || args.includes("-h")) {
     console.log("translate: static translation status and provider-neutral generation for published French articles");
     console.log("  npm run translate -- [--slug <slug>] [--locale <locale>] [--json] [--check]");
     console.log("  npm run translate -- --translate [--force] [--slug <slug>] [--locale <locale>]");
+    console.log("  npm run translate -- --assert-current --slug <slug> --locale <locale>");
+    console.log("  npm run translate -- --remove-automatic --slug <slug> --locale <locale>");
     console.log("  npm run translate -- --mark-reviewed <locale> <slug>");
   } else if (args.includes("--mark-reviewed")) {
     const index = args.indexOf("--mark-reviewed");
     process.exitCode = markReviewed(args[index + 1], args[index + 2]);
   } else {
-    const filters = selection();
-    if (filters.slug && !sourceFiles().some((source) => source.slug === filters.slug)) {
+    const filters = selection(args);
+    if (args.includes("--remove-automatic")) {
+      if (!filters.slug || !filters.locale) throw new Error("--remove-automatic requires --slug and --locale.");
+      removeAutomaticTranslation(filters.locale, filters.slug);
+      process.exitCode = 0;
+    } else if (filters.slug && !hasPublishedSource(filters.slug)) {
       throw new Error(`No published French source for "${filters.slug}".`);
-    }
-    if (args.includes("--translate")) {
+    } else if (args.includes("--assert-current")) {
+      if (!filters.slug || !filters.locale) throw new Error("--assert-current requires --slug and --locale.");
+      assertCurrentTranslation(filters.locale, filters.slug);
+      console.log(`Current ${filters.locale}/${filters.slug}.`);
+    } else if (args.includes("--translate")) {
       process.exitCode = await runTranslate({ ...filters, force: args.includes("--force") });
     } else {
       const rows = status(filters);
@@ -745,5 +819,11 @@ try {
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
+ } finally {
+   await closeProvider();
+ }
 }
-await closeProvider();
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  await main();
+}

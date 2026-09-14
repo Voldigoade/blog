@@ -14,10 +14,6 @@ const requiredRoutes = [
   "en/index.html",
   "es/index.html",
   "de/index.html",
-  "pt-br/index.html",
-  "it/index.html",
-  "ja/index.html",
-  "zh-cn/index.html",
   "rss.xml",
   "robots.txt",
   "llms.txt",
@@ -28,6 +24,7 @@ const requiredRoutes = [
   "fonts/source-serif-4-latin.woff2",
 ];
 const errors = [];
+const retiredLocales = ["pt-br", "it", "ja", "zh-cn"];
 
 function walk(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -68,6 +65,10 @@ for (const route of requiredRoutes) {
   if (!existsSync(new URL(route, dist))) errors.push(`missing required output: ${route}`);
 }
 
+for (const locale of retiredLocales) {
+  if (existsSync(new URL(`${locale}/`, dist))) errors.push(`retired locale output still exists: ${locale}`);
+}
+
 const files = existsSync(dist) ? walk(distPath) : [];
 const textFiles = files.filter((file) => [".html", ".xml", ".txt", ".css", ".js", ".json"].includes(extname(file)));
 
@@ -76,6 +77,9 @@ for (const file of textFiles) {
   const text = readFileSync(file, "utf8");
   if (text.includes("voldigoade.com")) errors.push(`${rel} contains voldigoade.com`);
   if (text.includes("/blog/blog/")) errors.push(`${rel} contains a legacy article URL`);
+  for (const locale of retiredLocales) {
+    if (text.includes(`/blog/${locale}/`)) errors.push(`${rel} advertises retired locale ${locale}`);
+  }
   if ([".html", ".xml", ".txt", ".css"].includes(extname(file))) for (const match of text.matchAll(/(?:href|src)=["']([^"']+)["']/g)) {
     const value = match[1];
     if (value.startsWith("/") && value !== base && !value.startsWith(`${base}/`)) {
@@ -130,6 +134,13 @@ if (existsSync(new URL("sitemap-0.xml", dist))) {
     if (!match[0].startsWith(`${origin}${base}/`)) errors.push(`sitemap URL escapes the base: ${match[0]}`);
   }
   if (/\/404(?:\/|<)/.test(sitemap)) errors.push("sitemap includes a 404 route");
+  const sitemapLanguages = new Set([...sitemap.matchAll(/hreflang="([^"]+)"/g)].map((match) => match[1]));
+  for (const language of ["fr", "en", "es", "de", "x-default"]) {
+    if (!sitemapLanguages.has(language)) errors.push(`sitemap has no ${language} alternate`);
+  }
+  for (const language of ["pt-BR", "it", "ja", "zh-CN"]) {
+    if (sitemapLanguages.has(language)) errors.push(`sitemap retains retired ${language} alternates`);
+  }
 }
 
 if (existsSync(new URL("robots.txt", dist))) {

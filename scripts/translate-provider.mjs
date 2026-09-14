@@ -6,10 +6,6 @@ const LANGUAGE_NAMES = {
   en: "natural professional English",
   es: "natural neutral Spanish",
   de: "natural German",
-  "pt-br": "natural Brazilian Portuguese",
-  it: "natural standard Italian",
-  ja: "natural Japanese editorial prose",
-  "zh-cn": "natural Simplified Chinese editorial prose",
 };
 const SUPPORTED_TARGETS = Object.keys(LANGUAGE_NAMES);
 const BATCH_CHARACTERS = 12000;

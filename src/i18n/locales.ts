@@ -7,15 +7,11 @@ export const LOCALES = [
   { route: "en", lang: "en", ogLocale: "en_US", native: "English" },
   { route: "es", lang: "es", ogLocale: "es_ES", native: "Español" },
   { route: "de", lang: "de", ogLocale: "de_DE", native: "Deutsch" },
-  { route: "pt-br", lang: "pt-BR", ogLocale: "pt_BR", native: "Português" },
-  { route: "it", lang: "it", ogLocale: "it_IT", native: "Italiano" },
-  { route: "ja", lang: "ja", ogLocale: "ja_JP", native: "日本語" },
-  { route: "zh-cn", lang: "zh-CN", ogLocale: "zh_CN", native: "简体中文" },
 ] as const;
 
 export type LocaleRoute = (typeof LOCALES)[number]["route"];
 
-export const NON_DEFAULT_LOCALES: LocaleRoute[] = ["en", "es", "de", "pt-br", "it", "ja", "zh-cn"];
+export const NON_DEFAULT_LOCALES: LocaleRoute[] = ["en", "es", "de"];
 
 export function isLocaleRoute(value: string): value is LocaleRoute {
   return (LOCALES as readonly { route: string }[]).some((entry) => entry.route === value);

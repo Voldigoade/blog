@@ -13,10 +13,6 @@ const sitemapLocales: Record<string, string> = {
   en: "en",
   es: "es",
   de: "de",
-  "pt-br": "pt-BR",
-  it: "it",
-  ja: "ja",
-  "zh-cn": "zh-CN",
 };
 
 export default defineConfig({
