@@ -1,6 +1,6 @@
 ---
-title: The secret war to copy the best AI
-description: 'Hundreds of millions of queries, thousands of fake accounts, and models trained on the responses of their competitors: data distillation has become a major industrial and geopolitical issue. However, the line between legitimate learning, extracting capabilities, and outright theft is much more complex than it appears.'
+title: The Secret War to Copy the Best AI
+description: 'Hundreds of millions of queries, thousands of fake accounts, and models trained on their competitors'' responses: distillation has become an industrial and geopolitical issue. But between legitimate learning, capability extraction, and outright theft, the line is far less clear than it appears.'
 pubDate: 2026-09-13
 draft: false
 featured: false
@@ -16,7 +16,7 @@ tags:
   - kimi
   - model extraction
 coverImage: /blog/images/posts/20c92b74-6820-4ef9-929d-bfdb9fcd4971.png
-coverAlt: An artificial intelligence model secretly learns the capabilities of another model by analyzing millions of queries.
+coverAlt: An artificial intelligence model secretly learns capabilities from another model through millions of queries.
 author: Voldigoade
 locale: en
 sourceSlug: 2026-09-13-la-guerre-secrete-pour-copier-les-meilleures-ia
@@ -24,418 +24,418 @@ sourceHash: 4ff675af2579b675dccd35a47c48d951280ac2c569cf8a01496693b9ee179a9e
 manual: false
 ---
 
-151 million exchanges
+**151 million exchanges.**
 
-This is the volume that Anthropic claims to have observed, between May and July 2026, as part of a campaign attributed to Alibaba targeting Claude.
+That's the volume Anthropic claims to have observed, between May and July 2026, in a campaign attributed to Alibaba targeting Claude.
 
-Not 151 million tokens. Not 151 million characters. **More than 151 million interactions with the model.**
+Not 151 million tokens. Not 151 million characters. **Over 151 million exchanges with the model.**
 
-At the peak of the operation, Anthropic reported measuring nearly three million exchanges per day. The initial infrastructure had been using around 5,000 fraudulent accounts, using residential proxies, disposable email addresses, and virtual payment cards. When these accounts were blocked, the traffic had migrated to another infrastructure. 
+At the peak of the operation, Anthropic says it measured nearly three million exchanges per day. An initial infrastructure allegedly used nearly 5,000 fraudulent accounts, with residential proxies, disposable email addresses, and virtual payment cards. When those accounts were blocked, the traffic reportedly migrated to another infrastructure.
 
-The presumed goal was not to question Claude, as Alibaba needed a chatbot.
+The alleged objective was not to ask Claude questions because Alibaba needed a chatbot.
 
-According to Anthropic, the responses, and particularly any traces of reasoning, were transformed into training data intended to improve the Qwen models.
+According to Anthropic, the responses—and notably reasoning traces—were transformed into training data intended to improve the Qwen models.
 
-In other words: **using an extremely advanced AI as a clandestine teacher for another AI.**
+In other words: **making an extremely advanced AI work as the covert teacher of another AI.**
 
 It immediately looks like theft.
 
-The problem is that the technique used has a perfectly respectable name in the field of artificial intelligence research.
+The problem is that the technique used bears a perfectly respectable name in AI research.
 
-Distillation.
+**Distillation.**
 
-And it has absolutely nothing illegal or malicious about it.
+And it is absolutely not illegal or malicious by nature.
 
-## An AI can actually learn from another AI.
+## An AI Can Truly Learn from Another AI
 
 The principle of distillation is surprisingly simple.
 
-Let's consider a very powerful model, which we will call the **professor**.
+Take a very powerful model, which we'll call the **teacher**.
 
-He presents her with a wide range of challenges:
+Submit enormous numbers of problems to it:
 
-- writing or correcting code;
+- writing or fixing code;
 
-- solve complex reasoning problems;
+- solving complex reasoning;
 
-- categorizing documents;
+- classifying documents;
 
-- use tools;
+- using tools;
 
-- analyze data;
+- analyzing data;
 
-- answer specialized questions.
+- answering specialized questions.
 
-We save the answers.
+Keep its responses.
 
-Then, this vast collection of examples is used to train another model, **the student**.
+Then use this immense set of examples to train another model, **the student**.
 
-The student does not receive the teacher's internal data. They do not obtain their source code. They do not receive an exact copy of their digital brain.
+The student does not receive the teacher's internal weights. It does not get its source code. It does not recover an exact copy of its digital brain.
 
-He simply observes, again and again, **how a more capable model behaves when faced with different problems**.
+It simply observes, again and again, **how a much more competent model behaves when faced with different problems**.
 
-It is already incredibly valuable.
+That alone is extremely valuable.
 
-The technique is not even new. In 2015, Geoffrey Hinton, Oriol Vinyals, and Jeff Dean published "Distilling the Knowledge in a Neural Network," demonstrating how to transfer some of the knowledge from a complex system to a simpler and less expensive model. 
+The technique isn't even new. In 2015, Geoffrey Hinton, Oriol Vinyals, and Jeff Dean published *Distilling the Knowledge in a Neural Network*, showing how to transfer part of the knowledge from a complex system to a simpler, cheaper-to-use model.
 
 Today, the entire industry uses this principle.
 
-OpenAI officially offers a **Model Distillation** system that allows the use of the outputs of powerful models to refine smaller, less expensive models. Google also proposes legitimate uses for distillation. 
+OpenAI officially offers a **Model Distillation** system allowing the use of powerful model outputs to fine-tune smaller, cheaper models. Google also offers legitimate distillation uses.
 
-Therefore, the issue is not the distillation process itself.
+Distillation is therefore not the problem.
 
-The question is: **Who is the teacher, who is the student, and has the teacher agreed to give the lesson?**
+The question is: **who is the teacher, who is the student, and did the teacher agree to give the lesson?**
 
-## Distillation, extraction, and copying: these words refer to different processes.
+## Distillation, Extraction, Copying: Words Hide Different Things
 
-A recurring confusion in this case is the idea that using the output of one AI to train another AI necessarily constitutes "stealing the model."
+A confusion constantly recurs in this affair: using one AI's responses to train another AI does not necessarily equate to "stealing the model."
 
-It is important to distinguish between several levels.
+Several levels must be distinguished.
 
 ![](/blog/images/posts/045cda8d-31fb-4a0e-a46e-0b9914450a09.png)
 
-The term "**model extraction**" was not actually coined for the current conflict between AI labs.
+The term **model extraction** wasn't invented for the current war between AI labs.
 
-As early as 2016, researchers demonstrated that a model accessible only through an API could sometimes be approximately reconstructed by querying it intelligently enough. Their article, titled simply *Stealing Machine Learning Models via Prediction APIs*, made this point directly. 
+As early as 2016, researchers showed that a model accessible only through an API could sometimes be approximately reconstructed by querying it cleverly enough. Their paper was bluntly titled *Stealing Machine Learning Models via Prediction APIs*.
 
 The principle creates a fundamental paradox.
 
-To sell an AI, it is necessary to allow users to interact with it and ask questions.
+To sell an AI, you have to let users query it.
 
-However, each answer also reveals something about his behavior.
+But every response also reveals something about its behavior.
 
-A single, isolated request is almost worthless.
+An isolated query is worth almost nothing.
 
-Millions of carefully selected queries can become an extremely valuable dataset.
+Millions of methodically chosen queries can become an extremely valuable dataset.
 
-## What Anthropic is actually accusing Chinese laboratories of doing
+## What Anthropic Actually Accuses Chinese Labs of Doing
 
-It is important to be precise here.
+Precision is needed here.
 
-The detailed information available publicly primarily comes from **the investigations and rulings of Anthropic**. However, these alone do not constitute an independent judicial decision establishing each fact.
+The detailed information publicly available comes mainly **from Anthropic's investigations and attributions**. They do not, by themselves, constitute an independent judicial ruling establishing every fact.
 
-However, the alleged volumes are large enough to completely transform the nature of the subject.
+But the alleged volumes are large enough to completely change the nature of the subject.
 
-In its September 2026 report, Anthropic claims to have identified, among other things:
+In its September 2026 report, Anthropic notably claims to have identified:
 
 ![](/blog/images/posts/5d5908f7-a26f-431f-9e6c-69ad9e63e8ee.png)
 
-We are no longer really in the scenario of a researcher sending a few thousand prompts to study a competitor.
+This is no longer really the scenario of a researcher sending a few thousand prompts to study a competitor.
 
-Anthropic describes actual **industrial pipelines**.
+Anthropic describes genuine **industrial pipelines**.
 
-In the case presented to Zhipu, for example, the laboratory would have recorded the reasoning obtained and then used Claude itself to clean, normalize, evaluate, and generate additional data for training.
+In the case attributed to Zhipu, for example, the lab allegedly recorded the retrieved reasoning then used Claude itself to clean, normalize, evaluate, and generate other data destined for training.
 
-Therefore, the professor would no longer simply be responsible for providing answers.
+The teacher would therefore no longer serve only to produce responses.
 
-He would also be involved in **creating his own dataset for copying**. 
+It would also participate in **the fabrication of its own copy dataset**.
 
-## The Alibaba case goes even further.
+## The Alibaba Case Goes Even Further
 
-The capabilities that Anthropic attributes to Alibaba would have specifically targeted reasoning, programming, the development of computer cores, and tasks requiring multiple steps.
+The campaign Anthropic attributes to Alibaba allegedly targeted reasoning capabilities, programming, kernel development, and long tasks requiring multiple steps in particular.
 
-According to Anthropic, the prompts required Claude to generate explicit traces of reasoning, which were then saved and transformed into data for **supervised fine-tuning** (SFT).
+According to Anthropic, prompts forced Claude to produce explicit reasoning traces that were then saved and transformed into **supervised fine-tuning** data, or SFT.
 
-The SFT (Supervised Fine-Tuning) process involves training a model on pairs of the following type:
+SFT consists of training a model on pairs of the type:
 
 - `Problème → excellente réponse attendue`
 
-Repeat this process millions of times on carefully selected problems, and you are not only transmitting factual knowledge.
+Repeat this millions of times on carefully chosen problems and you don't just transmit factual knowledge.
 
-You also provide **useful behaviors**: how to break down a problem, what strategy to try, how to produce clean code, how to use a tool, or how to proceed with a task over many steps.
+You also transmit **useful behaviors**: how to break down a problem, which strategy to try, how to produce clean code, how to use a tool, or how to pursue a task for many steps.
 
-Anthropic claims that this data was used to improve several generations of Qwen. The company also accuses Alibaba of using Claude to work on its internal AI research infrastructure, including reinforcement learning environments and certain work related to model architectures. 
+Anthropic claims these data served to improve several generations of Qwen. The company also accuses Alibaba of using Claude to work on its internal AI research infrastructure, notably reinforcement learning environments and certain work related to model architectures.
 
-Once again: this does not mean that Alibaba has downloaded "Claude's brain."
+Once again: this does not mean Alibaba allegedly "downloaded Claude's brain."
 
-However, if the accusations are accurate, Claude would have acted as a **researcher, professor, data generator, and evaluation tool** for a competitor.
+But if the accusations are accurate, Claude would have served as **researcher, teacher, data generator, and evaluation tool** for a competitor.
 
-The technical detail does not diminish the impact of the phenomenon.
+The technical nuance doesn't make the phenomenon less impressive.
 
 It makes it more interesting.
 
-## Kimi and DeepSeek: When the model you're using might no longer be the one that's actually responding to you
+## Kimi and DeepSeek: When the Model You Use Isn't Even the One Answering You Anymore
 
-The accusations against Moonshot AI, the creators of Kimi, are likely the most disturbing.
+The accusations concerning Moonshot AI, creator of Kimi, are probably the most disturbing.
 
-Anthropic claims to have discovered that certain queries sent by users who believed they were interacting with Kimi were **silently being transmitted to Claude**.
+Anthropic claims to have discovered that certain queries sent by users thinking they were querying Kimi were **silently forwarded to Claude**.
 
-The response generated by Claude would then have been sent back to the user as the service's response.
+The response produced by Claude would then have been returned to the user as the service's response.
 
-Over a ten-day period, Anthropic claims to have received nearly 300,000 customer requests from Moonshot within this framework. The infrastructure allegedly used 5,380 fraudulent accounts. Some of the interactions were then retained to feed training pipelines. In total, Anthropic attributes over 23 million interactions to Moonshot between May and July. 
+Over a ten-day period, Anthropic says it received nearly 300,000 Moonshot customer queries in this framework. The infrastructure allegedly used 5,380 fraudulent accounts. Some of the exchanges would then have been retained to feed training pipelines. In total, Anthropic attributes over 23 million exchanges to Moonshot between May and July.
 
-DeepSeek would have used a similar method.
+DeepSeek allegedly used a comparable method.
 
-Anthropic claims that certain user requests, particularly those originating from development tools compatible with various models, were selected and then redirected to Claude Opus.
+Anthropic claims that certain DeepSeek user queries—particularly those originating from development tools compatible with different models—were selected and redirected to Claude Opus.
 
-This response could be used immediately, but also provide new data that could be used to train future in-house models. Anthropic estimates that over 12.1 million exchanges were associated with this campaign, which took place over just fourteen days in July 2026.
+The response could thus serve immediately, but also provide new data to train future in-house models. Anthropic estimates over 12.1 million exchanges associated with this campaign over just fourteen days in July 2026.
 
-If these accusations are true, we are no longer just talking about intellectual property.
+If these accusations are accurate, we're no longer talking only about intellectual property.
 
-We also discuss **user trust**.
+We're also talking about **user trust**.
 
-## The hidden problem: your conversations could become the raw material.
+## The Hidden Problem: Your Conversations Can Become Raw Material
 
-This may be the most concerning aspect of the report.
+This may be the most concerning part of the report.
 
-Anthropic claims that DeepSeek, Moonshot, and Xiaomi have shared some initial conversations with Claude that were originally intended for their own models.
+Anthropic claims that DeepSeek, Moonshot, and Xiaomi transmitted certain conversations initially addressed to their own models to Claude.
 
-And a conversation with a programming AI can contain much more than just a simple, abstract question.
+And a conversation with a coding AI can contain much more than an abstract question.
 
-It may contain:
+It can contain:
 
-- of proprietary code;
+- proprietary code;
 
 - internal documents;
 
 - API keys;
 
-- identifiers;
+- credentials;
 
 - professional data;
 
-- names and contact information;
+- names and contact details;
 
 - configuration files;
 
 - confidential information.
 
-Anthropic claims to have observed sensitive information belonging to hundreds of users and organizations in the sessions in question, in at least a dozen languages. 
+Anthropic says it observed sensitive information belonging to hundreds of users and organizations in the sessions concerned, in at least a dozen languages.
 
-In the case of Xiaomi, Anthropic claims that over 400,000 requests from more than 1,500 accounts were sent to Claude. These conversations were then used to create data for SFT (Supervised Fine-Tuning) and reinforcement learning, which would be used to train future models. 
+In the Xiaomi case, Anthropic claims over 400,000 queries from over 1,500 accounts were sent to Claude. The conversations would then have served to build SFT and reinforcement learning data for future models.
 
-Therefore, there is potentially **two resources being extracted simultaneously**:
+There are therefore potentially **two resources extracted simultaneously**:
 
-the capabilities of the competing model
+the competitor model's capabilities,
 
 and user data.
 
-These are entirely different legal and ethical issues.
+These are not at all the same legal or ethical problems.
 
-However, they can all use the exact same pipe.
+But they can pass through exactly the same pipe.
 
-## It is even possible to purchase conversations with an AI.
+## You Can Even Buy Conversations with an AI
 
-The Anthropic report describes an additional step: the emergence of a **secondary market for distilled data**.
+Anthropic's report describes an additional step: the emergence of a **secondary market for distillation data**.
 
-Intermediary services provide access to models that are normally unavailable in certain regions. They forward requests to Claude or other models, retrieve the responses, and can also maintain the conversation history.
+Intermediary services provide access to models normally unavailable in certain regions. They forward queries to Claude or other models, retrieve the responses… and can retain the conversations.
 
-Anthropic claims that some of this data was subsequently resold to other laboratories.
+Anthropic claims some of this data was then resold to other labs.
 
-SenseTime would have therefore used conversations obtained from third-party providers.
+SenseTime allegedly used Claude conversations purchased from third-party providers.
 
-Anthropic also accuses MiniMax of having created its own proxy network through a shell company that, curiously, only offered access to Anthropic and OpenAI models, but not to MiniMax's own models. Anthropic believes that this infrastructure was used to collect data for training purposes. 
+Anthropic also accuses MiniMax of creating its own proxy network via a shell company that, curiously, offered access only to Anthropic and OpenAI models and not to MiniMax's own models. Anthropic estimates this infrastructure served to harvest exchanges for training.
 
-If this economic model proves successful on a large scale, it would fundamentally change the situation.
+If this business model is confirmed at scale, it profoundly changes the situation.
 
 A conversation with an AI is no longer just an interaction between a user and a provider.
 
-It could become a valuable asset that could be used to train a third AI.
+It can become **a resalable asset to train a third AI**.
 
-## The U.S. government has now become involved in the conflict.
+## The US Government Has Now Entered the Battle
 
-On September 8, 2026, the NSA, the FBI, and CISA jointly issued an alert regarding this phenomenon.
+On September 8, 2026, the NSA, FBI, and CISA jointly published an alert devoted to this phenomenon.
 
-The document accuses Chinese companies of organizing industrial-scale operations to replicate American models.
+The document accuses Chinese companies of organizing distillation campaigns against American models at **industrial scale**.
 
-The American argument is both economic and security-related: replicating certain capabilities of existing models would allow for a reduction in the cost required to develop them independently, including expenses related to calculation, energy, fundamental research, and experimentation. 
+The American argument is economic as much as security-related: replicating certain capabilities of existing models would reduce part of the cost needed to develop them independently—compute, energy, fundamental research, and experimentation.
 
-Distillation is therefore now presented not only as a commercial issue, but also as a strategic concern in the technological competition between the United States and China.
+Distillation is therefore now presented not only as a commercial problem, but as a strategic issue in the technological competition between the United States and China.
 
 And China rejects this narrative.
 
-The Chinese Ministry of Foreign Affairs responded that the country's progress in artificial intelligence stemmed from its scientific and technological capabilities and its policy of openness and cooperation. Beijing has asked the United States to stop what it considers to be unfounded accusations and attempts to discredit China. 
+The Chinese Ministry of Foreign Affairs responded that the country's AI progress stemmed from its scientific and technological capabilities and its policy of openness and cooperation. Beijing asked the United States to cease what it considers unfounded accusations and attempts at denigration.
 
-Therefore, we have two very different interpretations of the same phenomenon.
+We therefore have two almost opposite readings of the same phenomenon.
 
-For Washington and several US laboratories: **industrial extraction of intellectual property**.
+For Washington and several American labs: **industrial extraction of intellectual property**.
 
-Regarding Beijing: a politically motivated accusation targeting Chinese companies in a sector where competition has become strategic.
+For Beijing: a political accusation targeting Chinese companies in a sector where competition has become strategic.
 
 The technique exists.
 
-Her interpretation now takes a geopolitical perspective.
+Its interpretation is now geopolitical.
 
-## The word "theft" still deserves to be used with precision.
+## The Word "Theft" Still Deserves to Be Used Precisely
 
-Google does not take many lexical precautions: its Threat Intelligence team describes model extraction attacks as a form of **industrial espionage** and theft of intellectual property.
+Google doesn't mince words: its Threat Intelligence team describes model extraction attacks as a form of **industrial espionage** and intellectual property theft.
 
-Google also reports observing large-scale campaigns regularly, and recently indicated that some campaigns exceeded **100 million prompts**. 
+Google also claims to regularly observe large-scale campaigns and recently indicated that some exceeded **100 million prompts**.
 
-OpenAI holds a similar position.
+OpenAI holds a comparable position.
 
-The company explicitly acknowledges that there are legitimate uses of the distillation process, and it even provides the tools for this. However, it also claims to have observed activities associated with DeepSeek that it considers to be compatible with adversarial distillation and attempts to circumvent its restrictions.
+The company explicitly acknowledges legitimate distillation uses—it provides the tools itself—but also claims to have observed activities associated with DeepSeek that it considers compatible with adversarial distillation and attempts to circumvent its restrictions.
 
- Anthropic, on the other hand, prohibits its users from using its services to develop a competing product or train a competing AI model without explicit permission. 
+Anthropic, for its part, prohibits in its commercial terms the use of its services to build a competing product or train a competing AI model without explicit authorization.
 
-However, several issues need to be kept separate.
+But several questions must remain separate.
 
-**Breach of contract, technical extraction, intellectual property, confidentiality, and criminal liability are not interchangeable terms.**
+**Contractual violations, technical extraction, intellectual property, confidentiality, and criminal qualification are not synonyms.**
 
-Claiming that a laboratory used thousands of fake accounts to circumvent restrictions is a statement.
+Saying a lab fraudulently used thousands of accounts to circumvent restrictions is one claim.
 
-Another way to put it is that he replicated the abilities of a competitor by using their own strategies.
+Saying it replicated certain capabilities of a competitor using its outputs is another.
 
-To say that he "stole the model" could finally give the impression that his weight has been taken away, which is not what these reports describe.
+Saying it "stole the model" can finally give the impression its weights were stolen, which is not what these reports describe.
 
-Business language is not neutral.
+Corporate language is not neutral.
 
-When Anthropic refers to "illicit distillation" or Google speaks of "IP theft," these companies are describing a genuine technical problem, but they are also defending a valuable commercial asset.
+When Anthropic says **illicit distillation**, or Google speaks of **IP theft**, these companies describe a real technical problem, but they also defend a commercial asset worth enormously.
 
-This does not make their accusations false.
+That doesn't make their accusations false.
 
-This simply means that one should not confuse their vocabulary with a universal definition.
+It simply requires not confusing their vocabulary with a universal definition.
 
-## Is it truly possible to replicate Claude's abilities with enough prompts?
+## Can You Really Copy Claude with Enough Queries?
 
-Not in the sense of simply copying a file.
+Not in the sense of copying a file.
 
-Even with one hundred million responses, the student does not automatically acquire:
+Even with a hundred million responses, the student does not automatically recover:
 
-- the exact weights of the professor;
+- the teacher's exact weights;
 
 - its original training data;
 
-- all of its capabilities;
+- all its capabilities;
 
 - its internal mechanisms;
 
-- all of his knowledge;
+- all its knowledge;
 
-- nor exactly his behavior.
+- nor exactly its behavior.
 
-Distillation is typically **selective and imperfect**.
+Distillation is generally **selective and imperfect**.
 
-However, it doesn't need to produce a perfect clone to be extremely profitable.
+But it doesn't need to produce a perfect clone to be extremely profitable.
 
-Let's assume that a competitor already has a very good model.
+Suppose a competitor already has a very good model.
 
-What he may lack is not necessarily "general intelligence" in its entirety, but rather certain specific skills: agent-based programming, long-term reasoning, the use of tools, cybersecurity, mathematics, or the ability to correct his own results.
+What it lacks may not be "general intelligence" as a whole, but certain specific skills: agentic programming, long reasoning, tool use, cybersecurity, mathematics, or the ability to correct its own results.
 
-He could then query a model that is better equipped to handle these areas, create a specialized dataset, and then focus his training specifically on the areas where he was weak.
+It can then massively query a model that masters these domains better, build a specialized dataset, then focus its training precisely where it was weak.
 
 It doesn't necessarily copy **Claude**.
 
-He is trying to emulate **what Claude does best**.
+It tries to copy **what Claude does better than it**.
 
-And it's much more realistic.
+And that's much more realistic.
 
-## The reasoning capabilities of AI have become a strategic asset.
+## An AI's Reasoning Has Become a Strategic Resource
 
-Modern models sometimes generate responses that are significantly longer than a simple answer.
+Modern models sometimes produce much more than a short answer.
 
-To solve a complex problem, they can perform intermediate calculations, try different approaches, use tools, write and test code, or develop a strategy over a long sequence.
+To solve a complex problem, they can perform intermediate calculations, try several approaches, use tools, write then test code, or develop a strategy over a long sequence.
 
-These trajectories are particularly interesting for training another system.
+These trajectories are extraordinarily interesting for training another system.
 
-This is precisely why Anthropic claims to have strengthened the protection of Claude's internal reasoning processes.
+That's precisely why Anthropic claims to have strengthened protection of Claude's internal reasoning.
 
-The company, for example, uses reasoning summaries instead of certain internal records, and has developed protections against techniques that could replay reasoning signatures across multiple sessions. It also combines this with specialized classifiers, metadata analysis, and identity verification requests when suspicious behavior is detected. 
+The company notably says it uses reasoning summaries in place of certain internal traces and has developed protections against techniques allowing reasoning signatures to be replayed across multiple sessions. It combines this with specialized classifiers, metadata analysis, and identity verification requests when behavior appears suspicious.
 
-Google, for its part, is developing techniques to identify patterns that may have originated from Gemini, as well as defenses capable of reducing the usefulness of data obtained by an attacker. 
+Google, for its part, says it is developing techniques to recognize models potentially distilled from Gemini, as well as defenses capable of reducing the usefulness of data recovered by an attacker.
 
 The situation increasingly resembles a classic war between attackers and defenders:
 
-a laboratory protects its outputs;
+a lab protects its outputs;
 
-one finds a new way to retrieve them;
+another finds a new way to recover them;
 
-The protection is evolving;
+protection evolves;
 
-The extraction method is being changed.
+extraction changes technique.
 
-However, here, the object to be protected is not just a program.
+Except here, **the object to protect is not just a program**.
 
-That's just unacceptable behavior.
+It's behavior.
 
-## The API of an AI is also a controlled release of its capabilities.
+## An AI's API Is Also a Controlled Leak of Competence
 
-This is likely the most important idea behind the entire case.
+This is probably the most important idea behind this whole affair.
 
-For a long time, protecting proprietary software primarily meant protecting its source code.
+For a long time, protecting proprietary software mainly meant protecting its source code.
 
-However, large-scale models slightly alter this logic.
+Large models slightly change this logic.
 
-You can keep your weight, precise measurements, and training data completely confidential.
+You can keep your weights, precise architecture, and training data totally secret.
 
-In order for your model to have commercial value, you still need to allow others to see what it can do.
+But for your model to have commercial value, you still have to let others see what it knows how to do.
 
-Therefore, each answer is a small demonstration of competence.
+Every response is therefore a tiny demonstration of competence.
 
-On its own, it reveals very little.
+In isolation, it reveals almost nothing.
 
-On a very large scale, it becomes a body of work.
+At very large scale, it becomes a corpus.
 
-And this dataset can be used for training.
+And that corpus can serve to train.
 
-Therefore, putting an AI behind an API means selling access to your intelligence while also trying to prevent customers from gaining enough knowledge to replicate it.
+**Putting an AI behind an API amounts to selling access to its intelligence while trying to prevent customers from learning enough from it to reproduce it.**
 
-This is a tension that is unlikely to disappear.
+That's a tension that probably won't disappear.
 
-Researchers had already identified it using much simpler models a decade ago. The current models have simply dramatically increased the value of what can be extracted. 
+Researchers had already identified it with much simpler models ten years ago. Current models have simply exploded the value of what can be extracted.
 
-## And that's when the discussion becomes truly uncomfortable.
+## And That's Where the Debate Becomes Truly Uncomfortable
 
-There's something quite ironic about the current position of major AI labs.
+There's something rather ironic in the current position of the major AI labs.
 
-A significant portion of modern artificial intelligence has been made possible by learning from massive amounts of data generated by others: text, code, images, discussions, and documents available on the internet or obtained through various licenses and sources.
+A good part of modern artificial intelligence was made possible by learning on gigantic quantities of data produced by other people: text, code, images, discussions, and documents available on the Internet or obtained via various licenses and sources.
 
-Today, the same companies are realizing how unpleasant it is to see **their own products being used as training material for others**.
+Today, the same companies discover how unpleasant it is to see **their own output become someone else's training material**.
 
-This does not mean that the two situations are legally or technically identical.
+That doesn't mean the two situations are legally or technically identical.
 
 They are not.
 
-However, symmetry is difficult to ignore.
+But the symmetry is hard to ignore.
 
-For years, the main question was:
+For years, the dominant question was:
 
-"Can an AI company train its model on data that has been created by humans?"
+**"Can an AI company train its model on what humans have produced?"**
 
 A second question now arises:
 
-"Can an AI company train its model on data produced by another AI?"
+**"Can an AI company train its model on what another AI has produced?"**
 
-And unlike what the word "distillation" might suggest, we are very far from having a universal answer.
+And contrary to what the word "distillation" might suggest, we are very far from having a universal answer.
 
-## The next AI war may not only involve GPUs.
+## The Next AI War May Not Be Just About GPUs
 
-There's a great deal of discussion about insects, data centers, electricity, and the billions of dollars being invested in model training.
+We talk enormously about chips, datacenters, electricity, and billions invested in model training.
 
-All of this remains essential.
+All that remains essential.
 
-However, a new resource becomes strategically important:
+But a new resource is becoming strategic:
 
-**The answers generated by the world's leading models.**
+**the responses produced by the world's best models.**
 
-Because a laboratory that doesn't have the best professor can, at least in theory, try to restrict, circumvent, automate, or obscure access to such an extent that its expertise can be converted into data.
+Because a lab that doesn't possess the best teacher can, at least in theory, try to rent, circumvent, automate, or disguise enough access to transform those skills into data.
 
-Therefore, the dominant laboratories will need to defend two contradictory things simultaneously:
+Dominant labs will therefore have to simultaneously defend two contradictory things:
 
-make their models accessible enough to be useful and profitable.
+making their models accessible enough to be useful and profitable,
 
-while also preventing their competitors from gaining access to them in order to learn from their successes.
+while preventing competitors from accessing them enough to learn from them.
 
-Anthropic can ban up to 5,000 accounts.
+Anthropic can ban 5,000 accounts.
 
-More will appear.
+Others will appear.
 
 Google can detect hundreds of millions of automated queries.
 
-The attacks can be distributed across multiple accounts.
+Attacks can spread across more accounts.
 
-The models can conceal their reasoning processes.
+Models can mask their reasoning.
 
-The extractors can look for other signals in the final outputs.
+Extractors can look for other signals in final outputs.
 
-And each improvement made by a teacher also increases the potential value of their lessons.
+And every improvement in a teacher also increases the potential value of its lessons.
 
-Therefore, distillation is not merely a technical curiosity.
+Distillation is therefore not a technical curiosity.
 
-She is rapidly becoming **one of the new frontiers in global competition in artificial intelligence**.
+It is becoming **one of the new fronts of global competition in artificial intelligence**.
 
-And this type of front has a fascinating characteristic: unlike a traditional approach, it is not always necessary to access the safe through the door.
+And this front has a fascinating particularity: unlike classic theft, it's not always necessary to break into the vault.
 
-Sometimes, all it takes is to stand in front of the door and ask the right questions…
+Sometimes it's enough to stand at the door, ask enough good questions…
 
-and to listen carefully to the answers.
+and listen carefully to the answers.
