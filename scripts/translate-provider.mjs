@@ -92,14 +92,12 @@ export function buildTranslationPrompt(source, context, options = {}) {
 
 function extractJsonCandidate(text) {
   const trimmed = text.trim();
-  const fenceMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
-  if (fenceMatch) return fenceMatch[1].trim();
   const firstBrace = trimmed.indexOf("{");
   const lastBrace = trimmed.lastIndexOf("}");
   if (firstBrace !== -1 && lastBrace > firstBrace) {
     return trimmed.slice(firstBrace, lastBrace + 1).trim();
   }
-  return trimmed;
+  return trimmed.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim();
 }
 
 function parsePublicationJson(text) {
@@ -107,8 +105,8 @@ function parsePublicationJson(text) {
   let value;
   try {
     value = JSON.parse(cleaned);
-  } catch {
-    throw new TranslationProviderError("INVALID_RESPONSE", "model output is not a JSON publication object");
+  } catch (error) {
+    throw new TranslationProviderError("INVALID_RESPONSE", `model output is not a JSON publication object (${error.message})`);
   }
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     throw new TranslationProviderError("INVALID_RESPONSE", "model output is not a JSON publication object");
