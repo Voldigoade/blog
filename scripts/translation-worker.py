@@ -280,27 +280,43 @@ def extract_quantities(text, locale="fr"):
 
     num_pat = re.compile(
         r'(?<![A-Za-z0-9_])'
-        r'(\d+(?:[,\.\s]\d{3})*(?:[,\.]\d+)?)'
+        r'(\d+(?:[,\. \xa0\u202f]\d{3})*(?:[,\.]\d+)?)'
         r'(?:\s*([A-Za-zÀ-ÿ]+))?'
     )
 
     for m in num_pat.finditer(text):
-        raw_num = m.group(1).replace(" ", "").replace("\xa0", "")
-        if "," in raw_num and "." in raw_num:
-            if raw_num.rfind(",") > raw_num.rfind("."):
-                raw_num = raw_num.replace(".", "").replace(",", ".")
-            else:
-                raw_num = raw_num.replace(",", "")
-        elif "," in raw_num:
-            parts = raw_num.split(",")
-            if len(parts) == 2 and len(parts[1]) != 3:
-                raw_num = raw_num.replace(",", ".")
-            elif len(parts) > 1 and all(len(p) == 3 for p in parts[1:]):
-                raw_num = raw_num.replace(",", "")
-            else:
-                raw_num = raw_num.replace(",", ".")
+        raw_num = re.sub(r'[\s\xa0\u202f]', '', m.group(1))
+        vals = []
         try:
-            val = float(raw_num)
+            if "," in raw_num and "." in raw_num:
+                if raw_num.rfind(",") > raw_num.rfind("."):
+                    vals.append(float(raw_num.replace(".", "").replace(",", ".")))
+                else:
+                    vals.append(float(raw_num.replace(",", "")))
+            elif "," in raw_num:
+                parts = raw_num.split(",")
+                if locale in ("en", "ja", "zh-cn", "zh-Hans") and len(parts) > 1 and parts[0] != "0" and all(len(p) == 3 for p in parts[1:]):
+                    vals.append(float(raw_num.replace(",", "")))
+                    if len(parts) == 2:
+                        try:
+                            vals.append(float(raw_num.replace(",", ".")))
+                        except ValueError:
+                            pass
+                else:
+                    vals.append(float(raw_num.replace(",", ".")))
+            elif "." in raw_num:
+                parts = raw_num.split(".")
+                if len(parts) > 1 and parts[0] != "0" and all(len(p) == 3 for p in parts[1:]):
+                    vals.append(float(raw_num.replace(".", "")))
+                    if len(parts) == 2:
+                        try:
+                            vals.append(float(raw_num))
+                        except ValueError:
+                            pass
+                else:
+                    vals.append(float(raw_num))
+            else:
+                vals.append(float(raw_num))
         except ValueError:
             continue
 
@@ -310,7 +326,8 @@ def extract_quantities(text, locale="fr"):
             if word.startswith(kw):
                 scale = factor
                 break
-        quantities.append(val * scale)
+        for v in vals:
+            quantities.append(v * scale)
 
     return quantities
 
@@ -1093,6 +1110,14 @@ def self_test():
     sample = "La dynamique des fluides modélise l'encre et l'eau avec rigueur."
     tokens = engine.count_tokens(sample, "fr")
     check("tokenize endpoint", tokens > 0, f"tokens={tokens}")
+
+    # Quantitative fidelity validation sanity checks (instantaneous, no inference)
+    check("numeric 0,003% fr->en", check_numeric_fidelity("0,003 %", "0.003%", "en")[0])
+    check("numeric 380 000 fr->en", check_numeric_fidelity("380 000 ans", "380,000 years", "en")[0])
+    check("numeric 380 000 fr->de", check_numeric_fidelity("380 000 ans", "380.000 Jahre", "de")[0])
+    check("numeric 380 000 fr->ja", check_numeric_fidelity("380 000 ans", "38万年", "ja")[0])
+    check("numeric 2,5M fr->zh", check_numeric_fidelity("2,5 millions", "250万", "zh-cn")[0])
+    check("numeric 10,625 fr->en", check_numeric_fidelity("10,625/15", "10.625/15", "en")[0])
 
     # Fast single inference sanity check
     critical_source = "Il y a quelque chose de profondément trompeur dans le ciel."
