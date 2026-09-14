@@ -358,6 +358,19 @@ export function removeAutomaticTranslation(locale, slug) {
   return true;
 }
 
+export function assertProtectedSyntax(sourceBody, translatedBody, identity) {
+  const protectedValues = [
+    ...shieldInline(sourceBody).placeholders.map(({ original }) => original),
+    ...tokenizeBlocks(sourceBody).filter(({ type }) => type === "raw").map(({ content }) => content.trim()).filter(Boolean),
+  ];
+  for (const value of protectedValues) {
+    if (!translatedBody.includes(value)) {
+      throw new Error(`Protected source syntax is missing from ${identity}: ${value.slice(0, 80)}`);
+    }
+  }
+  return protectedValues;
+}
+
 export function assertCurrentTranslation(locale, slug) {
   if (!TARGETS.includes(locale)) throw new Error(`Unsupported locale "${locale}".`);
   const row = status({ locale, slug })[0];
@@ -379,13 +392,7 @@ export function assertCurrentTranslation(locale, slug) {
   ) {
     throw new Error(`Translation metadata or body is invalid for ${locale}/${slug}.`);
   }
-  const protectedValues = [
-    ...shieldInline(source.body).placeholders.map(({ original }) => original),
-    ...tokenizeBlocks(source.body).filter(({ type }) => type === "raw").map(({ content }) => content.trim()).filter(Boolean),
-  ];
-  for (const value of protectedValues) {
-    if (!body.includes(value)) throw new Error(`Protected source syntax is missing from ${locale}/${slug}: ${value.slice(0, 80)}`);
-  }
+  assertProtectedSyntax(source.body, body, `${locale}/${slug}`);
   return row;
 }
 
@@ -663,6 +670,32 @@ export function tokenizeBlocks(body) {
   return blocks;
 }
 
+export function isProtectedOnlySegment(value, placeholders) {
+  if (placeholders.length === 0) return false;
+  let remainder = value;
+  for (const { placeholder } of placeholders) remainder = remainder.replaceAll(placeholder, "");
+  return remainder.trim() === "";
+}
+
+export async function translatePreparedSegments(segments, placeholderGroups, context, translator = translateSegments) {
+  if (segments.length !== placeholderGroups.length) {
+    throw new Error("prepared segment and placeholder counts differ");
+  }
+  const translated = [...segments];
+  const indexes = segments
+    .map((value, index) => isProtectedOnlySegment(value, placeholderGroups[index]) ? -1 : index)
+    .filter((index) => index !== -1);
+  if (indexes.length === 0) return translated;
+  const output = await translator(indexes.map((index) => segments[index]), context);
+  if (!Array.isArray(output) || output.length !== indexes.length) {
+    throw new Error(`provider returned unexpected segment count: expected ${indexes.length}, got ${output?.length}`);
+  }
+  indexes.forEach((index, outputIndex) => {
+    translated[index] = output[outputIndex];
+  });
+  return translated;
+}
+
 async function translatedDocument(source, locale, hash) {
   const fields = TRANSLATED_FRONTMATTER.map((field) => pathValue(source.data, field.path) || "");
   const fieldPlaceholders = [];
@@ -689,10 +722,11 @@ async function translatedDocument(source, locale, hash) {
   }
 
   const input = [...shieldedFields, ...shieldedBlocks];
-  const translated = await translateSegments(input, { sourceLocale: "fr", targetLocale: locale });
-  if (!Array.isArray(translated) || translated.length !== input.length) {
-    throw new Error(`provider returned unexpected segment count: expected ${input.length}, got ${translated?.length}`);
-  }
+  const translated = await translatePreparedSegments(
+    input,
+    [...fieldPlaceholders, ...blockPlaceholders],
+    { sourceLocale: "fr", targetLocale: locale },
+  );
 
   const translatedFields = translated.slice(0, fields.length).map((val, idx) => {
     if (!val) return val;

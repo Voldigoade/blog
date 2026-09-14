@@ -35,6 +35,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "translate": "node scripts/translate.mjs",
+    "test:protected-syntax": "node scripts/test-protected-syntax.mjs",
     "test:translation-scheduler": "node scripts/test-translation-scheduler.mjs",
     "astro": "astro"
   },
