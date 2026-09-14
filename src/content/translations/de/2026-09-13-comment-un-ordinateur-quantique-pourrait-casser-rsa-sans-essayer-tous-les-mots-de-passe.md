@@ -1,6 +1,6 @@
 ---
-title: Wie ein Quantencomputer RSA brechen könnte, ohne "alle Passwörter zu versuchen"
-description: Es wird oft wiederholt, dass ein quantumcomputer einen Teil unserer Verschlüsselung brechen kann. Aber wie genau? Die wahre Gefahr kommt nicht von einer absurd schnellen Maschine; sie kommt von einem Algorithmus, der die Art und Weise verändert, wie das Problem angegriffen wird.
+title: Wie ein Quantencomputer RSA knacken könnte, ohne „alle Passwörter auszuprobieren“
+description: 'Man hört oft, dass ein Quantencomputer einen Teil unserer Kryptographie brechen könnte. Aber wie genau? Die eigentliche Gefahr geht nicht von einer absurd schnellen Maschine aus: Sie geht von einem Algorithmus aus, der die Art und Weise, das Problem anzugreifen, völlig verändert.'
 pubDate: 2026-09-13
 draft: false
 featured: false
@@ -16,9 +16,9 @@ tags:
 series:
   id: internet-face-au-quantique
   order: 2
-  title: Internet gegenüber der Quanten
+  title: Das Internet im Angesicht des Quantens
 coverImage: /blog/images/posts/8c6ab339-ddae-4116-b264-2455d5ef0f4d.png
-coverAlt: Repräsentation eines Quantenkomputers, der die mathematische Struktur eines RSA-Schlüssels analysiert.
+coverAlt: Darstellung eines Quantencomputers, der die mathematische Struktur eines RSA-Schlüssels analysiert.
 author: Voldigoade
 locale: de
 sourceSlug: 2026-09-13-comment-un-ordinateur-quantique-pourrait-casser-rsa-sans-essayer-tous-les-mots-de-passe
@@ -26,75 +26,75 @@ sourceHash: 4d8d5f383ebda170a015f984fd59be61dec51ec51c0c756f3cca874ae25c146c
 manual: false
 ---
 
-Zu sagen, dass ein quantumcomputer "RSA brechen" kann, gibt leicht eine schlechte Vorstellung des Problems.
+Zu sagen, ein Quantencomputer könne RSA „knacken“, vermittelt leicht ein falsches Bild des Problems.
 
-Man könnte sich vorstellen, dass eine Maschine so mächtig ist, dass sie Milliarden von Schlüsseln versucht, bis sie die richtige findet.
+Man könnte sich eine Maschine vorstellen, die so leistungsstark ist, dass sie Milliarden von Milliarden Schlüsseln ausprobiert, bis sie den richtigen findet.
 
-Das ist nicht so.
+Das ist es nicht.
 
-Das eigentliche Problem ist viel interessanter: **Ein ausreichend fortgeschrittener Quantencomputer könnte eine mathematische Methode verwenden, die unsere klassischen Computern nicht effektiv nutzen können.**
+Das eigentliche Problem ist weitaus interessanter: **Ein ausreichend fortgeschrittener Quantencomputer könnte eine mathematische Methode nutzen, die unsere klassischen Computer nicht effizient ausnutzen können.**
 
-Und alles basiert auf einer freiwillig ausgewählten Schwäche vor fast fünfzig Jahren.
+Und alles beruht auf einer vor fast fünfzig Jahren bewusst gewählten Schwäche.
 
-## RSA schützt ein Geheimnis mit einem einfachen Problem in einer Richtung, schwierig in der anderen
+## RSA schützt ein Geheimnis mit einem Problem, das in die eine Richtung leicht, in die andere schwer ist
 
-Nehmen wir zwei erste Zahlen:
+Nehmen wir zwei Primzahlen:
 
 `61 × 53 = 3233`
 
-Die Multiplizierung ist trivial.
+Die Multiplikation ist trivial.
 
-Aber jetzt vorstellen wir, dass ich Ihnen nur schenke:
+Stellen wir uns nun vor, ich gebe dir nur:
 
 `3233`
 
-Und ich frage dich:
+und dich frage:
 
-> Welche ersten Zahlen wurden multipliziert, um dieses Ergebnis zu erzielen?
+> Welche Primzahlen wurden multipliziert, um dieses Ergebnis zu erhalten?
 
-Mit einer so kleinen Anzahl finden Sie schnell `61` und `53`.
+Bei einer so kleinen Zahl würdest du schnell `61` und `53` finden.
 
-RSA verwendet im Wesentlichen die gleiche Idee, aber mit riesigen Zahlen.
+RSA wendet im Wesentlichen dieselbe Idee an, aber mit gewaltigen Zahlen.
 
-Ein moderner RSA-Schlüssel kann ein Modul verwenden **2048 Bits**oder eine Anzahl, die ungefähr **617 Decimale Zahlen**.
+Ein moderner RSA-Schlüssel kann einen Modulus von **2048 Bit** verwenden, also eine Zahl mit etwa **617 Dezimalstellen**.
 
-Die Vervielfältigung der beiden großen ersten Zahlen, die es ausmachen, ist für einen Computer einfach.
+Das Multiplizieren der beiden großen Primzahlen, aus denen er besteht, ist für einen Computer einfach.
 
-Diese Faktoren aus dem Ergebnis zu finden ist, mit den besten bekannten klassischen Methoden, extrem schwierig, wenn die Einstellungen richtig ausgewählt werden.
+Diese Faktoren aus dem Ergebnis wiederzufinden, ist mit den besten bekannten klassischen Methoden extrem schwierig, wenn die Parameter richtig gewählt sind.
 
-Dies ist der Ungleichgewicht, der RSA nützlich macht.
+Dieses Ungleichgewicht macht RSA nützlich.
 
-Nicht, weil Faktorisierung unmöglich ist.
+Nicht weil die Faktorisierung unmöglich ist.
 
-Weil sie als **Unübersichtlich auf der erforderlichen Ebene** mit unseren klassischen Computern.
+Sondern weil sie als **in der erforderlichen Größenordnung unpraktikabel** mit unseren klassischen Computern gilt.
 
-## Peter Shor kommt
+## Dann kommt Peter Shor
 
-Im Jahr 1994 veröffentlichte der Mathematiker Peter Shor ein Algorithmus für Quantencomputer.
+1994 veröffentlicht der Mathematiker Peter Shor einen Algorithmus für Quantencomputer.
 
-Und dieser Algorithmus verändert das Problem drastisch.
+Und dieser Algorithmus verändert das Problem radikal.
 
-Der Shor-Algorithmus ermöglicht es in Theorie, große Zahlen effektiv auf einem ausreichend mächtigen Quantencomputer zu faktorisieren.
+Shors Algorithmus ermöglicht theoretisch die effiziente Faktorisierung großer Zahlen auf einem hinreichend leistungsstarken Quantencomputer.
 
-Es besteht immer noch nicht darin, jede Kombination nach einer zu versuchen.
+Er besteht nach wie nicht darin, jede Kombination einzeln auszuprobieren.
 
-Es verwandelt die Factorisierung in ein anderes Problem: **Finden Sie die Periode einer mathematischen Funktion**.
+Er transformiert die Faktorisierung in ein anderes Problem: **das Finden der Periode einer mathematischen Funktion**.
 
-Genau in dieser Phase tritt die Quantenmechanik ein.
+Genau in diesem Schritt kommt die Quantenmechanik ins Spiel.
 
-Ein klassischer Computer manipuliert bits, die wert sind `0` oder `1`.
+Ein klassischer Computer manipuliert Bits, die `0` oder `1` sind.
 
-Ein quantumcomputer manipuliert **Qubits**, dessen Staat eine Überlegenheit von mehreren Möglichkeiten sein kann. Aber achten Sie auf die oft wiederholte Abkürzung: Dies bedeutet nicht, dass ein Quantencomputer "alle Antworten gleichzeitig testen und die richtigen lesen".
+Ein Quantencomputer manipuliert **Qubits**, deren Zustand eine Superposition mehrerer Möglichkeiten sein kann. Aber Vorsicht vor der oft wiederholten Abkürzung: Das bedeutet nicht, dass ein Quantencomputer „alle Antworten gleichzeitig testet und die richtige ausliest“.
 
-Wenn es so einfach wäre, würden praktisch alle IT-Probleme sofort leicht werden.
+Wäre es so einfach, würden praktisch alle Informatikprobleme augenblicklich leicht.
 
-Was Shor mächtig macht, ist viel subtiler.
+Was Shor mächtig macht, ist weit subtiler.
 
-Der Algorithmus bereitet eine quantistische Zustand vor, die eine bestimmte mathematische Struktur enthält, und dann verwendet insbesondere die **Verwandelt von Quanten Fourier** um die gewünschte Periodität zu zeigen. Eine Maßnahme ermöglicht es dann, genügend Informationen zu erhalten, um diesen Zeitraum zu rekonstruieren.
+Der Algorithmus bereitet einen Quantenztand vor, der eine besondere mathematische Struktur enthält, und nutzt dann unter anderem die **Quanten-Fourier-Transformation**, um die gesuchte Periodizität sichtbar zu machen. Eine Messung liefert anschließend genügend Informationen, um diese Periode zu rekonstruieren.
 
-Und diese Periode kann zu Faktoren der Zahl führen.
+Und diese Periode kann zu den Faktoren der Zahl führen.
 
-Erleichterte ich enorm:
+Vereinfacht ausgedrückt:
 
 ```text
 
@@ -122,89 +122,86 @@ facteurs premiers
 
 ```
 
-Die Kryptowährung wird daher nicht durch mehr brute Kraft besiegt.
+Kryptographie wird also nicht durch mehr rohe Gewalt besiegt.
 
-**Sie überwinden die Schwierigkeiten, auf die sie zurückbleibt.**
+**Man umgeht die Schwierigkeit, auf der sie beruhte.**
 
-## Warum dies die RSA bedroht
+## Warum dies RSA bedroht
 
-In RSA kann der öffentliche Schlüssel von jedem bekannt sein.
+Bei RSA kann der öffentliche Schlüssel von jedermann bekannt sein.
 
-Das ist sogar seine Rolle.
+Das ist sogar seine Aufgabe.
 
-Was unzugänglich bleibt, ist der private Schlüssel.
+Unzugänglich bleiben muss der private Schlüssel.
 
-Aber die öffentlichen Parameter enthalten eine Zahl, die aus zwei großen ersten geheimen Zahlen hergestellt wird. Wenn ein Angreifer in der Lage ist, diese Zahl effektiv zu faktorisieren, kann er die Informationen finden, die für die Rekonstruktion des privaten Schlüssels erforderlich sind.
+Doch die öffentlichen Parameter enthalten eine Zahl, die aus zwei großen geheimen Primzahlen konstruiert ist. Wenn es einem Angreifer gelingt, diese Zahl effizient zu faktorisieren, kann er die Informationen wiederfinden, die nötig sind, um den privaten Schlüssel zu rekonstruieren.
 
-Von dort aus, je nach der Verwendung von RSA, können die Konsequenzen schwerwiegend werden: Unterschriftenfälschung, Authentifizierungsmechanismen-Kompromisse oder Datendechiffizierung, wenn das Protokoll direkt auf RSA abhängt.
+Ab dann können, je nach Verwendung von RSA, die Folgen gravierend werden: Fälschung von Signaturen, Kompromittierung von Authentifizierungsmechanismen oder Entschlüsselung von Daten, wenn das Protokoll direkt von RSA abhängt.
 
-Dies ist der Grund, warum die Ankunft eines Quantencomputers möglich ist **Kryptografisch relevant** zuverlässig und mächtig genug, um diese Art von Angriff auf nützlicher Ebene zu durchführen, ist ein echtes Cyber-Sicherheitsproblem.
+Deshalb stellt die mögliche Ankunft eines **kryptographisch relevanten** Quantencomputers, der hinreichend zuverlässig und leistungsstark ist, um einen solchen Angriff in nützlichem Maßstab auszuführen, ein reales Cybersicherheitsproblem dar.
 
-Der NIST betrachtet explizit RSA sowie mehrere Elliptic Curves-basierte Systeme als anfällig für dieses zukünftige Berechnungsmodell und organisiert ihre progressive Ersetzung durch post-quantik-Standards. Das gegenwärtige US-Zweck ist es, allmählich anfällige Algorithmen aus den Standards zu entfernen. **2035**Die empfindlichsten Systeme müssen früher migrieren. 
+Der NIST betrachtet RSA sowie mehrere auf elliptischen Kurven basierende Systeme explizit als verwundbar gegenüber diesem zukünftigen Rechenmodell und organisiert ihre schrittweise Ersetzung durch Post-Quanten-Standards. Das aktuelle amerikanische Ziel ist es, die verwundbaren Algorithmen bis **2035** schrittweise aus den Standards zu entfernen, wobei die sensibelsten Systeme früher migrieren müssen. 
 
-## Also warum hat niemand noch RSA-2048 mit einem Quantencomputer gebrochen?
+## Warum hat noch niemand RSA-2048 mit einem Quantencomputer geknackt?
 
-Weil zwischen **„Algorithmus gibt es“** und **"Wir haben die Maschine, die es ausführen kann"**Es gibt ein Loch.
+Weil zwischen **„der Algorithmus existiert“** und **„wir besitzen die Maschine, die ihn ausführen kann“** ein Abgrund liegt.
 
-Die aktuellen Quebits sind schwach.
+Die heutigen Qubits sind fragil.
 
-Sie sind äußerst anfällig für Lärm und Fehler. Je länger und komplizierter eine Quantenrechnung wird, desto schwieriger wird es, die Informationen richtig zu halten.
+Sie sind extrem empfindlich gegenüber Rauschen und Fehlern. Je länger und komplexer ein Quantenberechnung wird, desto schwieriger wird es, die Information korrekt zu erhalten.
 
-Die geplante Lösung ist die **Korrektur von quantitativen Fehlern** Verwenden Sie viele unvollständige physische Qubits, um eine geringere Anzahl von sogenannten Qubiten zu bauen *Logisch*, zuverlässig genug, um lange Berechnungen durchzuführen.
+Die angestrebte Lösung ist die **Quantenfehlerkorrektur**: viele unvollkommene physische Qubits zu nutzen, um eine kleinere Anzahl sogenannter *logischer* Qubits aufzubauen, die hinreichend zuverlässig für lange Berechnungen sind.
 
-Dies erhöht jedoch die notwendige Materialien erheblich.
+Doch das erhöht den benötigten Hardware-Aufwand enorm.
 
-Deshalb können die heutigen experimentellen kleinen quantum-Computer nicht einfach eine RSA-2048-Schlüssel erhalten und einige Sekunden später brechen.
+Deshalb können die kleinen experimentellen Quantencomputer von heute nicht einfach einen RSA-2048-Schlüssel entgegennehmen und ihn wenige Sekunden später knacken.
 
-Der NIST spricht auch von einem **CRQC**, *Kryptografisch relevant quantum computer* Ein Quantencomputer, der stark genug ist, um die derzeit verwendeten Krypto-Systeme wirklich zu angreifen. Der Zeitpunkt, an dem eine solche Maschine existiert, bleibt unbekannt. 
+Der NIST spricht übrigens von einem **CRQC**, *cryptographically relevant quantum computer*: einem Quantencomputer, der leistungsstark genug ist, um die aktuell verwendeten kryptografischen Systeme tatsächlich anzugreifen. Der Zeitpunkt, zu dem eine solche Maschine existieren wird, bleibt unbekannt. 
 
-## Und das ist nicht nur RSA
+## Und es betrifft nicht nur RSA
 
-RSA ist eine ausgezeichnete Möglichkeit, das Problem zu verstehen, aber Shor droht auch eine andere grundlegende Familie der modernen Krypto: **Elliptische Kurven**.
+RSA ist ein hervorragendes Beispiel, um das Problem zu verstehen, doch Shor bedroht auch eine andere fundamentale Familie der modernen Kryptographie: **elliptische Kurven**.
 
-Sie finden sich vor allem in Signatur- und Schlüsselwechselsystemen.
+Man findet sie insbesondere in Signatursystemen und Schlüsselaustauschverfahren.
 
-Das mathematische Problem ist anders als die Factorisierung, aber Shor weiß auch, wie man das Problem effektiv löst. **Problem des diskreten Logarithms** auf dem diese Mechanismen beruhen.
+Das mathematische Problem unterscheidet sich von der Faktorisierung, doch Shor kann auch das **diskrete Logarithmusproblem**, auf dem diese Mechanismen beruhen, effizient lösen.
 
 Das ist eine wichtige Unterscheidung.
 
-Wenn man sagt, dass „die Quantität die gegenwärtige Verschlüsselung brechen wird“, wird es enorm vereinfacht.
+Wenn man sagt, „das Quanten wird die aktuelle Verschlüsselung brechen“, vereinfacht man enorm.
 
-Nicht alle Kryptografien sind auf die gleiche Weise betroffen.
+Nicht alle Kryptografien sind auf dieselbe Weise betroffen.
 
-Die öffentlichen Schlüssel-Algorithmen wie RSA und ECC sind besonders betroffen.
+Öffentliche-Schlüssel-Algorithmen wie RSA und ECC sind besonders betroffen.
 
-Symmetrische Algorithmen, wie AES, werden von Shor nicht auf diese Weise zerstört. Andere Quantenalgorithmen, insbesondere die von Grover, können ihre Sicherheitsmarge reduzieren, aber die Erhöhung der Schlüsselgröße ermöglicht eine viel einfachere Entschädigung des Problems.
+Symmetrische Algorithmen wie AES werden von Shor nicht auf diese Weise zerstört. Andere Quantenalgorithmen, insbesondere der von Grover, können ihren Sicherheitsabstand verringern, aber die Schlüssellänge zu erhöhen, erlaubt, das Problem weitaus leichter zu kompensieren.
 
-Die Zukunft besteht darin nicht darin, alle Krypto-Spiele zu verlassen.
+Die Zukunft besteht also nicht darin, alle Kryptographie aufzugeben.
 
-Es besteht darin, dass **Einige mathematische Grundlagen ersetzen**.
+Sie besteht darin, **bestimmte mathematische Fundamente zu ersetzen**.
 
-## Ersatzteile gibt es bereits
+## Die Ersatzverfahren existieren bereits
 
-Im Jahr 2024 hat die NIST ihre ersten drei Hauptstandards für Post-Quantum-Cryptography abgeschlossen:
+2024 hat der NIST seine ersten drei großen Post-Quanten-Kryptographie-Standards finalisiert:
 
-- **von ML-KEM**für die Ermittlung gemeinsamer Geheimnisse;
+- **ML-KEM**, für die Etablierung gemeinsamer Geheimnisse bestimmt;
+- **ML-DSA**, für digitale Signaturen bestimmt;
+- **SLH-DSA**, eine weitere Signaturfamilie, die auf Hashfunktionen beruht.
 
-- **ML-DSA**für digitale Unterschriften bestimmt;
+Im Gegensatz zu RSA sind ihre mathematischen Fundamente so gewählt, dass sie bekannten Quantenangriffen widerstehen.
 
-- **Die SLH-DSA**, eine andere Unterschriftfamilie, die auf Hashfunktionen beruht.
+Der NIST empfiehlt nun explizit, die Migration zu beginnen, statt auf das hypothetische Erscheinen einer gefährlichen Maschine zu warten.
 
-Im Gegensatz zu RSA werden ihre mathematischen Grundlagen ausgewählt, um den bekannten quantumangriffen zu widerstehen.
+Chrome hat sogar bereits einen hybriden Post-Quanten-Schlüsselaustausch für bestimmte kompatible TLS-Verbindungen ausgerollt. Und Chromium bereitet nun den weitaus komplexeren Teil vor: Auch die **Authentifizierung von HTTPS-Zertifikaten** quantenresistent zu machen.
 
-Der NIST empfiehlt nun ausdrücklich, die Migration zu beginnen, anstatt auf die hypothetische Ankunft einer gefährlichen Maschine zu warten. 
+Deshalb beginnt dieser Übergang Jahre vor dem vermuteten Erscheinen der Bedrohung.
 
-Chrome hat sogar bereits einen post-quantik-hybrid-Schlüsselwechsel für einige kompatible TLS-Verbindungen implementiert. Und Chromium bereitet jetzt das viel kompliziertere Teil vor: auch **Authentifizierung von HTTPS-Zertifikaten** Widerstandsfähig auf Quanten. 
+Eine globale kryptografische Infrastruktur lässt sich nicht per Knopfdruck ersetzen.
 
-Deshalb beginnt dieser Übergang Jahre vor dem angeblichen Auftreten der Bedrohung.
+Man muss Browser, Server, Bibliotheken, Betriebssysteme, eingebettete Geräte, Zertifizierungsstellen, Protokolle und Software ändern, die manchmal für Jahrzehnte aktiv bleiben sollen.
 
-Eine globale Krypto-Infrastruktur ersetzt sich nicht, indem Sie einen Button drücken.
+Der Computer, der RSA-2048 knacken kann, existiert vielleicht noch nicht.
 
-Es ist notwendig, Browser, Servern, Bibliotheken, Betriebssysteme, eingesetzte Geräte, Zertifizierungsbehörden, Protokolle und Software zu ändern, die manchmal für Jahrzehnte aktiv bleiben sollen.
+**Der Algorithmus, der erklärt, wie er es tun könnte, existiert dagegen seit 1994.**
 
-Der Computer, der in der Lage ist, RSA-2048 zu brechen, kann noch nicht existieren.
-
-**Der Algorithmus, der erklärt, wie er es tun könnte, existiert seit 1994.**
-
-Das ist diese Unterschiede, die das Internet dazu zwingt, seine Verteidigung jetzt vorzubereiten.
-
+Genau dieser Unterschied zwingt das Internet, seine Verteidigung jetzt vorzubereiten.
