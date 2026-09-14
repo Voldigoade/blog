@@ -37,12 +37,27 @@ export function retryDelay(value, attempt, now = Date.now(), random = Math.rando
   return Math.min(30000, 1000 * 2 ** attempt) + Math.floor(random() * 500);
 }
 
-function httpError(status) {
+function errorDetail(payload) {
+  const error = payload?.error && typeof payload.error === "object" ? payload.error : payload;
+  const values = [error?.type, error?.code, error?.message, error?.detail]
+    .filter((value) => typeof value === "string" || typeof value === "number")
+    .map((value) => String(value).replace(/[\r\n\t]+/g, " ").replace(/Bearer\s+\S+/gi, "Bearer [redacted]").slice(0, 300));
+  return [...new Set(values)].join(" — ");
+}
+
+async function httpError(response) {
+  let detail = "";
+  try {
+    detail = errorDetail(await response.json());
+  } catch {
+    detail = "";
+  }
+  const status = response.status;
   const category = status === 401 || status === 403 ? "AUTHENTICATION"
     : status === 429 ? "RATE_LIMIT"
       : status === 408 ? "TIMEOUT"
         : status >= 500 ? "REMOTE_SERVER" : "CONFIGURATION";
-  return new TranslationError(category, `request rejected with HTTP ${status}`, status);
+  return new TranslationError(category, `request rejected with HTTP ${status}${detail ? ` (${detail})` : ""}`, status);
 }
 
 export function parseCompletion(payload, model) {
@@ -111,8 +126,7 @@ export async function requestCompletion(messages, options = {}) {
       return parseCompletion(payload, configuration.model);
     }
     if (response) {
-      failure = httpError(response.status);
-      await response.body?.cancel();
+      failure = await httpError(response);
       if (![408, 429, 500, 502, 503, 504].includes(response.status)) throw failure;
     }
     if (attempt === MAX_ATTEMPTS - 1) throw failure;

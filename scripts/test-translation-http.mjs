@@ -25,10 +25,14 @@ for (const status of [400, 401, 403, 404, 422]) {
   let calls = 0;
   await assert.rejects(requestCompletion(messages, {
     configuration,
-    fetch: async () => { calls += 1; return new Response("private response", { status }); },
+    fetch: async () => { calls += 1; return Response.json({ error: { type: "access", code: status, message: "request rejected" } }, { status }); },
   }), (error) => error.status === status && !error.message.includes("private") && !error.message.includes(configuration.apiKey));
   assert.equal(calls, 1);
 }
+await assert.rejects(requestCompletion(messages, {
+  configuration,
+  fetch: async () => Response.json({ error: { message: `Bearer ${configuration.apiKey}` } }, { status: 403 }),
+}), (error) => error.category === "AUTHENTICATION" && error.message.includes("[redacted]") && !error.message.includes(configuration.apiKey));
 for (const status of [408, 429, 500, 502, 503, 504]) {
   let calls = 0;
   const delays = [];
