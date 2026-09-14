@@ -1,6 +1,6 @@
 ---
-title: Internet ändert bereits seine Schlüsse, um Quantencomputer zu widerstehen
-description: Quantencomputer, die unsere Verschlüsselung zerstören können, existieren noch nicht. Doch ein Teil des Internets bereitet sich bereits auf ihre Ankunft vor. Und das ist keine Science-Fiction.
+title: Das Internet wechselt bereits seine Schlösser, um Quantencomputern zu widerstehen
+description: Quantencomputer, die unsere Kryptographie brechen könnten, existieren noch nicht. Dennoch bereitet ein Teil des Webs bereits ihre Ankunft vor. Und das ist keine Science-Fiction.
 pubDate: 2026-09-13
 draft: false
 featured: false
@@ -17,9 +17,9 @@ tags:
 series:
   id: internet-face-au-quantique
   order: 1
-  title: Internet gegenüber der Quanten
+  title: Das Internet im Angesicht des Quantens
 coverImage: /blog/images/posts/68974f6a-7fbc-457d-bd8d-ebaf89c49a16.png
-coverAlt: Eine digitale Kette, die durch eine neue Krypto-Schicht vor einem Quantencomputer geschützt wird.
+coverAlt: Ein digitales Schloss, geschützt durch eine neue kryptografische Schicht, einem Quantencomputer gegenüber.
 author: Voldigoade
 locale: de
 sourceSlug: 2026-09-13-internet-change-deja-ses-serrures-pour-resister-aux-ordinateurs-quantiques
@@ -27,32 +27,32 @@ sourceHash: ed5c2113cfa1343e06de20d8b11ff1fabd554e74e5f8bf8f8655cfa815b16ad5
 manual: false
 ---
 
-Ein Teil des Internets ersetzt seine Schlüsse **bevor der Dieb sie öffnen kann, gibt es**.
+Ein Teil des Internets ersetzt gerade seine Schlösser, **bevor der Dieb, der sie öffnen kann, überhaupt existiert**.
 
-Heute, wenn Sie sich an eine HTTPS-Website anmelden, eine Zahlung durchführen oder sensible Daten austauschen, basiert ein Teil der Sicherheit auf mathematischen Problemen, die mit unseren klassischen Computern extrem schwierig zu lösen sind.
+Heute, wenn du dich per HTTPS mit einer Website verbindest, eine Zahlung tätigst oder sensible Daten austauschst, beruht ein Teil der Sicherheit auf mathematischen Problemen, die mit unseren klassischen Computern extrem schwer zu lösen sind.
 
-Das Problem ist, dass ein ausreichend mächtiges quantumcomputer nicht mit den gleichen Regeln spielt.
+Das Problem ist, dass ein ausreichend leistungsstarker Quantencomputer nicht nach denselben Regeln spielen würde.
 
 ## Die Gefahr ist nicht der Quantencomputer von 2026
 
-Die heutigen Quantenmaschinen sind weit weg von der Fähigkeit, einfach "Internet zu brechen". Um Systeme wie RSA oder einige Elliptic Curve-Cryptographies auf großer Ebene zu brechen, benötigen Quantenkomputer, die Fehler tolerieren, die viel stärker sind als die, die heute verfügbar sind.
+Die aktuellen Quantenmaschinen sind weit davon entfernt, einfach „das Internet zu knacken“. Um Systeme wie RSA oder bestimmte elliptische-Kurven-Kryptografien im großen Maßstab zu brechen, bräuchte es fehlertolerante Quantencomputer, die weit leistungsfähiger sind als die heute verfügbaren.
 
-Aber zu erwarten, dass sie existieren, wäre eine sehr schlechte Strategie.
+Doch zu warten, bis sie existieren, wäre eine sehr schlechte Strategie.
 
-Verschlüsselte Daten können **heute vertrieben, seit Jahren beibehalten und später verschlüsselt** wenn die Technologie stark genug wird. Das nennt man oft *Harvest Now und Decrypt Later*.
+Verschlüsselte Daten können **heute abgefangen, jahrelang aufbewahrt und später entschlüsselt werden**, falls die Technologie ausreichend leistungsfähig wird. Das nennt man oft *harvest now, decrypt later*.
 
-Mit anderen Worten: Ein geheimnis, das 2026 gestohlen wurde, kann noch 2036 wert sein.
+Mit anderen Worten: Ein 2026 gestohlenes Geheimnis kann 2036 noch wertvoll sein.
 
-## Die Post-Quanten-Cryptographie existiert bereits
+## Die Post-Quanten-Kryptographie existiert bereits
 
-Die US-NIST hat bis 2024 mehrere Algorithmen standardisiert, die sowohl klassischen als auch künftigen Quantenkomputer widerstehen sollen. **von ML-KEM** für die Festlegung von Schlüssen und **ML-DSA** für die digitalen Unterschriften. Im Jahr 2026 soll die Migration begonnen werden. 
+Das amerikanische NIST hat 2024 mehrere Algorithmen standardisiert, die sowohl klassischen als auch zukünftigen Quantencomputern widerstehen sollen, darunter **ML-KEM** für den Schlüsselaustausch und **ML-DSA** für digitale Signaturen. 2026 geht die Behörde davon aus, dass die Migration nun beginnen muss.
 
-Und diese Übergang beginnt, das reale Web zu berühren.
+Und dieser Übergang beginnt, das reale Web zu erreichen.
 
-Chrome arbeitet zum Beispiel auf einem Routenblatt, um die HTTPS-Authentifizierung gegen Quantenangriffe zu gestalten. Google testet auch eine neue Zertifikatsarchitektur **Merkle Tree Zertifikate**, insbesondere mit Cloudflare, um zu verhindern, dass post-quantik-Schutz verbindungen viel schwerer machen. 
+Chrome arbeitet beispielsweise an einer Roadmap, um die HTTPS-Authentifizierung gegen Quantenangriffe resistent zu machen. Google experimentiert auch mit einer neuen Zertifikatsarchitektur namens **Merkle Tree Certificates**, unter anderem mit Cloudflare, um zu verhindern, dass post-quanten-Schutzmaßnahmen die Verbindungen deutlich schwerer machen.
 
-Am faszinierendsten ist also nicht, dass ein quantumcomputer eines Tages das Internet bedrohen kann.
+Das Faszinierendste ist also nicht, dass ein Quantencomputer eines Tages das Internet bedrohen könnte.
 
-Es ist, dass **Die Verteidigung gegen diese hypothetische Maschine wird bereits eingesetzt**.
+Sondern dass **die Verteidigung gegen diese hypothetische Maschine bereits ausgerollt wird**.
 
-Und wenn der Übergang richtig erfolgen wird, am Tag, an dem wirklich gefährliche quantumcomputer erscheinen, werden die meisten Benutzer vielleicht absolut nichts bemerken.
+Und gelingt der Übergang richtig, wird der Tag, an dem tatsächlich gefährliche Quantencomputer auftauchen, für die Mehrheit der Nutzer vielleicht absolut unbemerkt bleiben.
