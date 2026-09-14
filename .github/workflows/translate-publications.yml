@@ -41,6 +41,11 @@ on:
         required: false
         type: boolean
         default: false
+      validation:
+        description: Generate selected translations without publishing
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -89,6 +94,7 @@ jobs:
           TRANSLATE_FORCE: ${{ inputs.force }}
           TRANSLATE_RECONCILE: ${{ inputs.reconcile }}
           TRANSLATE_SMOKE: ${{ inputs.smoke }}
+          TRANSLATE_VALIDATION: ${{ inputs.validation }}
         run: |
           args=(--github-output "$GITHUB_OUTPUT")
           if [[ "$TRANSLATE_SMOKE" == "true" ]]; then
@@ -96,6 +102,10 @@ jobs:
           elif [[ "${{ github.event_name }}" == "push" ]]; then
             args+=(--before "$BEFORE" --after "$AFTER")
           else
+            if [[ "$TRANSLATE_VALIDATION" == "true" && -z "$TRANSLATE_SLUG" ]]; then
+              echo "Validation requires a source slug." >&2
+              exit 1
+            fi
             if [[ -n "$TRANSLATE_SLUG" ]]; then args+=(--slug "$TRANSLATE_SLUG"); fi
             if [[ -n "$TRANSLATE_LOCALE" ]]; then args+=(--locale "$TRANSLATE_LOCALE"); fi
             if [[ "$TRANSLATE_FORCE" == "true" ]]; then args+=(--force); fi
@@ -122,7 +132,7 @@ jobs:
       - name: Checkout latest main
         uses: actions/checkout@v6
         with:
-          ref: main
+          ref: ${{ inputs.validation && github.ref_name || 'main' }}
           fetch-depth: 0
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -163,7 +173,7 @@ jobs:
           npm run translate -- --assert-current --slug "$SLUG" --locale "$LOCALE"
       - name: Publish completed locale
         id: publish
-        if: steps.refresh.outputs.has_work == 'true'
+        if: steps.refresh.outputs.has_work == 'true' && !inputs.validation
         shell: bash
         env:
           SLUG: ${{ matrix.slug }}
@@ -175,6 +185,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run deploy-pages.yml --ref main
+      - name: Preserve validation output
+        if: inputs.validation && steps.refresh.outputs.action == 'translate'
+        uses: actions/upload-artifact@v6
+        with:
+          name: validation-${{ matrix.slug }}-${{ matrix.locale }}
+          path: src/content/translations/${{ matrix.locale }}/${{ matrix.slug }}.*
+          if-no-files-found: error
+          retention-days: 1
       - name: Summarize locale
         if: always()
         shell: bash
