@@ -90,8 +90,20 @@ export function buildTranslationPrompt(source, context, options = {}) {
   return `${contract.join("\n")}\n\n${JSON.stringify(payload)}`;
 }
 
+function extractJsonCandidate(text) {
+  const trimmed = text.trim();
+  const fenceMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (fenceMatch) return fenceMatch[1].trim();
+  const firstBrace = trimmed.indexOf("{");
+  const lastBrace = trimmed.lastIndexOf("}");
+  if (firstBrace !== -1 && lastBrace > firstBrace) {
+    return trimmed.slice(firstBrace, lastBrace + 1).trim();
+  }
+  return trimmed;
+}
+
 function parsePublicationJson(text) {
-  const cleaned = text.trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
+  const cleaned = extractJsonCandidate(text);
   let value;
   try {
     value = JSON.parse(cleaned);
@@ -148,7 +160,7 @@ export function classifyFailure(value) {
 }
 
 function retryable(category) {
-  return ["RATE_LIMIT", "TIMEOUT", "REMOTE_SERVER"].includes(category);
+  return ["RATE_LIMIT", "TIMEOUT", "REMOTE_SERVER", "INVALID_RESPONSE"].includes(category);
 }
 
 export function providerRetryDelay(error, attempt, random = Math.random) {
