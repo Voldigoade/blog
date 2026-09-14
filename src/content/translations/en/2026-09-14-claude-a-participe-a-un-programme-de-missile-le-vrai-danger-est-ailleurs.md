@@ -1,6 +1,6 @@
 ---
-title: 'Claude participated in a missile program: the real danger lies elsewhere.'
-description: 'In Yemen, a cell used Claude Code as a small team of software engineers to work on guidance systems, test a rocket, and then analyze its failure. The case is remarkable, but it primarily reveals a deeper phenomenon: AI is making a rare military expertise much more common.'
+title: 'Claude participated in a missile program: the real danger lies elsewhere'
+description: 'In Yemen, a cell used Claude Code like a small team of software engineers to work on guidance systems, test a rocket, then analyze its failure. The case is spectacular, but it mainly reveals a deeper phenomenon: AI is starting to make rare military expertise much less rare.'
 pubDate: 2026-09-14
 draft: false
 featured: false
@@ -15,7 +15,7 @@ tags:
   - Renseignements
   - Agent IA
 coverImage: /blog/images/posts/C335D4D2-D1B8-492A-9CBD-55FF2951BCC5.png
-coverAlt: Several software engineers work in parallel within a research and development laboratory associated with a weapons program.
+coverAlt: Multiple software agents work in parallel in an engineering lab linked to a weapons program.
 author: Voldigoade
 locale: en
 sourceSlug: 2026-09-14-claude-a-participe-a-un-programme-de-missile-le-vrai-danger-est-ailleurs
@@ -25,255 +25,255 @@ manual: false
 
 The rocket had been launched.
 
-The experiment appears to have failed.
+The test appears to have failed.
 
-A few hours later, the developers returned to Claude for help in understanding the problem.
+A few hours later, its developers returned to ask Claude for help understanding why.
 
-This scene is not taken from a science fiction screenplay.
+This scene is not lifted from a science-fiction scenario.
 
 It appears in a report published by Anthropic on September 10, 2026.
 
-According to the company's internal investigation, a cell operating in northern Yemen was using Claude Code in several weapons programs. The software was used in programs for guidance, navigation, control, simulation, and analysis.
+According to the company's internal investigation, a cell based in northern Yemen was using Claude Code across several weapons programs. The model was intervening notably on guidance, navigation, control, simulation, and analysis software.
 
-Users were no longer satisfied with simply interacting with a single instance.
+The users were no longer content with chatting with a single instance.
 
-They were employing several Claudes simultaneously.
+They put multiple Claudes to work in parallel.
 
-One was writing.
+One wrote.
 
-Another was searching.
+Another researched.
 
-A third person was reviewing the work produced by the first person.
+A third reviewed the work produced by the first.
 
-Anthropic summarizes the situation with a much more comprehensive formula than it initially appears to be:
+Anthropic sums up the situation with a phrase far more important than it appears:
 
-Claude Code was used as a substitute for human software engineers for a portion of the work.
+**Claude Code was being used in place of human software engineers for part of the work.**
 
-That's where the real issue lies.
+That is where the real subject lies.
 
-Not in the simplistic idea that "AI can manufacture a missile."
+Not in the simplistic idea that "an AI knows how to build a missile."
 
-However, in a much more fundamental question:
+But in a much deeper question:
 
-What happens when skills that were previously only possessed by a few specialists become available as software?
+**what happens when certain skills that only a few specialists possessed become available in software form?**
 
-## Let's start by looking at what we actually know.
+## Let's start with what we actually know
 
 The Anthropic document covers operations detected between December 2025 and August 2026.
 
-The company says it has identified and stopped seven categories of abuse by Claude: cyber operations, influence, surveillance, fraud, biological manipulation, development of conventional weapons, and the illicit distillation of models.
+The company says it identified and interrupted abuse of Claude in seven major categories: cyber operations, influence, surveillance, fraud, biology, conventional weapons development, and illicit model distillation.
 
-The section on conventional weapons describes six cases.
+The section devoted to conventional weapons describes six cases.
 
-Three are awarded to organizations based in China.
+Three are attributed to actors located in China.
 
-Two actors based in Russia.
+Two to actors located in Russia.
 
-One in Yemen.
+One to Yemen.
 
-Some used Claude directly to develop software for weapons systems.
+Some used Claude directly to develop software intended for weapons systems.
 
-Others used them for research, intelligence gathering, or procurement.
+Others used it for research, intelligence, or procurement.
 
-The Yemeni case is the most striking because it goes beyond simple simulation.
+The Yemeni case is the most spectacular because it goes beyond simulation.
 
-Anthropic claims to have observed enough evidence to conclude that a guided rocket was actually tested.
+Anthropic states it observed sufficient elements to conclude that a guided rocket had actually been tested.
 
-It seems like it has failed.
+It appears to have failed.
 
-The company emphasizes something that many articles will likely overlook:
+The company emphasizes above all something many headlines will forget:
 
-**She has no evidence to show that the system was successfully deployed.**
+**it does not possess proof showing the cell succeeded in deploying an operational system.**
 
 This is essential.
 
-Claude did not create a miraculously functional weapon.
+Claude did not produce a miraculously functional weapon.
 
-He was involved in a real engineering process that was still facing significant challenges.
+It participated in a real engineering process that still seemed to be encountering serious difficulties.
 
-And that's precisely why this case is so interesting.
+And it is precisely for this reason that this case is interesting.
 
-## Engineering is rarely a magical moment.
+## Engineering is almost never a magical moment
 
-We often imagine the dangerous use of AI in a dramatic or sensational way.
+We often imagine dangerous AI use in a spectacular form.
 
 Someone writes:
 
-> Design a weapon for me.
+> Design me a weapon.
 
 The AI responds.
 
 The weapon exists.
 
-The reality of engineering is actually quite dull.
+The reality of engineering is far more boring.
 
-And even more concerning.
+And far more worrying.
 
-You need to write code.
+You have to write code.
 
-To run a build chain.
+Make a compilation chain work.
 
-Creating a simulation.
+Build a simulation.
 
 Compare results.
 
-Looking for a bug.
+Hunt for a bug.
 
-Modify settings.
+Modify parameters.
 
-Revive.
+Relaunch.
 
-To test.
+Test.
 
-To observe a failure.
+Observe a failure.
 
 Return to the data.
 
 Correct.
 
-Restart.
+Start over.
 
-A significant portion of the economic value of AI does not come from its ability to immediately provide the perfect answer.
+A large part of an AI's economic value does not come from its ability to immediately find the perfect answer.
 
-This is because it **reduces the cost of each of these small iterations**.
+It comes from the fact that it **reduces the cost of each of these small iterations**.
 
-The Yemeni program described by Anthropic perfectly illustrates this.
+The Yemeni program described by Anthropic illustrates exactly this.
 
 Claude did not replace the entire military system.
 
-He has shortened certain sections of the loop.
+It shortened certain pieces of the loop.
 
-And a faster loop ultimately makes a huge difference.
+And a faster loop ends up counting enormously.
 
-## The most important detail is almost invisible: several Claudes were working together.
+## The most important detail is almost invisible: several Claudes worked together
 
-The cell would have used different instances with separate functions.
+The cell allegedly used different instances with separate functions.
 
 Code.
 
-Search.
+Research.
 
 Review.
 
-This organization is interesting because it transforms AI from a standalone tool into a **work structure**.
+This organization is interesting because it transforms AI from an individual tool into a **work structure**.
 
-An experienced engineer can usually delegate a task to several colleagues.
+An experienced engineer can normally delegate a task to several colleagues.
 
-The problem is that you need to have these colleagues.
+The problem is that you have to possess those colleagues.
 
-To recruit.
+Recruit them.
 
 Pay them.
 
 Coordinate them.
 
-Finding individuals with the necessary skills.
+Find people with the necessary skills.
 
-Keep them for a sufficient amount of time.
+Keep them long enough.
 
-An organization with a single technical manager and several other staff members could theoretically replicate a portion of this division of labor at a completely different cost.
+An organization with a single technical lead and multiple agents can theoretically reproduce part of this division of labor at a totally different cost.
 
-This doesn't turn five Claude agents into five fully competent human engineers.
+This does not turn five Claude agents into five complete human engineers.
 
 They can make the same mistakes.
 
-They may share the same blind spots.
+They can share the same blind spots.
 
-Their mutual review can create the illusion of agreement.
+Their mutual review can create an illusion of consensus.
 
-And some tasks remain beyond reach without practical experience.
+And certain tasks remain out of reach without hands-on expertise.
 
-However, economically, the change is already significant.
+But economically, the change is already immense.
 
-Because a lack of specialists is no longer necessarily a barrier.
+Because a lack of specialists is no longer necessarily a wall.
 
-It could simply result in a slowdown.
+It can become merely a slowdown.
 
-## That's what I would call the compression of expertise.
+## This is what I would call the compression of expertise
 
-For a long time, certain abilities were difficult to access not because the information was secret, but because **knowing how to use them effectively required years of training**.
+For a long time, certain capabilities were hard to access not because the information was secret, but because **knowing how to use it correctly required years of training**.
 
-The equations can be made public.
+The equations can be public.
 
-Software libraries can be publicly available.
+The software libraries can be public.
 
-The documentation may be publicly available.
+The documentation can be public.
 
-The source code may be available.
+The open-source code can be available.
 
-However, very few people are able to put all of this together into a functional system.
+Yet very few people are capable of assembling all of this into a functional system.
 
 The knowledge exists.
 
-There is a lack of expertise.
+The expertise is missing.
 
-Models of border control are beginning to reduce this distance precisely.
+Frontier models are precisely beginning to reduce this distance.
 
-In parallel with its report, Anthropic also conducted several evaluations focused on tactical intelligence and conventional weapons systems.
+Anthropic developed in parallel with its report several evaluations devoted to tactical intelligence and conventional weapons systems.
 
-Her conclusion is significant:
+Its conclusion is important:
 
-Regarding certain tasks, current models are capable of performing work that previously required **rare and highly trained human experts**.
+on certain tasks, current models are capable of accomplishing work that historically required **rare and highly trained human experts**.
 
-This doesn't mean that they have mastered all aspects of military engineering.
+This does not mean they master all military engineering.
 
-The assessments include simulations.
+The evaluations involve simulations.
 
-The results are worse in the most challenging environments.
+Results degrade in the most difficult environments.
 
-And, most importantly, a simulation is not a battlefield.
+And above all, a simulation is not a battlefield.
 
-However, the management's message is clear.
+But the direction is clear.
 
-A rare skill can gradually become a quantifiable service.
+A rare skill can gradually become a computable service.
 
-And when this happens, the number of people who can attempt certain procedures increases.
+And when that happens, the number of people able to attempt certain operations increases.
 
-## The material constraints, of course, have not disappeared.
+## Material constraints have obviously not disappeared
 
-An AI does not create an engine using tokens.
+An AI does not manufacture an engine with tokens.
 
-She does not manufacture the components.
+It does not produce components.
 
-She is not building a factory.
+It does not build a factory.
 
-It is not a substitute for a testing facility.
+It does not replace a test bench.
 
-It does not automatically convert a simulation that functions reliably in a real-world environment into a robust system.
+It does not automatically turn a working simulation into a robust system in the real world.
 
-Anthropic acknowledges this.
+Anthropic acknowledges this itself.
 
-For many actors, access to materials, components, manufacturing, testing, and logistics will remain a major bottleneck.
+For many actors, access to hardware, components, manufacturing, testing, and logistics will remain a major bottleneck.
 
 This is a fundamental distinction.
 
-AI can democratize **a portion of the expertise**, without instantly democratizing the entire industrial capacity needed to utilize that expertise.
+AI can democratize **part of the expertise** without instantly democratizing all the industrial capacity needed to exploit that expertise.
 
-However, simply addressing a single bottleneck could be enough to restore balance.
+But reducing a single bottleneck can be enough to shift the balance.
 
-If an organization already has the necessary equipment but lacks software specialists, AI provides the exact resource it needs.
+If an organization already has the hardware but lacks software specialists, AI brings exactly the resource it lacks.
 
-If she has the specialists but not enough of them to analyze all her data, then that's the situation.
+If it has the specialists but not enough to analyze all its data, same thing.
 
-If it already has an existing program but is progressing slowly due to a lack of simulation or debugging capabilities, then the same applies.
+If it has an existing program but advances slowly for lack of simulation or debugging capacity, same thing.
 
-AI should not be used to solve all constraints.
+AI does not have to solve all constraints.
 
-She simply needs to remove a sufficient number.
+It simply has to remove one that is sufficiently important.
 
-## The safeguards worked – to some extent.
+## Protections worked — partially
 
-The Anthropic report does not describe the story of a completely absent security system.
+Anthropic's report does not tell the story of a totally absent security system.
 
-Many requests would have been rejected.
+Many requests would have been blocked.
 
-Therefore, users have employed several tactics to circumvent the security measures.
+Users therefore employed several tactics to circumvent protections.
 
-They reportedly concealed the ultimate goal of certain tasks and divided their work among multiple conversations, so that no single session would necessarily reveal the entire program.
+They notably allegedly concealed the final objective of certain tasks and distributed their work across multiple conversations so that no isolated session would necessarily reveal the entire program.
 
-This behavior reveals a very challenging problem for model providers.
+This behavior reveals a very difficult problem for model providers.
 
-A significant portion of the technologies required for a military system also have perfectly legitimate civilian applications.
+An immense part of the technologies needed for a military system also has perfectly legitimate civilian uses.
 
 A control algorithm.
 
@@ -281,284 +281,284 @@ A simulation.
 
 An embedded system.
 
-A vision software.
+Vision software.
 
-Trajectory optimization.
+A trajectory optimization.
 
 A signal processing tool.
 
-A model cannot simply refuse to address any topic related to these issues.
+A model cannot simply refuse everything touching on these subjects.
 
-This would be equivalent to rejecting a significant portion of modern engineering.
+That would be equivalent to refusing a considerable part of modern engineering.
 
-The challenge lies in detecting the **overall intent** behind a series of requests that, when considered individually, may seem trivial.
+The challenge consists in detecting **the overall intent** behind a succession of requests that, taken individually, may be banal.
 
-And a clever opponent knows precisely that this intention is exactly what he needs to conceal.
+And an intelligent adversary knows precisely that this intent is what they must hide.
 
-## The model sees a task. The opponent sees a program.
+## The model sees a task. The adversary sees a program.
 
-This is likely one of the most significant issues highlighted in the report.
+This is probably one of the most important problems the report reveals.
 
 A traditional security system can examine a request:
 
-"Is it dangerous?"
+"Is this dangerous?"
 
-However, a complex operation can consist of one hundred perfectly reasonable requests.
+But a complex operation can be composed of a hundred perfectly reasonable requests.
 
-Request A refers to a piece of code.
+Request A concerns a piece of code.
 
-The "B" indicates a compilation error.
+B concerns a compilation error.
 
-The C on a sensor.
+C concerns a sensor.
 
-The D on a simulation.
+D concerns a simulation.
 
-The E in telemetric analysis.
+E concerns telemetry analysis.
 
-None of them say:
+None says:
 
-"This is my complete military plan."
+"here is my complete military program."
 
-The user has the complete context.
+The user possesses the global context.
 
-However, the model can only see a fragment.
+The model, however, may see only a fragment.
 
-Therefore, the security of advanced agents will need to progressively consider not only **what is being requested at the present time**, but also the entire trajectory of a project.
+The security of advanced agents will therefore have to progressively reason not only on **what is being asked now**, but on the entire trajectory of a project.
 
-It's much more difficult.
+This is much harder.
 
-This implies linking the sessions together.
+It requires linking sessions.
 
-Understand dependencies.
+Understanding dependencies.
 
-Identifying hidden objectives.
+Detecting hidden objectives.
 
-And to do this without turning every legitimate engineer, researcher, or student into a suspect.
+And doing so without turning every legitimate engineer, researcher, or student into a suspect.
 
-## Claude is, in fact, just one of the problems.
+## Claude is not the only problem, moreover
 
-Another important conclusion from Anthropic deserves to be highlighted.
+Another Anthropic conclusion deserves highlighting.
 
-The open or semi-open systems tested by the company generally lagged behind the best proprietary systems in certain military evaluations.
+The open or semi-open models tested by the company remain globally behind the best proprietary systems on certain military evaluations.
 
-However, several are already showing worrying capabilities.
+But several already show concerning capabilities.
 
-In other words, even if Anthropic were to create a perfect filter around Claude tomorrow, the problem would not disappear.
+In other words, even if Anthropic built a perfect filter around Claude tomorrow, the problem would not disappear.
 
-An actor can switch suppliers.
+An actor can change providers.
 
-Using multiple models.
+Use multiple models.
 
-Going through distributors.
+Go through resellers.
 
 Use an open model locally.
 
-Mix the tools according to the task.
+Mix tools according to the task.
 
-The September report also describes several operations in which actors were already combining multiple AI providers for different roles.
+The September report moreover describes several operations in which actors were already combining multiple AI providers for different roles.
 
-This significantly undermines the idea that the problem could be solved solely through improved moderation by an American chatbot.
+This strongly limits the idea that the problem could be solved solely by better moderation of an American chatbot.
 
-However, closed-source models offer something that open-source models typically do not:
+Closed models do, however, offer something that local models generally do not offer their creator:
 
-**of visibility.**
+**visibility.**
 
-## Laboratories are inadvertently becoming intelligence services.
+## Labs become involuntary intelligence services
 
 This is an extremely strange consequence of this new era.
 
-Historically, discovering that a group was developing a weapons system required human intelligence, surveillance, satellite imagery, recovered equipment, investigations, or open-source information.
+Historically, discovering that a group was developing a weapons system required human intelligence, intercepts, satellite imagery, recovered materiel, investigations, or open sources.
 
-Anthropic now finds itself in a different position.
+Anthropic finds itself today in a different position.
 
-If an actor uses Claude directly to work, the company may sometimes observe traces of this activity on its own platform.
+If an actor uses Claude directly to work, the company can sometimes observe traces of this activity on its own platform.
 
-She can identify patterns.
+It can spot patterns.
 
-Linking accounts.
+Link accounts.
 
-See the types of problems addressed.
+See the types of problems handled.
 
-Identify attempts to bypass security measures.
+Identify circumvention attempts.
 
 Close access.
 
-Then, pass on certain information to authorities or other companies.
+Then transmit certain intelligence to authorities or other companies.
 
-Thus, a model supplier inadvertently becomes a point of observation for operations that were previously invisible to them.
+A model provider thus becomes, almost accidentally, an observation point on operations that would formerly have been invisible to it.
 
-That's impressive.
+This is powerful.
 
-However, this also creates a new form of dependence.
+But it also creates a new dependency.
 
-Because a significant portion of the information we currently have about these operations comes directly from the company that provided the model.
+Because a large part of the facts we know today about these operations comes precisely from the company that provided the model.
 
-## Therefore, it is important to read the report for what it is.
+## We must therefore read the report for what it is
 
-Anthropic has access to internal data that independent journalists and researchers do not have.
+Anthropic has access to internal data that independent journalists and researchers do not.
 
-That is his strength.
+That is its strength.
 
-However, the report remains **a report by Anthropic, about Anthropic**.
+But the report remains **an Anthropic report on Anthropic**.
 
-We do not have publicly available data that would allow us to reproduce each attribution.
+We do not publicly have the full raw data allowing reproduction of every attribution.
 
-The internal names given to the groups are those used by Anthropic.
+The internal names given to the groups are Anthropic's.
 
-Some assessments of intent and origin are based on this analysis.
+Some intent and origin assessments rest on its analysis.
 
-Therefore, it would be excessive to treat each conclusion as if it had been independently established in court.
+It would therefore be excessive to treat every conclusion as if it had been independently established before a court.
 
-Reuters and other media have verified the existence of the report and have examined its contents, but they obviously do not have the complete telemetry data from the company.
+Reuters and other media have verified the report's existence and questioned its content, but they obviously do not have the company's complete telemetry.
 
-The correct approach is neither to blindly believe in Anthropic nor to dismiss the document.
+The right position is neither to blindly believe Anthropic nor to reject the document.
 
-The key is to differentiate:
+It is to distinguish:
 
 what Anthropic claims to have directly observed;
 
-what she concludes from it;
+what it infers from that;
 
-and that these observations are already sufficient to demonstrate this without accepting all the conclusions.
+and what these observations already suffice to demonstrate without accepting all the inferences.
 
-Or, even with this caution, one thing remains difficult to ignore.
+Yet even with this caution, one thing remains hard to ignore.
 
-Real-world actors are already considering the models useful enough to incorporate them into actual operations.
+Real actors already consider models useful enough to integrate them into real operations.
 
-## An AI doesn't need to be better than the world's best expert.
+## An AI does not need to be better than the world's best expert
 
-This is perhaps the most common mistake made in discussions about risk.
+This is perhaps the most frequent error in discussions of risk.
 
-We are requesting:
+We ask:
 
 "Is Claude better than an extremely experienced military engineer?"
 
-This may not necessarily be the right question.
+That is not necessarily the right question.
 
-The real comparison could be:
+The real comparison may be:
 
-Is Claude better than the engineer that the actor could have hired through other means?
+Is Claude better than **the engineer this actor could have recruited otherwise?**
 
-For a large organization with thousands of specialists, the benefit could be an acceleration.
+For a major power with thousands of specialists, the gain may be acceleration.
 
-For a small, isolated organization with limited expertise, the same model can fill a much larger need.
+For a small isolated organization with little expertise, the same model can fill a much larger void.
 
-Therefore, the absolute level of AI is less important than **the difference between its capabilities and the initial resources available to its user.**
+The absolute level of the AI therefore matters less than **the gap between its capabilities and its user's initial resources**.
 
-A simple tool can create a significant advantage when it replaces something that didn't previously exist.
+An average tool can produce an enormous advantage when it replaces something that did not exist.
 
-That's the "uplift" that security teams are now trying to measure.
+This is the "uplift" that security teams are now trying to measure.
 
-## The failed test in Yemen is almost as informative as a successful one.
+## The failed test in Yemen is almost more instructive than a success
 
-At first glance, the failure of the rocket might be reassuring.
+At first glance, the rocket's failure might reassure.
 
-Claude did not create a perfect system.
+Claude did not produce a perfect system.
 
-Excellent.
+Fine.
 
-However, this may not always be the best approach.
+But that is not necessarily the right lesson.
 
-Engineering programs are failing.
+Engineering programs fail.
 
-The prototypes fail.
+Prototypes fail.
 
-Human-powered rockets explode.
+Human rockets explode.
 
-Software written by humans contains errors.
+Human software contains bugs.
 
-A failure becomes dangerous when it can be quickly analyzed and transformed into a new iteration.
+A failure becomes dangerous when it can be analyzed quickly and turned into a new iteration.
 
-And this is precisely what Anthropic claims to have observed.
+And that is exactly what Anthropic claims to have observed.
 
-A few hours after the trial, the users returned to Claude to understand what had happened.
+A few hours after the test, users returned to Claude to understand what had happened.
 
 The machine had not eliminated the failure.
 
-She had begun to **reduce the cost of training after the setback**.
+It had begun to **reduce the cost of learning after failure**.
 
-In many technological fields, this is almost as important.
+In many technological domains, that is almost as important.
 
-## We have long protected certain capabilities by protecting information.
+## We have long protected certain capabilities by protecting information
 
-Categorized.
+Classified.
 
-Classified information.
+Secret defense.
 
 Restricted access.
 
 Export controls.
 
-However, a significant portion of modern expertise relies on something else.
+But a large part of modern expertise rests on something else.
 
-Some information is already available to the public.
+Information is already public.
 
-What protects them is their complexity.
+What protects it is its complexity.
 
-The fact that they require a specialist to understand them.
+The fact that it takes a specialist to understand it.
 
-Years of practice were needed to learn how to combine them effectively.
+Years to learn how to combine it.
 
-Experience is key to distinguishing between a theoretical idea and a practical solution.
+Experience to distinguish a theoretical idea from a usable solution.
 
-It's an invisible barrier.
+This is an invisible barrier.
 
-And it is precisely this barrier that the models are beginning to erode.
+And it is exactly this barrier that models are beginning to erode.
 
-Therefore, the issue of security is no longer simply:
+The security question is therefore no longer only:
 
-**What information can an AI reveal?**
+**what information can an AI reveal?**
 
 It becomes:
 
-What skills could she make available to someone who didn't possess them?
+**what skills can it make available to someone who did not possess them?**
 
-This is a significant distance.
+This shift is considerable.
 
-Because restricted information can be filtered.
+Because forbidden information can be filtered.
 
-A general skillset is much more difficult to define and quantify.
+General expertise is much harder to lock away.
 
-## The real danger probably isn't the missile itself.
+## The real danger is probably not the missile
 
-The missile naturally draws attention.
+The missile naturally attracts attention.
 
-It is practical.
+It is concrete.
 
 Spectacular.
 
 Easy to understand.
 
-However, it may obscure a more fundamental change.
+But it risks masking the deeper change.
 
-The same mechanism can also be applied to cyber espionage.
+The same mechanism can apply to cyber espionage.
 
-Under observation.
+To surveillance.
 
-Data analysis.
+To data analysis.
 
 To propaganda.
 
-Regarding fraud.
+To fraud.
 
-Biological search.
+To biological research.
 
 To engineering.
 
-In all activities where the limiting factor has been the lack of enough skilled personnel,
+To all activities where the limiting factor was until now the quantity of people sufficiently competent to do the work.
 
-Models designed to address this scarcity are now starting to directly tackle the problem.
+Frontier models are beginning to attack this scarcity directly.
 
-And when a technology reduces the scarcity of expertise, it doesn't just provide new tools to the most powerful actors.
+And when a technology reduces the scarcity of expertise, it does not only give new tools to the most powerful actors.
 
-It allows new actors to enter fields they previously had no access to.
+It can bring new actors into domains they previously had no access to.
 
-Perhaps this is what Anthropic's report documents for the first time with such clarity.
+This is perhaps what the Anthropic report documents for the first time with such clarity.
 
-We have spent years wondering what would happen if artificial intelligence became capable of inventing a completely new weapon.
+We have spent years wondering what would happen if an artificial intelligence became capable of inventing an entirely new weapon.
 
-Meanwhile, a more subtle transformation is already underway.
+Meanwhile, a quieter transformation has already begun.
 
-She doesn't need to create new knowledge.
+**It does not need to invent human knowledge.**
 
-It should only make it much less common.
+It only needs to make it much less rare.
