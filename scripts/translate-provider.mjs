@@ -65,7 +65,7 @@ export function buildTranslationPrompt(source, context, options = {}) {
     "Preserve every number, date, duration, percentage, quantity, unit, magnitude, name and entity.",
     "Preserve attribution, uncertainty and modality. Claims, allegations and possibilities must not become established facts.",
     "Do not summarize, omit, add, invent, explain or materially simplify anything.",
-    "Write fluent native editorial prose with consistent terminology and the source's pacing and tone.",
+    "Write fluent native editorial prose with natural phrasing, idiomatic expressions, consistent terminology and the source's pacing and tone. Avoid literal French grammatical calques or awkward word-for-word translations.",
     "Preserve all Markdown structure and every placeholder byte-for-byte, in the same order and position.",
     "Translate human-readable link labels but never modify protected destinations, code, math, paths, identifiers or syntax.",
     "Silently verify completeness and semantic fidelity before returning the final JSON. Do not return analysis, notes, prefaces or reasoning.",
@@ -85,6 +85,7 @@ export function buildTranslationPrompt(source, context, options = {}) {
       };
   if (options.repairCandidate) {
     contract.push("Correct every listed defect and return a complete replacement publication, not a partial patch.");
+    contract.push("Resolve every identified defect and rephrase any awkward, non-native or calqued wording into natural editorial prose.");
   }
   return `${contract.join("\n")}\n\n${JSON.stringify(payload)}`;
 }
@@ -150,6 +151,12 @@ function retryable(category) {
   return ["RATE_LIMIT", "TIMEOUT", "REMOTE_SERVER"].includes(category);
 }
 
+export function providerRetryDelay(error, attempt, random = Math.random) {
+  const surfaced = String(error?.message || "").match(/retry[- ]after\D{0,8}(\d+(?:\.\d+)?)\s*(?:s|sec|seconds?)?/i)?.[1];
+  if (surfaced) return Math.min(120_000, Math.ceil(Number(surfaced) * 1000));
+  return Math.min(30_000, 1000 * 2 ** (attempt - 1)) + Math.floor(random() * 500);
+}
+
 export async function withProviderRetries(operation, options = {}) {
   const sleep = options.sleep || ((delay) => new Promise((resolve) => setTimeout(resolve, delay)));
   const random = options.random || Math.random;
@@ -163,7 +170,7 @@ export async function withProviderRetries(operation, options = {}) {
         ? error
         : new TranslationProviderError(classifyFailure(error?.message), sanitizeProviderText(error?.message));
       if (!retryable(failure.category) || attempt === attempts) throw failure;
-      const delay = Math.min(30_000, 1000 * 2 ** (attempt - 1)) + Math.floor(random() * 500);
+      const delay = providerRetryDelay(failure, attempt, random);
       await sleep(delay);
     }
   }

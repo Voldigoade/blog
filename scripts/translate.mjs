@@ -735,14 +735,19 @@ function semanticHeuristicIssues(sourceBody, targetBody, locale) {
       es: /\b(?:chips?|semiconductores)\b/i,
       de: /\b(?:(?:computer|mikro)?chips?|halbleiter)\b/i,
     }[locale];
-    const insects = /\b(?:insects?|bugs?|insectos?|insekten?|käfer)\b/i;
+    const insects = /\b(?:insects?|bugs?|insectos?|insekten?|käfer|flöhe)\b/i;
     if (!chips.test(lower) || insects.test(lower)) issues.push("computing chips were not preserved as semiconductor terminology");
   }
   const frenchTokens = lower.match(/\b(?:avec|dans|pour|mais|cette|aucune?|toujours|jamais|alors|comme|dont|leurs?|nous|vous|elles?|étaient|serait|aurait|pourrait)\b/gi)?.length || 0;
   const words = lower.match(/\p{Letter}+/gu)?.length || 1;
   if (frenchTokens >= 8 && frenchTokens / words > 0.02) issues.push(`unexpected French prose detected (${frenchTokens} high-confidence tokens)`);
-  if (locale === "en" && /\b(?:a first infrastructure|a second question now adds itself|he presents her with)\b/i.test(lower)) {
-    issues.push("English contains a known non-native calque or broken pronoun construction");
+  const calqueMatches = locale === "en"
+    ? lower.match(/\b(?:a first infrastructure|a second question now adds itself|he presents her with)\b/gi)
+    : null;
+  if (calqueMatches) {
+    for (const match of new Set(calqueMatches)) {
+      issues.push(`English contains a known non-native calque or broken pronoun construction: "${match}"`);
+    }
   }
   return issues;
 }

@@ -47,6 +47,14 @@ function testMatrixSelection() {
     ]).map((row) => row.state),
     ["stale", "missing"],
   );
+  assert.deepEqual(
+    selectAutomaticRows([
+      { state: "current", manual: false },
+      { state: "current", manual: true },
+      { state: "stale", manual: true },
+    ], true).map((row) => row.manual),
+    [false],
+  );
 }
 
 function testFailureIsolation() {

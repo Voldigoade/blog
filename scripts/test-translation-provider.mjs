@@ -5,6 +5,7 @@ import {
   buildTranslationPrompt,
   cliInvocation,
   parseCliOutput,
+  providerRetryDelay,
   readProviderConfiguration,
   sanitizeProviderText,
   translatePublication,
@@ -78,6 +79,8 @@ assert.throws(
 
 const secret = "test-private-credential";
 assert.equal(sanitizeProviderText(`Bearer ${secret}`, [secret]).includes(secret), false);
+assert.equal(providerRetryDelay(new Error("retry-after: 3 seconds"), 1, () => 0), 3000);
+assert.equal(providerRetryDelay(new Error("temporary"), 3, () => 0), 4000);
 
 let retryCalls = 0;
 const delays = [];
