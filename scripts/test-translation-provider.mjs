@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   TranslationProviderError,
   buildTranslationPrompt,
+  cliInvocation,
   parseCliOutput,
   readProviderConfiguration,
   sanitizeProviderText,
@@ -36,6 +37,19 @@ assert.equal(
   readProviderConfiguration({ TRANSLATION_API_KEY: "secret", TRANSLATION_MODEL: "opencode/example-free" }).model,
   "opencode/example-free",
 );
+
+const invocation = cliInvocation("fixture", "/tmp/translation/fixture/en", {
+  apiKey: "secret",
+  model: "opencode/example-free",
+  command: "opencode",
+}, { TRANSLATION_API_KEY: "secret", TRANSLATION_API_ENDPOINT: "https://unused.invalid" });
+assert.equal(invocation.args[0], "--pure");
+assert.equal(invocation.args.includes("--format"), true);
+assert.equal(invocation.args.includes("json"), true);
+assert.equal(invocation.env.TRANSLATION_API_KEY, undefined);
+assert.equal(invocation.env.TRANSLATION_API_ENDPOINT, undefined);
+assert.deepEqual(JSON.parse(invocation.env.OPENCODE_CONFIG_CONTENT), { permission: { "*": "deny" } });
+assert.equal(JSON.parse(invocation.env.OPENCODE_AUTH_CONTENT).opencode.key, "secret");
 
 const prompt = buildTranslationPrompt(source, { sourceLocale: "fr", targetLocale: "en" });
 assert.match(prompt, /complete French publication/);

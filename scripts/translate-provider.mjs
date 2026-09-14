@@ -174,6 +174,20 @@ function safeName(value) {
   return String(value || "translation").toLowerCase().replace(/[^a-z0-9._-]+/g, "-").slice(0, 100) || "translation";
 }
 
+export function cliInvocation(prompt, workDir, configuration, baseEnv = process.env) {
+  const env = { ...baseEnv };
+  delete env.TRANSLATION_API_KEY;
+  delete env.TRANSLATION_API_ENDPOINT;
+  env.OPENCODE_AUTH_CONTENT = JSON.stringify({ opencode: { type: "api", key: configuration.apiKey } });
+  env.OPENCODE_CONFIG_CONTENT = JSON.stringify({ permission: { "*": "deny" } });
+  env.OPENCODE_DISABLE_AUTOUPDATE = "true";
+  return {
+    command: configuration.command,
+    args: ["--pure", "run", "--dir", workDir, "--model", configuration.model, "--format", "json", prompt],
+    env,
+  };
+}
+
 export function runCliProcess(prompt, context, options = {}) {
   const configuration = options.configuration || readProviderConfiguration();
   const base = options.tempRoot || process.env.RUNNER_TEMP || tmpdir();
@@ -182,14 +196,8 @@ export function runCliProcess(prompt, context, options = {}) {
   const workDir = mkdtempSync(join(parent, "request-"));
   const timeoutMs = options.timeoutMs || DEFAULT_TIMEOUT_MS;
   return new Promise((resolveRun, rejectRun) => {
-    const childEnv = { ...process.env };
-    delete childEnv.TRANSLATION_API_KEY;
-    delete childEnv.TRANSLATION_API_ENDPOINT;
-    childEnv.OPENCODE_AUTH_CONTENT = JSON.stringify({ opencode: { type: "api", key: configuration.apiKey } });
-    childEnv.OPENCODE_CONFIG_CONTENT = JSON.stringify({ permission: { "*": "deny" } });
-    childEnv.OPENCODE_DISABLE_AUTOUPDATE = "true";
-    const args = ["--pure", "run", "--dir", workDir, "--model", configuration.model, "--format", "json", prompt];
-    const child = spawn(configuration.command, args, { cwd: workDir, env: childEnv, shell: false, stdio: ["ignore", "pipe", "pipe"] });
+    const invocation = cliInvocation(prompt, workDir, configuration);
+    const child = spawn(invocation.command, invocation.args, { cwd: workDir, env: invocation.env, shell: false, stdio: ["ignore", "pipe", "pipe"] });
     let stdout = "";
     let stderr = "";
     let settled = false;
