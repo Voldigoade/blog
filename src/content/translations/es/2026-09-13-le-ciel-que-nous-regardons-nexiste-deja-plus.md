@@ -28,35 +28,35 @@ Hay algo profundamente engañoso en el cielo.
 
 Cuando miro a una persona a unos pocos metros de mí, mi cerebro puede razonablemente simular que la estoy viendo "ahora mismo". La luz tarda muy poco en recorrer esa distancia, por lo que el retraso es imperceptible. Sin embargo, esta aproximación se desmorona tan pronto como las distancias se vuelven astronómicas.
 
-**El cielo no es una representación directa del universo. Es una colección de imágenes del pasado.**
+**El cielo no es una imagen en directo del universo. Es una colección de imágenes del pasado.**
 
 Cuanto más lejos miramos, más antiguo parece ese pasado.
 
 ## Ver es siempre mirar hacia atrás.
 
-La luz viaja en el vacío a una velocidad de aproximadamente **300.000 kilómetros por segundo**. Es increíblemente rápido, pero no es instantáneo. A escala del universo, incluso esta velocidad se vuelve terriblemente lenta.
+La luz viaja en el vacío a una velocidad de aproximadamente **300.000 kilómetros por segundo**. Es una velocidad increíblemente rápida, pero no es instantánea. A escala del universo, incluso esta velocidad se vuelve terriblemente lenta.
 
-La luz de la luna ilumina aproximadamente **1,3 segundos** que debemos alcanzar. La del Sol tarda aproximadamente en **8 minutos y 20 segundos** para recorrer los aproximadamente 150 millones de kilómetros que nos separan. Cuando miramos el Sol, obviamente, sin protección adecuada, no vemos el Sol tal como es en ese momento preciso: vemos los fotones que emitió hace aproximadamente ocho minutos. 
+La luz de la Luna tarda aproximadamente **1,3 segundos** en llegar a nosotros. La luz del Sol tarda aproximadamente **8 minutos y 20 segundos** en recorrer los unos 150 millones de kilómetros que nos separan. Cuando miramos al Sol, obviamente, sin protección adecuada, no vemos el Sol tal como es en ese momento preciso: vemos los fotones que emitió hace aproximadamente ocho minutos. 
 
 Esta regla no se limita a la luz visible. Las ondas de radio, infrarrojas, ultravioletas, rayos X o gamma también son formas de radiación electromagnética y se propagan a la misma velocidad en el vacío. Por lo tanto, un telescopio nunca observa directamente un objeto lejano. 
 
 Podemos resumir esta diferencia con algunos ejemplos:
 
-| Lo que observamos | Lo que observamos aproximadamente |
+| Lo que observamos | Lo que vemos aproximadamente |
 
-| La Luna | 1,3 segundos |
+| La Luna | hace 1,3 segundos |
 
-| El Sol | 8 minutos y 20 segundos |
+| El Sol | hace 8 minutos y 20 segundos |
 
-| Próxima Centauri | Hace aproximadamente 4 años y medio. |
+| Próxima de Centauro | hace aproximadamente 4,2 años |
 
-| Centro de la Vía Láctea | Hace aproximadamente 26.000 años |
+| Centro de la Vía Láctea | hace aproximadamente 26.000 años |
 
-| La Galaxia de Andrómeda | hace aproximadamente 2,5 millones de años |
+| Galaxia de Andrómeda | hace aproximadamente 2,5 millones de años |
 
-| Campo cosmológico de fondo | Un universo de aproximadamente 380 000 años |
+| Fondo cósmico de fondo | Universo con aproximadamente 380 000 años |
 
-Es decir, **La distancia también es una máquina del tiempo.**.
+En otras palabras, **la distancia también es una máquina del tiempo**.
 
 ## Si el Sol desapareciera, no lo notaríamos inmediatamente.
 
@@ -66,7 +66,7 @@ Durante aproximadamente ocho minutos, nada parecería haber cambiado en la Tierr
 
 Luego, la información llegaría a nosotros.
 
-La oscuridad y la alteración gravitatoria no serían causadas por un fallo en una máquina. **Este plazo forma parte de la propia estructura del Universo: ninguna información física puede aparecer de forma instantánea en cualquier lugar.**
+La oscuridad y el cambio gravitatorio no serían "retrasados" debido a una máquina defectuosa. **Este retraso forma parte de la propia estructura del Universo: ninguna información física puede aparecer instantáneamente en cualquier lugar.**
 
 ### Pero, ten en cuenta el ejemplo de la eclipse.
 
@@ -74,7 +74,7 @@ Aquí hay una trampa bastante sutil. Se podría argumentar: "Dado que veo el Sol
 
 Eso no es correcto.
 
-Una eclipse solar no es un evento que ocurre de forma espontánea. **sobre el Sol**. Esto ocurre cuando la Luna se interpone entre nosotros y los fotones solares, bloqueándolos cerca de la Tierra. Los fotones en cuestión ya habían salido del Sol hace aproximadamente ocho minutos, pero la propia ocultación depende de la posición de la Luna en su trayectoria. Por lo tanto, es necesario distinguir **la edad de la luz solar que recibimos** de **el fenómeno geométrico conocido como eclipse**.
+Una eclipse solar no es un evento que ocurre **en el Sol**. Se produce cuando la Luna se interpone entre nosotros y los fotones solares, bloqueándolos cerca de la Tierra. Los fotones en cuestión ya habían salido del Sol hace aproximadamente ocho minutos, pero la propia ocultación depende de la posición de la Luna en su trayectoria. Por lo tanto, es necesario distinguir **la edad de la luz solar que recibimos** de **el evento geométrico conocido como eclipse**.
 
 La intuición inicial sigue siendo válida: el Sol que vemos pertenece al pasado. Sin embargo, el cielo se vuelve mucho más interesante tan pronto como dejamos de considerar "ocho minutos de retraso" como una regla demasiado simplista.
 
@@ -82,27 +82,27 @@ La intuición inicial sigue siendo válida: el Sol que vemos pertenece al pasado
 
 Luego está Andrómeda.
 
-La gran galaxia de Andrómeda se encuentra a aproximadamente **2,5 millones de años luz** sobre nosotros. Un año-luz no es una medida de tiempo: es la distancia que recorre la luz en un año. Esto significa que los fotones de Andrómeda que llegan hoy a la Tierra se originaron allí hace unos 2,5 millones de años. 
+La gran galaxia de Andrómeda se encuentra a aproximadamente **2,5 millones de años luz** de nosotros. Un año luz no es una medida de tiempo: es la distancia que recorre la luz en un año. Esto significa que los fotones de Andrómeda que llegan hoy a la Tierra se originaron allí hace unos 2,5 millones de años. 
 
-Cuando observamos Andrómeda esta noche, la vemos tal como era en una época en la que, en la Tierra, los primeros representantes de ese género... *Ser humano* ya existían, pero en ese momento nuestra especie aún no había aparecido.
+Cuando observamos Andrómeda esta noche, la vemos tal como era en una época en la que, en la Tierra, ya existían los primeros representantes del género *Homo*, pero en la que nuestra especie aún no había aparecido.
 
-Y ahí está la sensación de vértigo: **No sabemos cómo se ve Andrómeda "en este momento", observándola desde la Tierra.**. Es probable que estén ocurriendo eventos allí en este momento, según nuestra forma habitual de expresarnos, pero su luz tardará millones de años en llegar a nosotros.
+Y aquí está el vértigo: **no sabemos cómo se ve Andrómeda "ahora", observándola desde la Tierra**. Es probable que estén ocurriendo eventos allí en este momento, según nuestra forma habitual de hablar, pero su luz tardará millones de años en llegar a nosotros.
 
 Si una estrella de Andrómeda explotara hoy, ningún ser humano que viva actualmente podría ver esa explosión desde la Tierra. Tampoco nuestros hijos, ni sus descendientes durante un período de tiempo que resulta difícil de imaginar.
 
-La información podría ya estar disponible allí. Simplemente, aún no está accesible. **para nosotros**.
+Es posible que esa información ya esté disponible. Simplemente, aún no está disponible **para nosotros**.
 
 ## Los telescopios son, en realidad, máquinas que permiten viajar en el tiempo.
 
 Esto es lo que hace que telescopios como el Hubble o el James Webb sean mucho más interesantes que un simple "zoom gigante".
 
-Su objetivo no es simplemente observar objetos extremadamente distantes. Al captar luz proveniente de objetos que existen hace miles de millones de años, permiten estudiar **diferentes épocas de la historia cósmica**.
+Su objetivo no es simplemente observar objetos extremadamente distantes. Al captar luz proveniente de objetos que se formaron hace miles de millones de años, permiten estudiar **diferentes épocas de la historia cósmica**.
 
 La NASA describe así a Hubble como una especie de máquina para viajar en el tiempo: cuanto más distante es el objeto observado, más antigua es la época de la que proviene su imagen. 
 
-James Webb lleva este principio a un extremo hoy en día. Las observaciones confirmadas por Webb, por ejemplo, muestran la galaxia MoM-z14 tal como existía hace aproximadamente **280 millones de años después del Big Bang**. Su luz ha viajado durante aproximadamente 13.500 millones de años antes de llegar a nosotros. 
+James Webb lleva este principio a un extremo sin precedentes. Las observaciones confirmadas por Webb, por ejemplo, muestran la galaxia MoM-z14 tal como existía hace aproximadamente **280 millones de años después del Big Bang**. Su luz viajó durante unos 13.500 millones de años antes de llegar a nosotros. 
 
-Por lo tanto, no estamos reconstruyendo simplemente la historia del universo a partir de fósiles o simulaciones. **Una parte de esta historia llega literalmente hasta nosotros en forma de fotones.**
+Por lo tanto, no solo estamos reconstruyendo la historia del Universo a partir de fósiles o simulaciones. **Una parte de esta historia llega literalmente hasta nosotros, en forma de fotones.**
 
 El cielo es un archivo.
 
@@ -114,27 +114,27 @@ Intuitivamente, podríamos pensar que sería suficiente construir un telescopio 
 
 Pero no.
 
-**No podemos observar directamente el Big Bang con la luz.**
+No podemos observar directamente el Big Bang utilizando la luz.
 
 El problema no es la capacidad de nuestros telescopios. Es el propio universo primordial.
 
 Durante sus primeros cientos de miles de años, el Universo era extremadamente caliente y estaba lleno de un plasma denso de electrones y núcleos atómicos. Los fotones se emitían constantemente por las partículas cargadas. Para la luz, el Universo se parecía a una gigantesca niebla opaca. 
 
-Luego, aproximadamente **380.000 años después del Big Bang**, el universo se había enfriado lo suficiente para que los electrones pudieran unirse a los núcleos y formar átomos neutros. Entonces, la luz pudo viajar libremente a grandes distancias. 
+Posteriormente, aproximadamente **380.000 años después del Big Bang**, el universo se había enfriado lo suficiente como para que los electrones pudieran unirse a los núcleos y formar átomos neutros. Entonces, la luz pudo viajar libremente a grandes distancias. 
 
 Estos fotones siguen viajando.
 
-Hoy las detectamos en forma de... **fondo cósmico de fondo**, o CMB (*Fondo cósmico de microondas*).
+Hoy las detectamos en forma de **fondo cósmico de microondas** (CMB).
 
 Es la luz más antigua que podemos observar. Una verdadera fotografía del Universo cuando tenía aproximadamente 380.000 años. Las misiones COBE, WMAP y Planck han mapeado esta radiación con una precisión extraordinaria. 
 
 Por lo tanto, no es exactamente:
 
-**"Podemos observar el Big Bang."**
+« Podemos observar el Big Bang. »
 
 Esto es algo más específico y, en mi opinión, aún más impresionante:
 
-**Podemos realmente recibir hoy en día la luz liberada cuando el Universo tenía solo alrededor del 0,003% de su edad actual.**
+Podemos realmente recibir hoy en día la luz liberada cuando el Universo tenía solo alrededor del 0,003% de su edad actual.
 
 Antes de eso, el universo es esencialmente opaco a los fotones que utilizamos para observar el cosmos.
 
@@ -144,9 +144,9 @@ Es necesario deshacerse de otra imagen mental engañosa.
 
 El Big Bang no fue una explosión que ocurrió en un lugar específico en un vasto espacio vacío. No existe una dirección del cielo hacia la cual dirigir un telescopio para observar "el lugar donde todo comenzó".
 
-Según la cosmología moderna, **La expansión se ha producido en todas partes.**. No existe un centro espacial del Big Bang que podamos localizar. John Mather, ganador del Premio Nobel y científico del telescopio James Webb, insiste precisamente en que el nombre "Big Bang" es engañoso cuando se habla de una explosión con un centro. 
+Según la cosmología moderna, **la expansión se ha producido en todo el universo**. No existe un centro espacial del Big Bang que podamos localizar. John Mather, premio Nobel y científico del telescopio James Webb, enfatiza precisamente la naturaleza engañosa del nombre "Big Bang" cuando se habla de una explosión con un centro. 
 
-Es precisamente por esta razón que el fondo cósmico de microondas nos rodea. **todas las direcciones**.
+Por esta razón, el fondo cósmico de microondas nos rodea en **todas las direcciones**.
 
 Mire muy hacia la izquierda: Universo joven.
 
@@ -156,19 +156,19 @@ Arriba: Universo joven.
 
 Si la Tierra no nos impidiera ver, podríamos contemplar: un universo joven.
 
-Estamos en el centro de **Nuestro universo observable**, pero esto no significa en absoluto que estemos en el centro del universo.
+Nos encontramos en el centro de **nuestro universo observable**, pero esto no significa en absoluto que estemos en el centro del universo.
 
-## ¿Cómo puede el universo observable medir 92 años luz?
+## ¿Cómo podría ser el universo observable? medir 92 ¿Miles de años luz?
 
 Aquí hay otra peculiaridad que, al principio, parece imposible.
 
-El universo tiene aproximadamente **13.8 mil millones de años**Por lo tanto, podríamos pensar que no podemos observar nada más allá de aproximadamente 13,8 años luz, y que el universo observable debería tener un diámetro máximo de 27,6 años luz.
+El universo tiene aproximadamente **13.8 mil millones de años**. Por lo tanto, podríamos pensar que no podemos observar nada más allá de unos 13.8 mil millones de años-luz, y que el universo observable debería tener un diámetro máximo de 27.6 mil millones de años-luz.
 
-Sin embargo, su diámetro actual se estima en aproximadamente **92 años luz**. 
+Sin embargo, su diámetro actual se estima en aproximadamente **92 mil millones de años luz**. 
 
 No hay ninguna contradicción.
 
-Mientras que los fotones viajaban hacia nosotros durante miles de millones de años, **El propio espacio continuaba expandiéndose.**Por lo tanto, la región de la que partieron algunos de estos fotones está hoy mucho más lejos de nosotros de lo que estaba en el momento de su emisión.
+Mientras que los fotones viajaban hacia nosotros durante miles de millones de años, **el propio espacio continuaba expandiéndose**. Por lo tanto, la región de donde partieron algunos de estos fotones está hoy mucho más lejos de nosotros de lo que estaba en el momento de su emisión.
 
 Se trata de una distinción fundamental entre dos cuestiones que parecen idénticas, pero en realidad no lo son:
 
@@ -186,7 +186,7 @@ Esta idea conduce a una experiencia mental fascinante.
 
 La luz reflejada por la Tierra hace 66 millones de años todavía existe en algún lugar del universo, viajando hacia afuera.
 
-En teoría, un observador situado a una distancia de aproximadamente **66 millones de años luz** Hoy, la Tierra recibiría los fotones que fueron emitidos aquí hace la época en que desaparecieron los dinosaurios. Con un instrumento ficticio capaz de obtener una resolución totalmente inalcanzable para nuestras tecnologías, observaría una Tierra de 66 millones de años.
+En teoría, un observador situado a unos **66 millones de años luz** de la Tierra recibiría hoy los fotones que fueron emitidos desde aquí en la época en que desaparecieron los dinosaurios. Con un instrumento ficticio capaz de obtener una resolución totalmente inalcanzable con nuestra tecnología, este observador vería así una Tierra de 66 millones de años.
 
 Esto, sin embargo, no significa que podríamos construir una nave, llegar hasta allí y dirigir un telescopio hacia la Tierra para observar nuestro propio pasado.
 
@@ -198,9 +198,9 @@ Para alcanzarlos después de su partida, sería necesario superarlos. Sin embarg
 
 Es aquí donde la asimetría se vuelve crucial.
 
-Podemos ver el pasado porque… **Las señales del pasado han tenido tiempo de llegar hasta nosotros.**No podemos observar el futuro de la misma manera, ya que los fotones que transportan la información sobre estos eventos aún no han sido emitidos.
+Podemos observar el pasado porque **las señales del pasado han tenido tiempo de llegar hasta nosotros**. Sin embargo, no podemos observar el futuro de la misma manera, ya que los fotones que transportan la información sobre estos eventos aún no han sido emitidos.
 
-En relatividad, esta idea se formaliza mediante lo que los físicos denominan el **cono de luz**Nuestro cono de luz pasado contiene los eventos que pudieron enviar una señal hasta nosotros. Nuestro cono de luz futuro contiene los eventos que las señales que enviamos hoy podrían influir. 
+En relatividad, se formaliza esta idea a través de lo que los físicos denominan el **cono de luz**. Nuestro cono de luz pasado contiene los eventos que pudieron enviar una señal hasta nosotros. Nuestro cono de luz futuro contiene los eventos que las señales que enviamos hoy podrían influir. 
 
 Incluso nuestra intuición sobre el "ahora en todo el Universo" debe ser manejada con precaución. La teoría de la relatividad especial demuestra que la simultaneidad de eventos distantes depende del marco de referencia del observador: dos observadores en movimiento relativo pueden no estar de acuerdo sobre los eventos distantes que deben considerarse simultáneos. 
 
@@ -218,4 +218,4 @@ La Luna pertenece a nuestro pasado, que es de hace apenas una segunda. El Sol, a
 
 Creíamos que estábamos mirando hacia el espacio.
 
-En realidad, cada vez que miramos lo suficiente, **También analizamos la evolución de los acontecimientos.**.
+En realidad, cada vez que miramos lo suficientemente lejos, **también estamos mirando hacia el futuro**.
