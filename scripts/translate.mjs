@@ -646,7 +646,7 @@ export function extractQuantities(text, locale = "fr") {
     fr: /\bquatorze\s+jours\b/gi,
     en: /\bfourteen\s+days\b/gi,
     es: /\bcatorce\s+días\b/gi,
-    de: /\bvierzehn\s+tage\b/gi,
+    de: /\bvierzehn\s+tagen?\b/gi,
   };
   const wordDurations = text.match(durationWords[locale])?.length || 0;
   for (let index = 0; index < wordDurations; index += 1) values.push(14);
@@ -715,7 +715,7 @@ function semanticHeuristicIssues(sourceBody, targetBody, locale) {
     const duration = {
       en: /\b(?:14|fourteen)\s+days\b/i,
       es: /\b(?:14|catorce)\s+días\b/i,
-      de: /\b(?:14|vierzehn)\s+tage\b/i,
+      de: /\b(?:14|vierzehn)\s+tagen?\b/i,
     }[locale];
     if (!duration.test(lower)) issues.push("the duration of fourteen days was not preserved");
   }
