@@ -273,15 +273,33 @@ def extract_quantities(text, locale="fr"):
             matched_spans.append(m.span())
 
     scale_map = {
-        "million": 1e6, "millions": 1e6, "millionen": 1e6, "milhões": 1e6, "milhoes": 1e6, "milioni": 1e6,
-        "milliard": 1e9, "milliards": 1e9, "billion": 1e9, "billions": 1e9, "milliarden": 1e9, "bilhões": 1e9, "miliardi": 1e9,
-        "mille": 1e3, "thousand": 1e3, "tausend": 1e3, "mila": 1e3, "mil": 1e3,
+        # 1e9
+        "mil millones": 1e9, "mil millon": 1e9, "mil millón": 1e9,
+        "mil milhões": 1e9, "mil milhoes": 1e9, "mil milhão": 1e9, "mil milhao": 1e9,
+        "milliards": 1e9, "milliard": 1e9, "milliarden": 1e9, "milliarde": 1e9,
+        "miliardi": 1e9, "miliardo": 1e9,
+        "billions": 1e9, "billion": 1e9, "billionen": 1e9,
+        "bilhões": 1e9, "bilhoes": 1e9, "bilhão": 1e9, "bilhao": 1e9,
+        "billones": 1e9, "billón": 1e9, "billon": 1e9,
+
+        # 1e6
+        "millions": 1e6, "million": 1e6, "millionen": 1e6,
+        "millones": 1e6, "millón": 1e6, "millon": 1e6,
+        "milhões": 1e6, "milhoes": 1e6, "milhão": 1e6, "milhao": 1e6,
+        "milioni": 1e6, "milione": 1e6,
+
+        # 1e3
+        "thousand": 1e3, "thousands": 1e3,
+        "tausend": 1e3,
+        "mille": 1e3, "mila": 1e3,
+        "mil": 1e3,
     }
+    sorted_scale = sorted(scale_map.items(), key=lambda x: len(x[0]), reverse=True)
 
     num_pat = re.compile(
         r'(?<![A-Za-z0-9_])'
         r'(\d+(?:[,\. \xa0\u202f]\d{3})*(?:[,\.]\d+)?)'
-        r'(?:\s*([A-Za-zÀ-ÿ]+))?'
+        r'(?:\s*([A-Za-zÀ-ÿ]+(?:\s+[A-Za-zÀ-ÿ]+)?))?'
     )
 
     for m in num_pat.finditer(text):
@@ -320,10 +338,10 @@ def extract_quantities(text, locale="fr"):
         except ValueError:
             continue
 
-        word = (m.group(2) or "").lower()
+        words = (m.group(2) or "").lower()
         scale = 1.0
-        for kw, factor in scale_map.items():
-            if word.startswith(kw):
+        for kw, factor in sorted_scale:
+            if words.startswith(kw):
                 scale = factor
                 break
         for v in vals:
@@ -1116,7 +1134,9 @@ def self_test():
     check("numeric 380 000 fr->en", check_numeric_fidelity("380 000 ans", "380,000 years", "en")[0])
     check("numeric 380 000 fr->de", check_numeric_fidelity("380 000 ans", "380.000 Jahre", "de")[0])
     check("numeric 380 000 fr->ja", check_numeric_fidelity("380 000 ans", "38万年", "ja")[0])
+    check("numeric 2,5M fr->es", check_numeric_fidelity("environ 2,5 millions d'années", "unos 2,5 millones de años", "es")[0])
     check("numeric 2,5M fr->zh", check_numeric_fidelity("2,5 millions", "250万", "zh-cn")[0])
+    check("numeric 13,8B fr->es", check_numeric_fidelity("13,8 milliards d'années", "13.8 mil millones de años", "es")[0])
     check("numeric 10,625 fr->en", check_numeric_fidelity("10,625/15", "10.625/15", "en")[0])
 
     # Fast single inference sanity check
