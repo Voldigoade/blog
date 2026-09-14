@@ -1,9 +1,9 @@
 ---
 title: "Claude a participé à un programme de missile : le vrai danger est ailleurs"
-description: "Description : Au Yémen, une cellule a utilisé Claude Code comme
-  une petite équipe d’ingénieurs logiciels pour travailler sur des systèmes de
-  guidage, tester une fusée puis analyser son échec. Le cas est spectaculaire,
-  mais il révèle surtout un phénomène plus profond : l’IA commence à rendre une
+description: "Au Yémen, une cellule a utilisé Claude Code comme une petite
+  équipe d’ingénieurs logiciels pour travailler sur des systèmes de guidage,
+  tester une fusée puis analyser son échec. Le cas est spectaculaire, mais il
+  révèle surtout un phénomène plus profond : l’IA commence à rendre une
   expertise militaire rare beaucoup moins rare."
 pubDate: 2026-09-14
 draft: false
