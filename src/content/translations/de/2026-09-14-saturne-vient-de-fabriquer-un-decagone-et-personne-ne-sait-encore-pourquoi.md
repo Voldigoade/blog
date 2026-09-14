@@ -1,6 +1,6 @@
 ---
-title: Saturn hat gerade ein Zehnsiedere hergestellt, und niemand weiß noch, warum.
-description: 'Wir kennen den riesigen Hexagon am Nordpol von Saturn. Sein Südpol hat nun eine Struktur mit zehn Seiten enthüllt, die scheinbar vor unseren Augen entstanden ist. Dies ist keine einfache geometrische Kuriosität: Es handelt sich um eine seltene natürliche Erfahrung darüber, wie eine chaotische Atmosphäre spontan organisiert werden kann.'
+title: Saturn hat soeben ein Zehneck erschaffen und niemand weiß bisher warum
+description: 'Man kannte das gewaltige Hexagon am Nordpol des Saturn. Sein Südpol hat nun eine zehnseitige Struktur enthüllt, die scheinbar vor unseren Augen entstanden ist. Das ist keine geometrische Kuriosität: Es ist ein seltenes natürliches Experiment darüber, wie sich eine chaotische Atmosphäre spontan organisieren kann.'
 pubDate: 2026-09-14
 draft: false
 featured: false
@@ -15,7 +15,7 @@ tags:
   - Système solaire
   - Dynamique des fluides
 coverImage: /blog/images/posts/Decagon_on_Saturn_s_south_pole_colour_image_pillars.jpg
-coverAlt: Ansicht des Südpols von Saturn, die eine riesige, zehnseitige atmosphärische Struktur zeigt, die mit dem Hubble-Teleskop entdeckt wurde.
+coverAlt: Ansicht des Südpols des Saturn, die eine riesige atmosphärische Zehneck-Struktur zeigt, entdeckt mithilfe des Hubble-Weltraumteleskops.
 author: Voldigoade
 locale: de
 sourceSlug: 2026-09-14-saturne-vient-de-fabriquer-un-decagone-et-personne-ne-sait-encore-pourquoi
@@ -23,178 +23,178 @@ sourceHash: eb6646898503d5c0961ddb6caeede4477fc6f8180cc463a7c89922c98386ecc5
 manual: false
 ---
 
-Es gibt nun zwei sehr große, polygonale Strukturen in der Atmosphäre von Saturn.
+Es gibt nun zwei riesige Polygone in der Atmosphäre des Saturn.
 
-Nicht auf seiner Oberfläche gezeichnet. Nicht durch irgendeine Form entstanden. Saturn hat sogar keine feste Oberfläche, auf der man sie platzieren könnte.
+Nicht auf seiner Oberfläche gezeichnet. Nicht durch irgendeine Topografie geschaffen. Der Saturn besitzt nicht einmal eine echte feste Oberfläche, auf der sie liegen könnten.
 
 Es sind **die Winde selbst, die eine geometrische Form annehmen**.
 
-Im Norden kannten wir bereits eines der ungewöhnlichsten Phänomene im Sonnensystem: einen riesigen atmosphärischen Strom, der eine fast regelmäßige Hexagonform um den Pol bildet. Er ist so groß, dass mehrere Erden darin Platz hätten, und wir wissen, dass er seit mindestens mehreren Jahrzehnten besteht.
+Im Norden kannten wir bereits eines der seltsamsten Phänomene des Sonnensystems: einen gigantischen atmosphärischen Jetstream, der ein fast regelmäßiges Hexagon um den Pol bildet. Er ist so groß, dass mehrere Erden hineingepasst hätten, und wir wissen, dass er seit mindestens mehreren Jahrzehnten besteht.
 
-Im Süden hingegen gibt es nichts Vergleichbares.
+Im Süden hingegen gab es nichts Vergleichbares.
 
-Dann erschien plötzlich etwas.
+Dann tauchte etwas auf.
 
-Durch die Analyse mehrerer Jahre der Beobachtungen des Hubble-Weltraumteleskops hat ein von Agustín Sánchez-Lavega geführtes Team um eine riesige atmosphärische Welle um den Südpol von Saturn entdeckt, die nicht sechs…
+Bei der Analyse mehrjähriger Beobachtungen des Hubble-Weltraumteleskops identifizierte ein Team unter Leitung von Agustín Sánchez-Lavega rund um den Südpol des Saturn eine gewaltige atmosphärische Welle mit nicht sechs …
 
-aber **zehn Aspekte**.
+sondern **zehn Seiten**.
 
-Ein Zehdezahlig Polygon.
+Ein Zehneck.
 
-Und das interessanteste Detail ist sogar nicht seine Form.
+Und das interessanteste Detail ist nicht einmal seine Form.
 
-Das liegt daran, dass er **scheinbar nicht hier war**.
+Sondern dass er **offenbar vorher nicht da war**.
 
-## Vielleicht beobachten wir gerade, wie sich ein Planetgebilde bildet.
+## Wir beobachten möglicherweise die Geburt einer planetaren Struktur
 
-Das macht diese Entdeckung zu etwas viel Interessanterem als einfach nur ein schönes neues Foto von Saturn.
+Das ist es, was diese Entdeckung in etwas viel Interessanteres verwandelt als ein neues hübsches Foto des Saturn.
 
-Forscher suchen seit langem nach einem australischen Pendant des berühmten Hexagons.
+Forscher suchten lange nach einem südlichen Gegenstück zum berühmten Hexagon.
 
-Sie hatten gute Gründe dafür.
+Sie hatten gute Gründe.
 
-Die atmosphärischen Strömungen auf Saturn weisen eine gewisse Symmetrie zwischen den beiden Hemisphären auf. Daher haben Astronomen seit den 1990er Jahren die verfügbaren Beobachtungen untersucht, um nach einer ähnlichen Struktur im Süden zu suchen.
+Die atmosphärischen Jetstream-Systeme des Saturn weisen eine gewisse Symmetrie zwischen den beiden Hemisphären auf. Deshalb durchsuchten Astronomen bereits in den 1990er Jahren die verfügbaren Beobachtungen nach einer vergleichbaren Struktur im Süden.
 
 Nichts.
 
-Die Cassini-Sonde umrundete den Saturn von 2004 bis 2017.
+Die Sonde Cassini verbrachte anschließend dreizehn Jahre am Saturn, von 2004 bis 2017.
 
-Es gibt weiterhin keine Anzeichen für eine dauerhafte, polygonale Struktur im Süden.
+Immer noch kein Anzeichen für eine dauerhafte polygonale Struktur im Süden.
 
-Anschließend wurde der Südpol, der aufgrund der Neigung und der Jahreszeiten von Saturn lange Zeit nur schwer von der Erde aus beobachtbar war, allmählich unter besseren Bedingungen sichtbar.
+Dann kam der Südpol, der lange von der Erde aus wegen der Neigung und der Jahreszeiten des Saturn schwer beobachtbar war, allmählich wieder in bessere Beobachtungsbedingungen.
 
-Die Daten von Hubble ermöglichen es nun, Anzeichen für die Struktur bereits ab **2023** zu finden. Professionelle und amateurastronomische Beobachter haben eine wellenförmige Struktur in den Beobachtungen von 2024 festgestellt. Diese wird in den Bildern, die von der Erde aufgenommen wurden (2025), noch überzeugender, und schließlich ermöglicht Hubble, die Geometrie klar zu erkennen.
+Die Hubble-Daten lassen nun Spuren der Struktur bereits ab **2023** erkennen. Berufs- und Amateurastronomen bemerkten ein welliges Band in den Beobachtungen von 2024. Es wird in den bodenbasierten Bildern von 2025 überzeugender, und Hubble erlaubt schließlich, die Geometrie klar zu unterscheiden.
 
-Mit anderen Worten: Vielleicht haben wir nicht nur etwas entdeckt, das bisher verborgen war.
+Mit anderen Worten: Wir haben vielleicht nicht einfach etwas entdeckt, das versteckt war.
 
-Wir könnten möglicherweise die Entstehung eines planetarischen atmosphärischen Phänomens über einen Zeitraum von mehreren Jahren beobachtet haben.
+Wir könnten **die Entstehung eines planetaren atmosphärischen Phänomens über mehrere Jahre hinweg überrascht haben**.
 
-Und das ändert die wissenschaftliche Frage völlig.
+Und das ändert die wissenschaftliche Frage完全.
 
-Es geht nicht mehr nur darum, zu fragen:
+Es geht nicht mehr nur darum zu fragen:
 
-**„Warum hat Saturn Polygone?“**
+**„Warum besitzt der Saturn Polygone?“**
 
-Wir können nun folgende Fragen stellen:
+Wir können jetzt fragen:
 
-« Was führt dazu, dass eine Atmosphäre plötzlich beschließt, eine Wolke zu bilden? »
+**„Was veranlasst eine Atmosphäre, plötzlich eines zu erschaffen?“**
 
-## Wie kann Wind überhaupt eine Seite haben?
+## Wie kann Wind Seiten haben?
 
-Das ist wahrscheinlich der intuitivste Aspekt der gesamten Geschichte.
+Das ist wahrscheinlich der kontraintuitivste Teil der ganzen Geschichte.
 
-Ein Hexagon oder ein Decagon weckt sofort Assoziationen mit Stabilität: Kristall, molekulare Struktur, Architektur.
+Ein Hexagon oder Zehneck ruft sofort etwas Festes hervor: Kristall, Molekularstruktur, Architektur.
 
-Allerdings gibt es hier keine Barrieren.
+Doch hier gibt es keine Mauer.
 
-Die Dichotomie ist eine **Welle in einem Strömungsbereich**.
+Das Zehneck ist eine **Welle in einem Jetstream**.
 
-Stellen Sie sich einen riesigen, atmosphärischen Fluss vor, der sich um den Pol windet.
+Stellt euch einen gewaltigen atmosphärischen Fluss vor, der den Pol umkreist.
 
-Wenn der Fluss perfekt gleichmäßig verlaufen würde, würde seine Bahn ungefähr kreisförmig bleiben. Aber schnelle Flüssigkeiten sind selten so vorhersehbar. Bestimmte Störungen können sich verstärken, mit dem Fluss interagieren und eine stabile Welle erzeugen.
+Wenn sein Fluss perfekt gleichmäßig wäre, bliebe seine Bahn annähernd kreisförmig. Aber schnelle Fluide sind selten so artig. Bestimmte Störungen können wachsen, mit dem Strom interagieren und eine stabile Welle erzeugen.
 
-Der Kreis beginnt nun, sich zu wellen.
+Der Kreis beginnt dann zu wellen.
 
-Wenn diese Welle eine bestimmte Wellenlänge aufweist, verteilen sich mehrere Maxima und Minima um den Pol herum.
+Besitzt diese Welle eine bestimmte Wellenlänge, verteilen sich mehrere Maxima und Minima um den Pol.
 
-Vom Oberen betrachtet, erinnert die Grenze des Stroms nicht mehr an einen Kreis.
+Von oben gesehen ähnelt die Grenze des Stroms nicht mehr einem Kreis.
 
-Sie beginnt, die Seiten zu formen.
+Sie beginnt, Seiten zu bilden.
 
-Das ist eine wichtige Idee: **Die Geometrie entsteht nicht aus dem Nichts. Sie ergibt sich aus der Dynamik der Atmosphäre.**
+Das ist eine wichtige Idee: **Die Geometrie wird der Atmosphäre nicht aufgezwungen. Sie entsteht aus ihrer Dynamik.**
 
-Das gleiche allgemeine Prinzip findet sich in vielen physikalischen Systemen. Ein System, das von relativ einfachen Regeln bestimmt wird, kann spontan eine organisierte Struktur entwickeln, ohne dass ein externer Architekt erforderlich ist.
+Dasselbe allgemeine Prinzip erscheint in vielen physikalischen Systemen. Ein Ensemble, das von relativ einfachen Regeln beherrscht wird, kann spontan eine organisierte Struktur entwickeln, ohne äußeren Architekten.
 
-Im Fall von Saturn ist das Ergebnis einfach spektakulär, da die Beobachtung auf der Ebene eines Planeten stattfindet.
+Im Fall des Saturn ist das Resultat einfach spektakulär, weil das Experiment auf der Skala eines Planeten abläuft.
 
 ## Zehn Seiten im Süden, sechs im Norden
 
-Genau hier wird der neue Zehn-Eck noch wertvoller.
+Hier wird das neue Zehneck noch wertvoller.
 
-Wenn Saturn nur seine nördliche Hexagon hätte, könnten wir immer noch vermuten, dass eine äußerst spezifische Kombination von lokalen Bedingungen für seine Existenz erforderlich ist.
+Besäße der Saturn nur sein nördliches Hexagon, könnten wir immer noch vermuten, dass eine extrem besondere Kombination lokaler Bedingungen für seine Existenz nötig war.
 
-Aber jetzt scheint die Erde zu zeigen, dass sie **verschiedene, polygonale Zustände** erzeugen kann.
+Aber nun scheint der Planet zu demonstrieren, dass er **mehrere verschiedene polygonale Zustände erzeugen kann**.
 
-Der Norden wählt sechs Seiten aus.
+Der Norden wählt sechs Seiten.
 
-Davon wählt das Südteam zehn aus.
+Der Süden wählt zehn.
 
-Dies legt nahe, dass die Anzahl der Seiten wahrscheinlich keine grundlegende Eigenschaft von Saturn selbst ist, sondern das Ergebnis der lokalen Bedingungen des atmosphärischen Stroms: Windgeschwindigkeit, Breite des Jets, Geschwindigkeitsgradienten, vertikale Struktur der Atmosphäre, Breitengrad und Wechselwirkungen zwischen verschiedenen Schichten können dazu beitragen, den überlebenden Wellenmodus auszuwählen.
+Das legt nahe, dass die Anzahl der Seiten vermutlich keine fundamentale Eigenschaft des Saturn selbst ist, sondern das Resultat der lokalen Bedingungen des Jetstreams: Windgeschwindigkeit, Breite des Jets, Geschwindigkeitsgradienten, vertikale Struktur der Atmosphäre, Breitengrad und Wechselwirkungen zwischen verschiedenen Schichten können dazu beitragen, den Wellenmodus auszuwählen, der überlebt.
 
-Es ist ähnlich wie eine Sehne, die in verschiedenen Modi schwingen kann.
+Das ist ein bisschen wie eine Saite, die in mehreren Moden schwingen kann.
 
-Das Seil bleibt gleich.
+Die Saite bleibt dieselbe.
 
-Es sind die physikalischen Bedingungen, die die vorherrschende Schwingungsform bestimmen.
+Es sind die physikalischen Bedingungen, die bestimmen, welche Schwingungsform dominiert.
 
-Diese Vergleich hat jedoch Grenzen: Die Atmosphäre des Saturn ist viel komplexer als ein Seil, aber sie ermöglicht es, zu verstehen, warum die Situation "**sechs gegen zehn**" aus wissenschaftlicher Sicht interessanter ist als die Existenz eines zweiten, identischen Polygons.
+Dieser Vergleich hat seine Grenzen – die Atmosphäre des Saturn ist unendlich komplexer als eine Saite – aber er hilft zu verstehen, warum **„sechs gegen zehn“ wissenschaftlich interessanter ist als die Existenz eines zweiten identischen Polygons**.
 
-Saturn hat uns möglicherweise zwei unterschiedliche Lösungen für dasselbe physikalische Problem angeboten.
+Der Saturn hat uns vielleicht gerade zwei verschiedene Lösungen für dasselbe physikalische Problem geliefert.
 
-## Und das ist wahrscheinlich nicht nur eine zufällige Zeichnung im Himmel.
+## Und es ist vermutlich nicht nur eine Zeichnung in den Wolken
 
-Das Hubble-Teleskop beobachtet Saturn nicht nur in einer einzigen Farbe.
+Hubble beobachtet den Saturn nicht in einer einzigen Farbe.
 
-Seine Instrumente verwenden unterschiedliche Filter, was bedeutet, dass sie unterschiedliche Wellenlängen erfassen. Diese Wellenlängen decken jedoch nicht genau die gleichen Tiefen der Atmosphäre ab.
+Seine Instrumente nutzen verschiedene Filter, also unterschiedliche Wellenlängen. Und diese enthüllen nicht genau dieselben Tiefen der Atmosphäre.
 
-Hier zeigt sich ein besonders wichtiger Hinweis.
+Hier taucht ein besonders wichtiger Hinweis auf.
 
-Das Oktaedern bleibt auch über verschiedene atmosphärische Schichten hinweg erkennbar, obwohl seine scheinbare Position je nach beobachteter Wellenlänge leicht variiert.
+Das Zehneck bleibt über mehrere atmosphärische Ebenen hinweg detektierbar, auch wenn seine scheinbare Position je nach beobachteter Wellenlänge leicht variiert.
 
-Dies deutet darauf hin, dass es sich wahrscheinlich nicht um eine einfache, leichtfüßige Wolke handelt, die sich in einer bestimmten Höhe befindet.
+Das deutet darauf hin, dass es sich vermutlich nicht um eine dünne wolkenhafte Dekoration handelt, die in einer präzisen Höhe schwebt.
 
-Die Struktur weist eine **vertikale Erweiterung** auf.
+Die Struktur besitzt eine **vertikale Ausdehnung**.
 
 Das Phänomen betrifft also tatsächlich die Dynamik der Atmosphäre.
 
-Dies stellt die Forscher vor einer zusätzlichen Herausforderung: Jeder Modell, das in der Lage ist, den Dodekaeder zu erklären, muss nicht nur seine horizontale Geometrie, sondern auch sein Verhalten in verschiedenen Höhen reproduzieren.
+Und das liefert den Forschern eine zusätzliche Nebenbedingung: Jedes Modell, das das Zehneck erklären will, muss nicht nur seine horizontale Geometrie, sondern auch sein Verhalten in verschiedenen Höhen reproduzieren.
 
-## Das Problem wäre, zu behaupten, dass Saturn jetzt zwei dauerhafte Polygone besitzt.
+## Die Falle wäre zu verkünden, der Saturn besäße nun zwei permanente Polygone
 
-Wir wissen es nicht.
+Wir wissen das nicht.
 
-Das ist sogar genau der Grund, warum der Fall in Südamerika so spannend ist.
+Das ist sogar genau das, was den südlichen Fall so spannend macht.
 
-Das hexagonale Muster ist außergewöhnlich stabil. Es war bereits in den Daten der Voyager-Missionen in den frühen 1980er Jahren erkennbar und wurde auch in den folgenden Jahrzehnten weiterhin beobachtet.
+Das nördliche Hexagon ist bemerkenswert langlebig. Es war bereits in den Voyager-Daten Anfang der 1980er Jahre beobachtbar und wurde Jahrzehnte später weiter verfolgt.
 
-Das Zeh-Eck scheint sich zu entwickeln.
+Das Zehneck hingegen scheint sich zu entwickeln.
 
-Die Beobachtungen deuten darauf hin, dass er sich seit 2023 gestärkt hat.
+Die Beobachtungen legen nahe, dass es sich seit 2023 verstärkt hat.
 
-Es könnte also dazu führen, dass es sich zu einer stabilen Struktur entwickelt, die demjenigen im Norden ähnelt.
+Es könnte also am Ende zu einer dauerhaften Struktur werden, die der nördlichen vergleichbar ist.
 
-Es könnte sich jedoch auch verformen, seinen Charakter verlieren oder verschwinden.
+Aber es könnte sich auch verformen, den Modus wechseln oder verschwinden.
 
-Die Forscher wissen noch nicht, was die Ursache war, wie lange es überleben wird, und warum es jetzt aufgetreten ist. Die nächsten Beobachtungen mit dem Hubble-Teleskop, dem James-Web-Weltraumteleskop und den numerischen Simulationen sollten es ermöglichen, verschiedene Erklärungen zu testen.
+Die Forscher wissen noch nicht, was es ausgelöst hat, wie lange es überleben wird, noch warum es gerade jetzt erschienen ist. Die nächsten Beobachtungen von Hubble, des James-Webb-Weltraumteleskops und numerische Simulationen sollten es erlauben, verschiedene Erklärungen zu testen.
 
-Und paradoxerweise könnte sein Verschwinden fast genauso interessant sein wie seine Existenz.
+Und paradoxerweise könnte sein Verschwinden fast so interessant sein wie sein Fortbestehen.
 
-Da ein regelmäßiges Sechseck, das über vierzig Jahre hinweg beobachtet wird, einen **stabilen Zustand** zeigt.
+Weil ein über vierzig Jahre beobachtetes Hexagon uns **einen stabilen Zustand** zeigt.
 
-Eine Zehnseckform, die wir beobachten, die sich entwickelt und möglicherweise verschwindet, könnte uns den **Mechanismus aufzeigen, der es ermöglicht, diesen Zustand zu erreichen oder zu verlassen**.
+Ein Zehneck, das wir auftauchen, sich entwickeln und schließlich vielleicht sterben sehen, könnte uns **den Mechanismus zeigen, der erlaubt, diesen Zustand zu erreichen oder zu verlassen**.
 
-## Saturn ist zu einer Erfahrung geworden, die wir niemals hätten selbst gestalten können.
+## Der Saturn ist zu einem Experiment geworden, das wir nie hätten bauen können
 
-Es gibt etwas Elegantes an dieser Entdeckung.
+In dieser Entdeckung liegt etwas Elegantes.
 
-Auf der Erde können wir die Fluiddynamik in Behältern, Lüftungsanlagen und numerischen Simulationen untersuchen. Wir können die Geschwindigkeit, die Drehzahl oder die Gradienten verändern und die entstehenden Strukturen beobachten.
+Auf der Erde können wir Fluiddynamik in Wannen, Windkanälen und numerischen Simulationen studieren. Wir können Geschwindigkeit, Rotation oder Gradienten verändern und zusehen, welche Strukturen auftreten.
 
-Aber niemand kann experimentell eine Atmosphäre aus Wasserstoff erzeugen, die so groß ist wie ein Planet, sie über Jahrzehnte hinweg in Rotation halten und darauf warten, dass ein Strömungsphänomen sich polygonal verformt.
+Aber niemand kann experimentell eine planetengroße Wasserstoffatmosphäre bauen, sie jahrzehntelang rotieren lassen und abwarten, bis ein Jetstream beschließt, polygonal zu werden.
 
-Saturn führt dieses Experiment allein durch.
+Der Saturn führt dieses Experiment ganz allein durch.
 
-Und wir könnten gerade etwas wirklich Seltenes in der Planetenforschung entdeckt haben: nicht das Foto eines Phänomens, das seit Jahrhunderten beobachtet wird, sondern **eine zeitliche Abfolge seiner Entstehung**.
+Und wir haben vielleicht gerade etwas besonders Seltenes in der Planetenwissenschaft erhalten: nicht das Foto eines Phänomens, das seit Jahrhunderten etabliert ist, sondern **eine Zeitreihe seiner Geburt**.
 
-Deshalb sind auch die wiederholten Beobachtungen von Hubble von großer Bedeutung. Das OPAL-Programm hat seit über einem Jahrzehnt regelmäßig die Gasriesen fotografiert. Eine einzelne Beobachtung von Saturn im Jahr 2025 hätte ein Zeh-Eck gezeigt.
+Deshalb zählen die wiederholten Hubble-Beobachtungen so sehr. Das OPAL-Programm fotografiert die Riesenplaneten seit mehr als einem Jahrzehnt regelmäßig. Eine isolierte Beobachtung des Saturn 2025 hätte ein Zehneck gezeigt.
 
-Sie hätte ihre Geschichte nicht erzählt.
+Sie hätte nicht seine Geschichte gezeigt.
 
-Es sind die scheinbar repetitiven Datensätze, die es heute ermöglichen, zurückzublicken und festzustellen, dass sich etwas verändert hat.
+Es sind die scheinbar repetitiven Jahre an Daten, die es heute erlauben, zurückzublicken und festzustellen, dass etwas im Wandel begriffen war.
 
-Die Entdeckung erzählt also zwei Geschichten gleichzeitig.
+Die Erzählung erzählt also zwei Geschichten gleichzeitig.
 
-Der erste Punkt betrifft Saturn: ein Planet, dessen Atmosphäre in der Lage ist, einen turbulenten Strom in eine riesige geometrische Struktur umzuwandeln, und möglicherweise auch die Form dieser Struktur im Laufe der Jahreszeiten zu verändern.
+Die erste betrifft den Saturn: einen Planeten, dessen Atmosphäre fähig ist, einen turbulenten Strom in eine gigantische geometrische Struktur zu verwandeln, und vielleicht deren Form im Lauf der Jahreszeiten zu verändern.
 
-Der zweite Punkt betrifft unsere Herangehensweise an die Wissenschaft: Nicht jede Entdeckung erfordert unbedingt ein leistungsstärkeres Teleskop.
+Die zweite betrifft unsere Art, Wissenschaft zu betreiben: Manche Entdeckungen verlangen nicht unbedingt ein stärkeres Teleskop.
 
-Sie fordern lediglich, die **gleiche Welt lange genug zu beobachten, um zu sehen, wie sie sich verändert**.
+Sie verlangen einfach, **dasselbe Welt lange genug zu beobachten, um sie beim Verändern zu überraschen**.
