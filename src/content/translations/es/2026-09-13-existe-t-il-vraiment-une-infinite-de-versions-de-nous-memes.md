@@ -1,6 +1,6 @@
 ---
-title: ¿Existen realmente infinitas versiones de nosotros mismos?
-description: ¿Alguna versión de ti ha tomado la decisión opuesta, ha vivido otra vida o ha seguido otro futuro? Entre mundos múltiples, multivers, dimensiones adicionales y espacio-tiempo, la física permite ideas vertiginosas pero no exactamente las que la ciencia ficción nos ha enseñado.
+title: ¿Existe realmente una infinidad de versiones de nosotros mismos?
+description: ¿Otra versión tuya tomó la decisión opuesta, vivió otra vida o siguió otro futuro? Entre mundos múltiples, multiverso, dimensiones adicionales y espacio-tiempo, la física permite ideas vertiginosas pero no exactamente las que la ciencia ficción nos ha enseñado.
 pubDate: 2026-09-13
 draft: false
 featured: false
@@ -23,99 +23,99 @@ sourceHash: 2dea79ec9dbba929183a229508edc8f1d3515a29e38d175f046fb608f008f59e
 manual: false
 ---
 
-Puede haber una versión de ti que nunca ha empezado a leer este artículo.
+Quizá exista una versión de ti que nunca empezó a leer este artículo.
 
-Otro que lo abrió 30 segundos más tarde. Uno que vive en otra ciudad. Una que tomó, hace varios años, una pequeña decisión que gradualmente cambió toda su vida. Quizá incluso una versión de ti que morirá mañana y otra que vivirá hasta cien años.
+Otra que lo abrió treinta segundos más tarde. Una que vive en otra ciudad. Una que tomó, hace varios años, una decisión minúscula que transformó progresivamente toda su vida. Quizá incluso una versión tuya que morirá mañana y otra que vivirá hasta los cien años.
 
-Es una idea casi obscénamente fascinante.
+Es una idea casi obscenamente fascinante.
 
-El problema es que la frase “hay una infinidad de yo en otras dimensiones” mezcla varios conceptos que físicamente no tienen nada que ver entre sí.
+El problema es que la frase «existe una infinitud de mí en otras dimensiones» mezcla varios conceptos que, físicamente, casi no tienen nada que ver entre sí.
 
-**Las dimensiones adicionales, los universos paralelos, el multiverso cosmológico, la interpretación de los mundos múltiples y el espacio-tempo de cuatro dimensiones no son diferentes maneras de decir lo mismo.**
+**Las dimensiones adicionales, los universos paralelos, el multiverso cosmológico, la interpretación de los mundos múltiples y el espacio-tiempo a cuatro dimensiones no son distintas formas de decir lo mismo.**
 
-Y lo más importante: hoy no sabemos si realmente existen otras versiones de nosotros.
+Y sobre todo: no sabemos hoy si existen realmente otras versiones de nosotros.
 
-Pero algunas teorías serias nos obligan al menos a tomar esta posibilidad mucho más en serio que podríamos creer.
+Pero ciertas teorías serias nos obligan al menos a tomar esta posibilidad mucho más en serio de lo que se podría creer.
 
 ## Una dimensión no es otro universo
 
-Vamos a comenzar con matar una confusión muy extendida.
+Empecemos por matar una confusión extremadamente extendida.
 
-Cuando una película habla de un personaje que "via en otra dimensión", suele hablar de un **otro mundo**.
+Cuando una película habla de un personaje que «viaja a otra dimensión», generalmente habla de **otro mundo**.
 
-En física, no es lo que significa la palabra. *Dimensiones*.
+En física, no es eso lo que significa la palabra *dimensión*.
 
-Una dimensión es, en gran medida, una dirección independiente necesaria para localizar algo.
+Una dimensión es, grosso modo, una dirección independiente necesaria para localizar algo.
 
-Nuestra experiencia diaria tiene tres dimensiones espaciales:
+Nuestra experiencia cotidiana posee tres dimensiones espaciales:
 
-- La izquierda ↔ derecha;
+- izquierda ↔ derecha;
 
-- Antes de atrás;
+- adelante ↔ atrás;
 
 - arriba ↔ abajo.
 
-A esto, la relatividad añade el tiempo en una estructura única: **El espacio-tempo**.
+A eso, la relatividad añade el tiempo en una estructura única: **el espacio-tiempo**.
 
-Se describe nuestro universo relativista con la ayuda de cuatro coordenadas: tres de espacio y una de tiempo.
+Describimos, pues, nuestro universo relativista con ayuda de cuatro coordenadas: tres de espacio y una de tiempo.
 
-Algunas teorías físicas realmente consideran dimensiones espaciales adicionales. Pueden ser extremadamente pequeñas, compactas o de otra manera invisibles a nuestra escala. El CERN investiga fenómenos que pueden revelar indirectamente su existencia. Sin embargo, ninguna dimensión adicional se ha establecido experimentalmente. 
+Ciertas teorías físicas prevén efectivamente dimensiones espaciales adicionales. Podrían ser extremadamente pequeñas, compactificadas o de otro modo invisibles a nuestra escala. El CERN busca notamment fenómenos susceptibles de revelar indirectamente su existencia. Pero ninguna dimensión adicional ha sido establecida experimentalmente.
 
-Y incluso si existían, esto no significaría absolutamente que una versión de ti viviera allí con otro corte de cabello y otra carrera.
+Y aunque existieran, eso no significaría absolutamente que una versión tuya habite allí con otro corte de pelo y otra carrera.
 
-Para llegar a los “altos tú”, hay que ir a otro lugar.
+Para llegar a los «otros tú», hay que ir a otro lado.
 
-## El verdadero concepto que parece a esta idea: los mundos múltiples
+## El verdadero concepto que se parece a esta idea: los mundos múltiples
 
-En 1957, el físico Hugh Everett III publicó una fórmula extraña de la mecánica cuántica.
+En 1957, el físico Hugh Everett III publica una formulación extraña de la mecánica cuántica.
 
-Para entender lo que propone, vamos a tomar un ejemplo simplificado.
+Para entender lo que propone, tomemos un ejemplo simplificado.
 
-Imagina un fotón enviado a un dispositivo donde dos resultados son posibles:
+Imagina un fotón enviado hacia un dispositivo donde dos resultados son posibles:
 
-**a** o **B**.
+**A** o **B**.
 
-La mecánica cuántica no describe simplemente el fotón como ocultando tranquilamente una respuesta A o B que ignoramos. Su estado puede ser una **Superposición** de diferentes posibilidades.
+La mecánica cuántica no describe simplemente el fotón como escondiendo tranquilamente una respuesta A o B que ignoramos. Su estado puede ser una **superposición** de las diferentes posibilidades.
 
-El verdadero problema surge cuando hacemos una medida.
+El verdadero problema llega cuando efectuamos una medida.
 
-En una presentación tradicional de la mecánica cuántica, se dirá grosamente:
+En una presentación tradicional de la mecánica cuántica, se dirá grosso modo:
 
-> antes de la medida: A y B están presentes en el estado cuántico;  
+> antes de la medida: A y B están presentes en el estado cuántico;
 
-> Después de la medición, se observa un solo resultado.
+> después de la medida: un solo resultado es observado.
 
-Introducimos lo que se llama la**El colapso de la función de onda**.
+Se introduce entonces lo que se llama el **colapso de la función de onda**.
 
-Everett propone una solución radicalmente diferente:
+Everett propone una solución radicalmente distinta:
 
-**¿Y si nunca hubiera ocurrido ese colapso?**
+**¿y si ese colapso nunca ocurriera?**
 
-La función de onda simplemente seguiría evolucionando según las ecuaciones cuánticas.
+La función de onda continuaría simplemente evolucionando según las ecuaciones cuánticas.
 
-Después de la experiencia, ya no habría:
+Después del experimento, ya no habría:
 
-> a **o** B
+> A **o** B
 
-Una estructura que contiene:
+sino una estructura conteniendo:
 
-> observador que midió a  
+> observador que midió A
 
-> **y**  
+> **y**
 
-> observador que ha medido B.
+> observador que midió B.
 
-Este es el punto de partida de lo que hoy se llama**Interpretación de los mundos múltiples**, o *Multi-Worlds Interpretación*.
+Es el punto de partida de lo que se llama hoy la **interpretación de los mundos múltiples**, o *Many-Worlds Interpretation*.
 
-Everett mismo hablaba más bien de la formulación de los "estados relativos"; la imagen popular de los universos que se dividen literalmente fue desarrollada y popularizada posteriormente, especialmente por Bryce DeWitt. 
+El propio Everett hablaba más bien de formulación de los «estados relativos»; la imagen popular de universos dividiéndose literalmente fue desarrollada y popularizada después, notamment por Bryce DeWitt.
 
-Y aquí es donde nuestra historia se vuelve seriamente extraña.
+Y es aquí donde nuestra historia se vuelve seriamente extraña.
 
-## Después de la separación, habría dos “te”
+## Tras la separación, habría dos «tú»
 
-Imaginemos una experiencia cuántica que da dos resultados posibles.
+Imaginemos un experimento cuántico que da dos resultados posibles.
 
-Antes de:
+Antes:
 
 ```text
 
@@ -139,67 +139,67 @@ Antes de:
 
 ```
 
-En una lectura everética, los dos resultados no serían dos posibilidades abstractas, una de las cuales se convierte en realidad.
+En una lectura everettiana, los dos resultados no serían dos posibilidades abstractas de las cuales una sola se vuelve real.
 
-**Ambos estarían presentes en la realidad cuántica global.**
+**Los dos estarían presentes en la realidad cuántica global.**
 
-En una rama, ves a.
+En una rama, constatas A.
 
-En el otro, una versión de ti constata B.
+En la otra, una versión tuya constata B.
 
-Ninguna de ellas se considera una copia.
+Y ninguna de las dos se considera una copia.
 
-Cada uno tiene sus recuerdos hasta la experiencia. Cada uno recuerda que ha sido “tú”. Cada uno miró a su alrededor y notó un solo resultado perfectamente normal.
+Cada una posee todos tus recuerdos hasta el experimento. Cada una recuerda haber sido «tú». Cada una mira a su alrededor y constata un solo resultado perfectamente normal.
 
-La Enciclopedia de Filosofía de Stanford resume precisamente esta extraña consecuencia: un observador presente puede corresponder, en el futuro, a varios continuadores situados en diferentes ramas. 
+La Stanford Encyclopedia of Philosophy resume precisamente esta extraña consecuencia: un observador presente puede corresponder, en el futuro, a varios continuadores situados en distintas ramas.
 
 En otras palabras, la pregunta:
 
-> “¿Cuál de esas personas seré yo?”
+> «¿Cuál de estas personas seré yo?»
 
-que se convierte en problemático.
+se vuelve ella misma problemática.
 
-Antes de la separación, comparte su historia.
+Antes de la separación, comparten tu historia.
 
-Después, ya no existe un futuro único que permita designar una sola de ellas como **El verdadero tú**.
+Después, ya no existe un futuro único que permita designar a una sola de ellas como **el verdadero tú**.
 
-## Pero tu elección entre pizza y hamburguero no crea mágicamente dos universos
+## Pero tu elección entre pizza y hamburguesa no crea mágicamente dos universos
 
-Es allí donde las versiones populares de esta idea a menudo se vuelven malas.
+Ahí es donde las versiones populares de esta idea se vuelven a menudo malas.
 
-Se escucha:
+Se oye:
 
-> “A cada decisión, el universo se divide. En un universo has escogido A, en el otro has elegido B.
+> «A cada decisión, el universo se divide. En un universo elegiste A, en el otro elegiste B.»
 
-Eso no es lo que dice la física.
+No es realmente lo que dice la física.
 
-La mecánica cuántica no concede ningún poder cósmico especial a nuestras decisiones.
+La mecánica cuántica no concede ningún poder cósmico particular a nuestras decisiones.
 
-El Universo no espera que te dudes delante de dos botones para decirse: muy bien, creemos dos realidades.
+El Universo no espera a que dudes ante dos botones para decirse: muy bien, creemos dos realidades.
 
-Las interacciones cuánticas ocurren constantemente, en todas partes.
+Las interacciones cuánticas tienen lugar constantemente, en todas partes.
 
 Tu cuerpo, el aire, los fotones, las moléculas de una mesa, las estrellas y prácticamente todo lo que nos rodea interactúan con su entorno.
 
-El fenómeno fundamental que permite a los diferentes componentes cuánticos convertirse en prácticamente independientes se llama la **Descoherencia**. Explica por qué las superposiciones cuánticas pueden dar lugar a estructuras macroscópicas que ya no parecen interferir entre sí. 
+El fenómeno fundamental que permite a los diferentes componentes cuánticos volverse prácticamente independientes se llama **decoherencia**. Explica por qué las superposiciones cuánticas pueden dar nacimiento a estructuras macroscópicas que ya no parecen interferir entre sí.
 
-Una decisión humana podría, obviamente, depender, directa o indirectamente, de diferentes eventos físicos.
+Una decisión humana podría depender evidentemente, directa o indirectamente, de eventos físicos diferentes.
 
-Pero **No es tu voluntad la que provoca la ramificación.**.
+Pero **no es tu voluntad la que provoca la ramificación**.
 
-La conciencia no está sentada en el centro del Universo con un botón "crear una timeline".
+La conciencia no está sentada en el centro del Universo con un botón «crear una línea temporal».
 
-## ¿Hay otro yo hoy?
+## ¿Existe hoy otro yo?
 
-Si una cierta versión de la interpretación de los mundos múltiples es correcta: algo bastante cercano a esta idea podría realmente ser verdad.
+Si una cierta versión de la interpretación de los mundos múltiples es correcta: algo bastante cercano a esta idea podría efectivamente ser verdadero.
 
-Puede haber ramas que contienen seguidores de personas que anteriormente compartieron exactamente el mismo pasado.
+Podrían existir ramas conteniendo continuadores de personas que antaño compartieron exactamente el mismo pasado.
 
-Pero la palabra “copia” es enganosa.
+Pero la palabra «copia» es engañosa.
 
-Supongo que ayer dos ramas se dividiron.
+Supongamos que ayer dos ramas divergen.
 
-Hoy en día:
+Hoy:
 
 ```text
 
@@ -225,105 +225,105 @@ Hoy en día:
 
 A partir de la separación, estas dos personas ya no acumulan las mismas experiencias.
 
-Se convierten gradualmente en dos individuos diferentes.
+Se vuelven progresivamente dos individuos diferentes.
 
-Cuanto más antigua es la divergencia, más hablar de “yo mismo” pierde su sentido.
+Más antigua es la divergencia, más hablar del «mismo yo» pierde sentido.
 
-Una rama que se separó hace tres segundos podría contener a alguien casi imposible de distinguir de ti.
+Una rama que diverjó hace tres segundos podría contener a alguien casi imposible de distinguir de ti.
 
-Una rama que se dividió antes de tu nacimiento podría no contener **Ni tú en absoluto**.
+Una rama que diverjó antes de tu nacimiento podría no contener **ningún tú en absoluto**.
 
-Sus padres probablemente nunca se habían visto.
+Tus padres podrían no haberse conocido nunca.
 
 Una fecundación ligeramente diferente podría haber producido a otra persona.
 
-La historia humana en sí misma podría ser profundamente diferente.
+La historia humana misma podría ser profundamente diferente.
 
-Los mundos múltiples no significan:
+Los mundos múltiples no significan, pues:
 
-> Cada universo contiene obligatoriamente el mismo casting con diferentes escenarios.
+> cada universo contiene obligatoriamente el mismo reparto con escenarios diferentes.
 
-Algunas ramas pueden convertirse radicalmente en extranjeras a nuestras.
+Ciertas ramas pueden volverse radicalmente extrañas a la nuestra.
 
-## ¿Existe una infinidad de “tú”?
+## ¿Y existe una infinidad de «tú»?
 
 Es aún más delicado.
 
-Dicir “Many Worlds = una infinidad de copias de mí” va demasiado lejos.
+Decir «Many Worlds = una infinidad de copias de mí» va mucho más allá.
 
-En las formulaciones modernas relacionadas con la descoherencia, un "mundo" no es necesariamente ni siquiera una entidad fundamental que posee fronteras perfectamente definidas. Las ramas pueden ser entendidas como estructuras emergentes y aproximadamente independientes dentro del estado cuántico global.
+En las formulaciones modernas ligadas a la decoherencia, un «mundo» ni siquiera es necesariamente una entidad fundamental que posea fronteras perfectamente definidas. Las ramas pueden ser comprendidas como estructuras emergentes y aproximadamente independientes en el seno del estado cuántico global.
 
-Por lo tanto, no existe necesariamente un contador cósmico que muestra:
+No existe, pues, necesariamente un contador cósmico que muestre:
 
-> Universo actual: 8 719 392 188 593 421...
+> Universos actualmente existentes: 8 719 392 188 593 421...
 
-Dependiendo de la forma en que se definen los ramos y el nivel de descripción adoptado, pedir exactamente **Cuántos mundos existen** Puede que no tenga una respuesta bien definida. 
+Según cómo se definan las ramas y el nivel de descripción adoptado, preguntar exactamente **cuántos mundos existen** puede no tener respuesta bien definida.
 
-Puede haber mucho.
+Puede haber enormemente.
 
-Algunos modelos matemáticos pueden conducir a conjuntos extremadamente amplios.
+Ciertos modelos matemáticos pueden conducir a conjuntos extremadamente vastos.
 
-Pero pasar de aquí a:
+Pero pasar de ahí a:
 
-> "Existe una infinidad exacta de versiones de mí"
+> «una infinitud exacta de versiones de mí existe»
 
-Es una afirmación que la física actual no permite presentarse como un hecho.
+es una afirmación que la física actual no permite presentar como un hecho.
 
-## El multiverso cosmológico es otra historia
+## El multiverso cosmológico es aún otra historia
 
-Sin embargo, existe un segundo camino hacia los universos múltiples.
+Existe sin embargo una segunda vía hacia los universos múltiples.
 
-Esta vez, no viene de la interpretación de la medida cuántica, sino de la **Cosmología**.
+Esta vez, no viene de la interpretación de la medida cuántica sino de la **cosmología**.
 
-Algunos modelos de inflación cósmica conducen a lo que se llama la**Inflación eterna**.
+Ciertos modelos de inflación cósmica conducen a lo que se llama la **inflación eterna**.
 
-En estos escenarios, la inflación, una fase de expansión extremadamente rápida del Universo primordial, se detendría en algunas regiones mientras que continuaría en otros lugares.
+En estos escenarios, la inflación una fase de expansión extremadamente rápida del Universo primordial se detendría en ciertas regiones mientras continuaría en otras.
 
-Esto podría producir continuamente tipos de regiones o **Universo de bolas** separados .
+Eso podría producir continuamente una especie de regiones o **universos-burbuja** separados.
 
-Alan Guth, uno de los principales arquitectos de la teoría de la inflación, mostró cómo algunos modelos pueden conducir a una producción sin fin de tales regiones. 
+Alan Guth, uno de los principales arquitectos de la teoría de la inflación, mostró cómo ciertos modelos pueden conducir a una producción sin fin de tales regiones.
 
-También se llama regularmente un **Multivers**.
+Eso también es regularmente llamado un **multiverso**.
 
-Pero tenga cuidado: no es el mismo multivers que Everett.
+Pero atención: no es el mismo multiverso que el de Everett.
 
-En uno de ellos:
+En uno:
 
-**Las ramas cuánticas describen diferentes resultados.**
+**ramas cuánticas describen diferentes resultados.**
 
 En el otro:
 
-**las regiones cosmológicas separadas pueden aparecer en un espacio de tiempo inflacionario mucho más amplio.**
+**regiones cosmológicas separadas pueden aparecer en un espacio-tiempo inflacionario mucho más vasto.**
 
-La palabra *Multivers* Es práctico, pero da la impresión enganosa de que existe una sola gran teoría de los universos paralelos.
+La palabra *multiverso* es práctica, pero da la impresión engañosa de que existe una única gran teoría de los universos paralelos.
 
-No es así.
+No es el caso.
 
-## El escenario aún más inquietante: un universo tan grande que acaba de repetirse
+## El escenario aún más perturbador: un universo tan grande que acaba repitiéndose
 
-Se puede impulsar la reflexión más allá.
+Se puede empujar el razonamiento más lejos.
 
-Supongamos y cada palabra cuenta aquí que el espacio es realmente infinito.
+Supongamos y cada palabra cuenta aquí que el espacio sea realmente infinito.
 
-Supongamos también que una región determinada sólo puede tener un número fin de configuraciones físicas distintas accesibles.
+Supongamos también que una región dada pueda poseer solo un número finito de configuraciones físicas distintas accesibles.
 
-Con suficientes regiones, algunas configuraciones deberían acabar repitiendo.
+Con suficientemente regiones, ciertas configuraciones deberían acabar repitiéndose.
 
-Y en un universo verdaderamente infinito, esto abre una posibilidad vertiginosa: en algún lugar increíblemente lejos podría existir una región casi exactamente parecida a nuestra.
+Y en un universo verdaderamente infinito, eso abre una posibilidad vertiginosa: en algún lugar increíblemente lejos podría existir una región que se parezca casi exactamente a la nuestra.
 
-Potencialmente hasta contener a alguien que se parece exactamente a ti.
+Potencialmente hasta contener a alguien que se parezca exactamente a ti.
 
-Pero esta conclusión depende de fuertes hipótesis cosmológicas. No es una observación.
+Pero esta conclusión depende de hipótesis cosmológicas fuertes. No es una observación.
 
-No hemos descubierto ninguna Tierra número 2 a una distancia absurda con tu doble sobre.
+No hemos descubierto ninguna Tierra número 2 a una distancia absurda con tu doble encima.
 
-Hay que mantener esa frontera intelectual. Una posible consecuencia de un modelo no es una cosa observada.
+Hay que conservar esta frontera intelectual. Una consecuencia posible de un modelo no es una cosa observada.
 
-## ¿Tu pasado también puede ser diferente?
+## ¿Puede tu pasado ser también diferente?
 
-Es una sutilidad importante.
+Es una sutileza importante.
 
-A menudo se representan los mundos múltiples como este:
+A menudo se representa los mundos múltiples así:
 
 ```text
 
@@ -339,144 +339,144 @@ passé ───────── présent
 
 ```
 
-Desde tu punto de vista actual, tienes recuerdos y rasgos que corresponden a una cierta historia.
+Desde tu punto de vista actual, posees recuerdos y huellas que corresponden a una cierta historia.
 
-En una representación estándar de las ramas, **El mundo actual tiene un pasado determinado.**A continuación, pueden aparecer varias continuaciones futuras.
+En una representación estándar de las ramas, **tu mundo actual posee, pues, un pasado determinado**, luego varias continuaciones futuras pueden aparecer.
 
-La Enciclopedia de Stanford subraya precisamente esta asimetría: un mundo ahora considerado remonta a una historia pasada particular, pero puede tener una multitud de continuaciones futuras. 
+La Stanford Encyclopedia subraya precisamente esta asimetría: un mundo considerado ahora remonta a una historia pasada particular pero puede tener una multitud de continuaciones futuras.
 
-Sin embargo, si miramos el estado cuántico global, otras ramas presentes pueden, obviamente, contener historias diferentes de nuestras porque se han divergido anteriormente.
+Sin embargo, si miramos el estado cuántico global, otras ramas presentes pueden evidentemente contener historias diferentes de la nuestra porque divergieron antes.
 
-Así que:
+Por tanto:
 
-**puede existir, en el escenario de los mundos múltiples, versiones presentes de la realidad cuyo pasado se diferencia de nuestro.**
+**puede existir, en el escenario de los mundos múltiples, versiones presentes de la realidad cuyo pasado difiere del nuestro.**
 
 Pero no es como si tu propio pasado cambiara retroactivamente.
 
-No te despertas mañana en una rama donde Napoleón ganó Waterloo mientras misteriosamente conserva los recuerdos de nuestra historia.
+No te despiertas mañana en una rama donde Napoleón ganó Waterloo conservando misteriosamente los recuerdos de nuestra historia.
 
-Las ramas poseen sus propias cadenas coherentes de eventos y rasgos.
+Las ramas poseen sus propios encadenamientos coherentes de eventos y huellas.
 
-## Hay otra idea extraña: quizá tu futuro ya “existe”
+## Existe aún otra idea extraña: quizás tu futuro «ya existe»
 
-Y todavía no hemos terminado.
+Y no hemos terminado aún.
 
-La relatividad ha destruido una intuición extremadamente profunda: la idea de que existe un **“Ahora” universal**común a todo el universo.
+La relatividad ha destruido una intuición extremadamente profunda: la idea de que existe un **« ahora » universal**, común a todo el Universo.
 
-Dos observadores que se mueven de manera diferente pueden no estar de acuerdo en la simultaneidad de eventos muy lejanos.
+Dos observadores moviéndose de forma diferente pueden no estar de acuerdo sobre la simultaneidad de eventos muy lejanos.
 
-Esta estructura ha inspirado un concepto llamado **El universo-bloc**, o *Bloqueo Universo*.
+Esta estructura ha inspirado una concepción llamada **universo-bloque**, o *block universe*.
 
-En esta representación, el espacio-tiempo entero es una estructura de cuatro dimensiones.
+En esta representación, el espacio-tiempo entero es una estructura a cuatro dimensiones.
 
-Tu nacimiento, ese momento preciso en el que lee esta frase y los acontecimientos posteriores de tu vida corresponden a diferentes lugares de tu línea en el espacio-tempo.
+Tu nacimiento, este momento preciso en que lees esta frase y los eventos ulteriores de tu vida corresponden a diferentes lugares de tu línea en el espacio-tiempo.
 
-algunas interpretaciones filosóficas de la relatividad, llamadas **Eternalismo**, consideran pasado, presente y futuro como igualmente reales, aunque hacemos subjetivamente la experiencia de un presente que parece avanzar. La interpretación exacta de lo que la relatividad impone metafísicamente sigue siendo discutida. 
+Ciertas interpretaciones filosóficas de la relatividad, llamadas **eternalismo**, consideran pasado, presente y futuro como igualmente reales, aunque hagamos subjetivamente la experiencia de un presente que parece avanzar. La interpretación exacta de lo que la relatividad impone metafísicamente sigue discutida.
 
-Pero tenga cuidado una vez más:
+Pero atención otra vez:
 
-**El universo-bloc no es el multivers.**
+**el universo-bloque no es el multiverso.**
 
-No dice que hay diez mil versiones de tu vida.
+No afirma que existan diez mil versiones de tu vida.
 
-Él pone una pregunta diferente: la de saber si los acontecimientos que llamamos “pasado” y “futuro” son todos parte de una misma estructura espacial-temporal.
+Plantea una pregunta distinta: la de saber si los eventos que llamamos «pasados» y «futuros» forman todos parte de una misma estructura espacio-temporal.
 
-Lo que puede ser aún más desestabilizante.
+Lo que es quizá aún más desestabilizador.
 
 ## ¿Se puede visitar otra rama?
 
-Es aquí donde la ciencia ficción generalmente recupera el control.
+Aquí es donde la ciencia ficción retoma generalmente el control.
 
-Si existen dos versiones de ti, ¿por qué no puedes conocer al otro?
+Si dos versiones de ti existen, ¿por qué no podrías encontrar a la otra?
 
-Porque la descoherencia no es una puerta.
+Porque la decoherencia no es una puerta.
 
 En la interpretación moderna de los mundos múltiples, las ramas macroscópicas se vuelven dinámicamente independientes a un grado extraordinario.
 
-Por lo tanto, no basta con inventar una máquina lo suficientemente rápida y cambiar la frecuencia.
+No basta, pues, con inventar una máquina suficientemente rápida y «cambiar de frecuencia».
 
-Debería ser capaz de invertir el encubrimiento con un gigantesco número de grados de libertad del medio ambiente y recrear una interferencia coherente entre estados macroscópicamente distintos.
+Habría que poder invertir el entrelazamiento con un número gigantesco de grados de libertad del entorno y recrear una interferencia coherente entre estados macroscópicamente distintos.
 
-En los sistemas cuánticos controlados, producir y recombinar superposiciones es perfectamente real: es exactamente lo que demuestran las experiencias de interferencia.
+En sistemas cuánticos controlados, producir y recombinar superposiciones es perfectamente real: es precisamente lo que demuestran los experimentos de interferencia.
 
-A escala de un hombre y de todo su entorno, estamos en un otro universo tecnológico.
+A escala de un humano y de todo su entorno, estamos en otro universo tecnológico.
 
-Las experiencias actuales no permiten probar directamente una interferencia entre dos "mundo" macroscópicos, y ninguna experiencia realista conocida hoy no permite separar definitivamente la interpretación de los mundos múltiples de otras interpretaciones sin colapso que reproducen las mismas predicciones observables. 
+Los experimentos actuales no permiten probar directamente una interferencia entre dos «mundos» macroscópicos, y ningún experimento realista conocido permite hoy departir definitivamente la interpretación de los mundos múltiples de las otras interpretaciones sin colapso que reproducen las mismas predicciones observables.
 
-Por lo tanto no: **La física conocida no nos da ninguna manera de contactar con nosotros.**
+Por tanto no: **la física conocida no nos da ningún medio de contactar con nuestro otro yo.**
 
-## El punto más importante: nada de todo esto se establece como "la realidad"
+## El punto más importante: nada de esto está establecido como «la realidad»
 
-Esta es probablemente la frontera más importante de todo este artículo.
+Es probablemente la frontera más importante de todo este artículo.
 
-La mecánica cuántica funciona muy bien.
+La mecánica cuántica funciona extraordinariamente bien.
 
 Observamos las superposiciones.
 
 Observamos la interferencia.
 
-Observamos la intrusión.
+Observamos el entrelazamiento.
 
-Entendemos y medimos la descoherencia.
+Comprendemos y medimos la decoherencia.
 
-Lo que sigue siendo discutido es lo que el formalismo cuántico **Nos dice de verdad sobre la naturaleza de la realidad**.
+Lo que sigue debatido es lo que el formalismo cuántico **nos dice realmente sobre la naturaleza de la realidad**.
 
 La interpretación de Everett es una solución seria al problema.
 
-Tiene defensores entre los físicos y filósofos de la física.
+Posee defensores entre físicos y filósofos de la física.
 
-También tiene adversarios.
+Posee también adversarios.
 
 Y ninguna observación ha mostrado hoy:
 
-> “Hemos descubierto otro universo que contiene una segunda versión de alguien”.
+> «Hemos detectado otro universo conteniendo una segunda versión de alguien.»
 
-Sería transformar una fascinante interpretación científica en fe.
+Eso sería transformar una interpretación científica fascinante en creencia.
 
-Creo que la idea es mucho mejor cuando se niega a engañar con ella.
+Encuentro la idea mucho más bella cuando se rechaza precisamente hacer trampa con ella.
 
-La física no necesita que se le invente ninguna certeza adicional.
+La física no necesita que le inventemos certezas suplementarias.
 
-## Puede que usted no sea una persona con un futuro
+## Quizá no seas una persona con un futuro
 
-Hay una manera bastante preocupante de devolver toda esta historia.
+Existe una manera bastante perturbadora de volver toda esta historia del revés.
 
 Nuestra intuición nos dice:
 
-> Soy una persona.  
+> Soy una persona.
 
-> Tengo un pasado.  
+> Tengo un pasado.
 
-> Hay varios futuros posibles.  
+> Existen varios futuros posibles.
 
-> Sólo uno se convertirá en realidad.
+> Uno solo acabará volviéndose real.
 
-Pero si Everett tiene razón, esta última frase podría ser equivocada.
+Pero si Everett tiene razón, esta última frase podría ser falsa.
 
-Puede que no haya un futuro esperado para ser seleccionado.
+No existiría quizás un futuro esperando a ser seleccionado.
 
-Podrían existir varias continuaciones.
+Varias continuaciones podrían existir.
 
-Y el que "tu" experimenta no sería necesariamente el ganador de una competencia entre futuros posibles.
+Y el que «tú» experimentas no sería necesariamente el vencedor de una competencia entre futuros posibles.
 
-Sería simplemente la historia vivida por uno de tus seguidores.
+Sería simplemente la historia vivida por uno de tus continuadores.
 
-Hoy en día no sabemos si la naturaleza realmente funciona así.
+Hoy, no sabemos si la naturaleza funciona realmente así.
 
-No sabemos si otras ramas deben considerarse mundos.
+No sabemos si otras ramas deben ser consideradas como mundos.
 
-No sabemos si el universo es infinito.
+No sabemos si el Universo es infinito.
 
-No sabemos si existe realmente la inflación.
+No sabemos si el multiverso inflacionario existe realmente.
 
 Y nunca hemos observado otra versión de nosotros mismos.
 
-Pero lo más fascinante no es que una física exótica haya demostrado la existencia de una infinidad de dobles.
+Pero lo más fascinante no es precisamente que una física exótica haya demostrado la existencia de una infinidad de dobles.
 
-Es que **Algunas de nuestras mejores teorías nos permiten considerar seriamente una realidad en la que nuestra historia es quizá sólo una trayectoria entre una inmensidad de otras.**.
+Es que **algunas de nuestras mejores teorías nos permiten seriamente envisagear una realidad en la que nuestra historia no es quizás más que una trayectoria entre una inmensidad de otras**.
 
-La ciencia ficción comienza por inventar mundos paralelos.
+La ciencia ficción empieza generalmente inventando mundos paralelos.
 
-La física, ella, ha logrado algo mucho más molesto:
+La física, ella, ha logrado algo mucho más perturbador:
 
-Nos ha dado buenas razones para preguntarnos si la palabra **“Realidad”** Nunca ha sido tan singular como pensábamos.
+nos ha dado buenas razones para preguntarnos si la palabra **«realidad»** ha sido nunca tan singular como lo pensábamos.
