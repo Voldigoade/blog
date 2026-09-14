@@ -4,7 +4,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import yaml from "js-yaml";
 
-import { closeProvider, translateSegments } from "./translate-provider.mjs";
+import { closeProvider, translatePublication } from "./translate-provider.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SOURCE_DIR = join(ROOT, "src", "content", "blog");
@@ -392,7 +392,10 @@ export function assertCurrentTranslation(locale, slug) {
   ) {
     throw new Error(`Translation metadata or body is invalid for ${locale}/${slug}.`);
   }
-  assertProtectedSyntax(source.body, body, `${locale}/${slug}`);
+  const translated = Object.fromEntries(TRANSLATED_FRONTMATTER.map((field) => [field.name, pathValue(data, field.path) || ""]));
+  translated.body = body;
+  const issues = deterministicTranslationIssues(source, translated, locale);
+  if (issues.length > 0) throw new Error(`Translation validation failed for ${locale}/${slug}: ${issues.join(" | ")}`);
   return row;
 }
 
@@ -514,20 +517,10 @@ export function shieldInline(text) {
 
 export function unshieldInline(text, placeholders) {
   if (placeholders.length === 0) return text;
-  const found = text.match(/(?:%%|__)(?:CODE|MATH|TAG|URL)_\d+(?:%%|__)/g) || [];
+  const found = text.match(/%%(?:CODE|MATH|TAG|URL)_\d+%%/g) || [];
   const expected = placeholders.map((p) => p.placeholder);
 
   if (found.length !== expected.length) {
-    const relaxedFound = text.match(/(?:%%|__|「)?[A-Z]+_\d+(?:%%|__|」)?/g) || [];
-    if (relaxedFound.length === expected.length) {
-      let restored = text;
-      for (const { placeholder, original } of placeholders) {
-        const id = placeholder.replace(/^[^\w]+|[^\w]+$/g, "");
-        const pat = new RegExp(`(?:%%|__|「)?${id}(?:%%|__|」)?`, "g");
-        restored = restored.replace(pat, () => original);
-      }
-      return restored;
-    }
     throw new Error(`Placeholder count mismatch: expected ${expected.length} (${expected.join(",")}) but got ${found.length} (${found.join(",")})`);
   }
 
@@ -542,6 +535,236 @@ export function unshieldInline(text, placeholders) {
     restored = restored.replaceAll(placeholder, () => original);
   }
   return restored;
+}
+
+function shieldRawMarkdown(body) {
+  const lines = body.match(/.*(?:\r?\n|$)/g)?.filter(Boolean) || [];
+  const placeholders = [];
+  let shielded = "";
+  let fence = "";
+  let math = false;
+  const protect = (value) => {
+    const placeholder = `%%RAW_${placeholders.length}%%`;
+    placeholders.push({ placeholder, original: value });
+    shielded += placeholder;
+  };
+  for (const line of lines) {
+    const trimmed = line.trimStart();
+    const fenceMatch = trimmed.match(/^(```+|~~~+)/)?.[1];
+    if (fence) {
+      protect(line);
+      if (fenceMatch?.startsWith(fence[0]) && fenceMatch.length >= fence.length) fence = "";
+      continue;
+    }
+    if (fenceMatch) {
+      fence = fenceMatch;
+      protect(line);
+      continue;
+    }
+    if (/^\s*\$\$\s*(?:\r?\n)?$/.test(line)) {
+      math = !math;
+      protect(line);
+      continue;
+    }
+    if (math || /^\s*(?:import|export)\b/.test(line) || /^\s{4}\S/.test(line) || /^\s*\[[^\]]+\]:\s*\S+/.test(line)) {
+      protect(line);
+      continue;
+    }
+    shielded += line;
+  }
+  return { shielded, placeholders };
+}
+
+function restoreRawMarkdown(body, placeholders) {
+  const found = body.match(/%%RAW_\d+%%/g) || [];
+  const expected = placeholders.map(({ placeholder }) => placeholder);
+  if (found.length !== expected.length || found.some((value, index) => value !== expected[index])) {
+    throw new Error(`Raw Markdown placeholder mismatch: expected ${expected.length}, got ${found.length}`);
+  }
+  let restored = body;
+  for (const { placeholder, original } of placeholders) restored = restored.replaceAll(placeholder, () => original);
+  return restored;
+}
+
+function preparePublication(source) {
+  const fields = Object.fromEntries(TRANSLATED_FRONTMATTER.map((field) => [field.name, pathValue(source.data, field.path) || ""]));
+  const fieldPlaceholders = {};
+  const payload = {};
+  for (const [name, value] of Object.entries(fields)) {
+    const prepared = shieldInline(value);
+    payload[name] = prepared.shielded;
+    fieldPlaceholders[name] = prepared.placeholders;
+  }
+  const rawBody = shieldRawMarkdown(source.body);
+  const inlineBody = shieldInline(rawBody.shielded);
+  payload.body = inlineBody.shielded;
+  return { payload, fieldPlaceholders, inlineBody: inlineBody.placeholders, rawBody: rawBody.placeholders };
+}
+
+function restorePublication(candidate, prepared) {
+  const restored = {};
+  for (const field of TRANSLATED_FRONTMATTER) {
+    restored[field.name] = unshieldInline(candidate[field.name], prepared.fieldPlaceholders[field.name]);
+  }
+  restored.body = restoreRawMarkdown(unshieldInline(candidate.body, prepared.inlineBody), prepared.rawBody);
+  return restored;
+}
+
+function numericValue(raw, locale) {
+  const compact = raw.replace(/[\s\u00a0\u202f]/g, "");
+  if (!/[,.]/.test(compact)) return Number(compact);
+  const separator = compact.lastIndexOf(",") > compact.lastIndexOf(".") ? "," : ".";
+  const parts = compact.split(separator);
+  const decimal = parts.at(-1);
+  const thousands = decimal.length === 3 && parts[0] !== "0";
+  if (thousands) return Number(compact.replace(/[,.]/g, ""));
+  const normalized = compact.replace(separator === "," ? /\./g : /,/g, "").replace(separator, ".");
+  const value = Number(normalized);
+  if (!Number.isFinite(value)) return Number.NaN;
+  if (locale === "en" && separator === "," && decimal.length !== 3) return Number(compact.replace(/,/g, "."));
+  return value;
+}
+
+export function extractQuantities(text, locale = "fr") {
+  const scales = {
+    fr: { milliard: 1e9, milliards: 1e9, million: 1e6, millions: 1e6, millier: 1e3, milliers: 1e3 },
+    en: { billion: 1e9, billions: 1e9, million: 1e6, millions: 1e6, thousand: 1e3, thousands: 1e3 },
+    es: { billón: 1e9, billones: 1e9, "mil millones": 1e9, millón: 1e6, millones: 1e6, mil: 1e3 },
+    de: { milliarde: 1e9, milliarden: 1e9, million: 1e6, millionen: 1e6, tausend: 1e3 },
+  };
+  const values = [];
+  const pattern = /(?<![\p{Letter}\d_])(\d+(?:[,\. \u00a0\u202f]\d{3})*(?:[,\.]\d+)?)(?:\s*([\p{Letter}]+(?:\s+[\p{Letter}]+)?))?/gu;
+  for (const match of text.matchAll(pattern)) {
+    const base = numericValue(match[1], locale);
+    if (!Number.isFinite(base)) continue;
+    const words = (match[2] || "").toLocaleLowerCase(locale);
+    const scale = Object.entries(scales[locale] || {}).sort((a, b) => b[0].length - a[0].length)
+      .find(([name]) => words.startsWith(name))?.[1] || 1;
+    values.push(base * scale);
+  }
+  const durationWords = {
+    fr: /\bquatorze\s+jours\b/gi,
+    en: /\bfourteen\s+days\b/gi,
+    es: /\bcatorce\s+días\b/gi,
+    de: /\bvierzehn\s+tage\b/gi,
+  };
+  const wordDurations = text.match(durationWords[locale])?.length || 0;
+  for (let index = 0; index < wordDurations; index += 1) values.push(14);
+  return values;
+}
+
+function numericIssues(source, target, locale) {
+  const sourceValues = extractQuantities(source, "fr");
+  const targetValues = extractQuantities(target, locale);
+  const remaining = [...targetValues];
+  const missing = [];
+  for (const value of sourceValues) {
+    const index = remaining.findIndex((candidate) => Math.abs(value - candidate) / Math.max(Math.abs(value), 1e-9) < 0.001);
+    if (index === -1) missing.push(value);
+    else remaining.splice(index, 1);
+  }
+  const issues = [];
+  if (missing.length > 0) issues.push(`numeric values missing or changed: ${missing.slice(0, 12).join(", ")}`);
+  if (remaining.length > 0) issues.push(`unexpected numeric values introduced: ${remaining.slice(0, 12).join(", ")}`);
+  return issues;
+}
+
+function markdownSignature(body) {
+  const blocks = tokenizeBlocks(body);
+  return {
+    headings: blocks.filter(({ type }) => type === "heading").map(({ prefix }) => prefix.trim().length),
+    lists: blocks.filter(({ type }) => type === "list").length,
+    quotes: blocks.filter(({ type }) => type === "quote").length,
+    tables: blocks.filter(({ type }) => type === "table_row").length,
+  };
+}
+
+function unprotectedProse(body) {
+  let value = body;
+  const protectedValues = [
+    ...shieldInline(body).placeholders.map(({ original }) => original),
+    ...tokenizeBlocks(body).filter(({ type }) => type === "raw").map(({ content }) => content.trim()).filter(Boolean),
+  ];
+  for (const protectedValue of protectedValues) value = value.replaceAll(protectedValue, " ");
+  return value;
+}
+
+function semanticHeuristicIssues(sourceBody, targetBody, locale) {
+  const issues = [];
+  const lower = unprotectedProse(targetBody).toLocaleLowerCase(locale);
+  const negativeWords = {
+    en: /\b(?:no|not|never|without|none|neither)\b/g,
+    es: /\b(?:no|nunca|jamás|sin|ningun[oa]?)\b/g,
+    de: /\b(?:nicht|kein(?:e|en|er|es)?|nie|niemals|ohne)\b/g,
+  };
+  const sourceNegatives = unprotectedProse(sourceBody).match(/\b(?:pas|jamais|aucun(?:e)?|sans|ni)\b/gi)?.length || 0;
+  const targetNegatives = lower.match(negativeWords[locale])?.length || 0;
+  if (sourceNegatives >= 3 && targetNegatives < Math.floor(sourceNegatives * 0.45)) {
+    issues.push(`negation count collapsed from ${sourceNegatives} to ${targetNegatives}`);
+  }
+  if (/pas\s+151\s+millions\s+de\s+tokens/i.test(sourceBody)) {
+    const preserved = locale === "en"
+      ? /(?:not|no)\s+151\s+million\s+tokens/i.test(lower)
+      : locale === "es"
+        ? /no\s+151\s+millones\s+de\s+tokens/i.test(lower)
+        : /(?:nicht\s+151|keine\s+151)\s+millionen\s+token/i.test(lower);
+    const inverted = /(?:more than|más de|mehr als)\s+151\s+million/i.test(lower) && !preserved;
+    if (!preserved || inverted) issues.push("the explicit negation around 151 million tokens was not preserved");
+  }
+  if (/quatorze\s+jours/i.test(sourceBody)) {
+    const duration = {
+      en: /\b(?:14|fourteen)\s+days\b/i,
+      es: /\b(?:14|catorce)\s+días\b/i,
+      de: /\b(?:14|vierzehn)\s+tage\b/i,
+    }[locale];
+    if (!duration.test(lower)) issues.push("the duration of fourteen days was not preserved");
+  }
+  if (/100\s+millions[^\n.]{0,80}(?:prompts|requêtes)/i.test(sourceBody)) {
+    const concept = {
+      en: /100\s+million[^\n.]{0,100}(?:prompts?|requests?|queries)/i,
+      es: /100\s+millones[^\n.]{0,100}(?:prompts?|solicitudes|consultas|peticiones)/i,
+      de: /100\s+millionen[^\n.]{0,100}(?:prompts?|anfragen|abfragen)/i,
+    }[locale];
+    if (!concept.test(lower) || /100\s+million[^\n.]{0,80}(?:clicks?|clics?|klicks?)/i.test(lower)) {
+      issues.push("100 million prompts or queries lost their technical association");
+    }
+  }
+  if (/\bpuces\b/i.test(sourceBody) && /(?:calcul|informat|nvidia|gpu|modèle|serveur)/i.test(sourceBody)) {
+    const chips = {
+      en: /\b(?:chips?|semiconductors?)\b/i,
+      es: /\b(?:chips?|semiconductores)\b/i,
+      de: /\b(?:(?:computer|mikro)?chips?|halbleiter)\b/i,
+    }[locale];
+    const insects = /\b(?:insects?|bugs?|insectos?|insekten?|käfer)\b/i;
+    if (!chips.test(lower) || insects.test(lower)) issues.push("computing chips were not preserved as semiconductor terminology");
+  }
+  const frenchTokens = lower.match(/\b(?:avec|dans|pour|mais|cette|aucune?|toujours|jamais|alors|comme|dont|leurs?|nous|vous|elles?|étaient|serait|aurait|pourrait)\b/gi)?.length || 0;
+  const words = lower.match(/\p{Letter}+/gu)?.length || 1;
+  if (frenchTokens >= 8 && frenchTokens / words > 0.02) issues.push(`unexpected French prose detected (${frenchTokens} high-confidence tokens)`);
+  return issues;
+}
+
+export function deterministicTranslationIssues(source, translated, locale) {
+  const issues = [];
+  if (!translated.body.trim()) issues.push("translated body is empty");
+  if (translated.body.length < source.body.length * 0.45) issues.push("translated body is unexpectedly short");
+  try {
+    assertProtectedSyntax(source.body, translated.body, `${locale}/${source.slug}`);
+  } catch (error) {
+    issues.push(error.message);
+  }
+  const sourceSignature = markdownSignature(source.body);
+  const targetSignature = markdownSignature(translated.body);
+  if (JSON.stringify(sourceSignature) !== JSON.stringify(targetSignature)) {
+    issues.push(`Markdown structure changed: ${JSON.stringify(sourceSignature)} -> ${JSON.stringify(targetSignature)}`);
+  }
+  const sourceText = [source.data.title, source.data.description, source.data.heroImageAlt, source.data.coverAlt, pathValue(source.data, ["series", "title"]), source.body]
+    .filter(Boolean).join("\n");
+  const targetText = [translated.title, translated.description, translated.heroImageAlt, translated.coverAlt, translated.seriesTitle, translated.body]
+    .filter(Boolean).join("\n");
+  issues.push(...numericIssues(sourceText, targetText, locale));
+  issues.push(...semanticHeuristicIssues(source.body, translated.body, locale));
+  return [...new Set(issues)];
 }
 
 export function tokenizeBlocks(body) {
@@ -677,7 +900,7 @@ export function isProtectedOnlySegment(value, placeholders) {
   return remainder.trim() === "";
 }
 
-export async function translatePreparedSegments(segments, placeholderGroups, context, translator = translateSegments) {
+export async function translatePreparedSegments(segments, placeholderGroups, context, translator) {
   if (segments.length !== placeholderGroups.length) {
     throw new Error("prepared segment and placeholder counts differ");
   }
@@ -686,6 +909,7 @@ export async function translatePreparedSegments(segments, placeholderGroups, con
     .map((value, index) => isProtectedOnlySegment(value, placeholderGroups[index]) ? -1 : index)
     .filter((index) => index !== -1);
   if (indexes.length === 0) return translated;
+  if (typeof translator !== "function") throw new Error("a segment translator is required");
   const output = await translator(indexes.map((index) => segments[index]), context);
   if (!Array.isArray(output) || output.length !== indexes.length) {
     throw new Error(`provider returned unexpected segment count: expected ${indexes.length}, got ${output?.length}`);
@@ -696,70 +920,35 @@ export async function translatePreparedSegments(segments, placeholderGroups, con
   return translated;
 }
 
+export async function generateTranslatedPublication(source, locale, provider = translatePublication) {
+  const prepared = preparePublication(source);
+  const context = { sourceLocale: "fr", targetLocale: locale, locale, slug: source.slug };
+  let rejectedCandidate;
+  let issues = [];
+  let translated;
+  for (let repair = 0; repair <= 2; repair += 1) {
+    const candidate = await provider(prepared.payload, context, rejectedCandidate ? {
+      repairCandidate: rejectedCandidate,
+      issues,
+    } : {});
+    try {
+      translated = restorePublication(candidate, prepared);
+      issues = deterministicTranslationIssues(source, translated, locale);
+    } catch (error) {
+      issues = [error.message];
+    }
+    if (issues.length === 0) break;
+    if (repair === 2) {
+      throw new Error(`translation validation failed after 2 repairs: ${issues.join(" | ")}`);
+    }
+    console.warn(`Validation requested repair ${repair + 1} for ${locale}/${source.slug}: ${issues.join(" | ")}`);
+    rejectedCandidate = candidate;
+  }
+  return translated;
+}
+
 async function translatedDocument(source, locale, hash) {
-  const fields = TRANSLATED_FRONTMATTER.map((field) => pathValue(source.data, field.path) || "");
-  const fieldPlaceholders = [];
-  const shieldedFields = [];
-  for (const field of fields) {
-    if (!field) {
-      shieldedFields.push("");
-      fieldPlaceholders.push([]);
-    } else {
-      const { shielded, placeholders } = shieldInline(field);
-      shieldedFields.push(shielded);
-      fieldPlaceholders.push(placeholders);
-    }
-  }
-
-  const blocks = tokenizeBlocks(source.body);
-  const translatableBlocks = blocks.filter((b) => b.type !== "raw");
-  const blockPlaceholders = [];
-  const shieldedBlocks = [];
-  for (const block of translatableBlocks) {
-    const { shielded, placeholders } = shieldInline(block.content);
-    shieldedBlocks.push(shielded);
-    blockPlaceholders.push(placeholders);
-  }
-
-  const input = [...shieldedFields, ...shieldedBlocks];
-  const translated = await translatePreparedSegments(
-    input,
-    [...fieldPlaceholders, ...blockPlaceholders],
-    { sourceLocale: "fr", targetLocale: locale },
-  );
-
-  const translatedFields = translated.slice(0, fields.length).map((val, idx) => {
-    if (!val) return val;
-    return unshieldInline(val, fieldPlaceholders[idx]);
-  });
-  const translatedBodyParts = translated.slice(fields.length);
-
-  let cursor = 0;
-  let body = "";
-  for (const block of blocks) {
-    if (block.type === "raw") {
-      body += block.content;
-      continue;
-    }
-    const rawTranslated = translatedBodyParts[cursor];
-    const placeholders = blockPlaceholders[cursor];
-    let restored = unshieldInline(rawTranslated, placeholders);
-
-    if (block.type === "table_row") {
-      const srcTrimmed = block.content.trim();
-      let resTrimmed = restored.trim();
-      if (srcTrimmed.startsWith("|") && !resTrimmed.startsWith("|")) {
-        resTrimmed = "| " + resTrimmed;
-      }
-      if (srcTrimmed.endsWith("|") && !resTrimmed.endsWith("|")) {
-        resTrimmed = resTrimmed + " |";
-      }
-      restored = resTrimmed;
-    }
-
-    body += block.prefix + restored + block.suffix;
-    cursor += 1;
-  }
+  const translated = await generateTranslatedPublication(source, locale);
 
   const data = structuredClone(source.data);
   delete data.canonicalUrl;
@@ -768,10 +957,10 @@ async function translatedDocument(source, locale, hash) {
   data.sourceHash = hash;
   data.manual = false;
   data.draft = false;
-  TRANSLATED_FRONTMATTER.forEach((field, index) => {
-    if (fields[index]) setPathValue(data, field.path, translatedFields[index]);
+  TRANSLATED_FRONTMATTER.forEach((field) => {
+    if (pathValue(source.data, field.path)) setPathValue(data, field.path, translated[field.name]);
   });
-  return serializeDocument(data, body);
+  return serializeDocument(data, translated.body);
 }
 
 async function runTranslate(filters) {

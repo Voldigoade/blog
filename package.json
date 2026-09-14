@@ -36,7 +36,10 @@
     "check": "astro check",
     "translate": "node scripts/translate.mjs",
     "test:protected-syntax": "node scripts/test-protected-syntax.mjs",
+    "test:translation-provider": "node scripts/test-translation-provider.mjs",
+    "test:translation-integration": "node scripts/translation-cli-smoke.mjs",
     "test:translation-scheduler": "node scripts/test-translation-scheduler.mjs",
+    "test:translation-validation": "node scripts/test-translation-validation.mjs",
     "astro": "astro"
   },
   "dependencies": {

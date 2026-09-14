@@ -1,4 +1,5 @@
 import { spawnSync } from "node:child_process";
+import { appendFileSync } from "node:fs";
 import { relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -101,6 +102,8 @@ export function main(args = process.argv.slice(2)) {
   if (!locale || !slug) throw new Error("--locale and --slug are required.");
   const result = publishUnit({ locale, slug, action });
   console.log(`Translation publication ${result.status} after ${result.attempt} attempt(s).`);
+  const outputPath = selectedValue(args, "--github-output") || process.env.GITHUB_OUTPUT;
+  if (outputPath) appendFileSync(outputPath, `result=${result.status}\n`);
   return result;
 }
 

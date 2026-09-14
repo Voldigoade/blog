@@ -9,10 +9,12 @@ on:
       - scripts/translate.mjs
       - scripts/translate-provider.mjs
       - scripts/translation-plan.mjs
-      - scripts/translation-worker.py
       - scripts/publish-translation.mjs
+      - scripts/translation-cli-smoke.mjs
+      - scripts/test-protected-syntax.mjs
+      - scripts/test-translation-provider.mjs
       - scripts/test-translation-scheduler.mjs
-      - requirements-translation.txt
+      - scripts/test-translation-validation.mjs
       - .github/workflows/translate-publications.yml
   workflow_dispatch:
     inputs:
@@ -35,7 +37,7 @@ on:
         type: boolean
         default: false
       smoke:
-        description: Run the full TranslateGemma quality suite only
+        description: Run one authenticated integration fixture only
         required: false
         type: boolean
         default: false
@@ -71,7 +73,7 @@ jobs:
         run: |
           if [[ "${{ github.event_name }}" != "push" ]]; then
             echo "engine_changed=false" >> "$GITHUB_OUTPUT"
-          elif git diff --quiet "$BEFORE" "$AFTER" -- scripts/translate.mjs scripts/translate-provider.mjs scripts/translation-plan.mjs scripts/translation-worker.py scripts/publish-translation.mjs requirements-translation.txt; then
+          elif git diff --quiet "$BEFORE" "$AFTER" -- scripts/translate.mjs scripts/translate-provider.mjs scripts/translation-plan.mjs scripts/publish-translation.mjs scripts/translation-cli-smoke.mjs scripts/test-protected-syntax.mjs scripts/test-translation-provider.mjs scripts/test-translation-scheduler.mjs scripts/test-translation-validation.mjs; then
             echo "engine_changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "engine_changed=true" >> "$GITHUB_OUTPUT"
@@ -108,6 +110,7 @@ jobs:
     timeout-minutes: 180
     permissions:
       contents: write
+      actions: write
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -115,9 +118,6 @@ jobs:
     concurrency:
       group: translation-${{ matrix.slug }}-${{ matrix.locale }}
       cancel-in-progress: true
-    env:
-      TRANSLATION_CACHE_DIR: ${{ github.workspace }}/.translation-cache
-      TRANSLATEGEMMA_THREADS: "2"
     steps:
       - name: Checkout latest main
         uses: actions/checkout@v6
@@ -142,24 +142,11 @@ jobs:
           args=(--slug "$SLUG" --locale "$LOCALE" --github-output "$GITHUB_OUTPUT")
           if [[ "$FORCE" == "true" ]]; then args+=(--force); fi
           node scripts/translation-plan.mjs "${args[@]}"
-      - name: Setup Python
+      - name: Install translation runtime
         if: steps.refresh.outputs.action == 'translate'
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements-translation.txt
-      - name: Restore model cache
-        if: steps.refresh.outputs.action == 'translate'
-        uses: actions/cache@v5
-        with:
-          path: ${{ github.workspace }}/.translation-cache
-          key: translategemma-4b-q4_k_m-b10948-${{ runner.os }}-cd39c30302f20fb8b788234d86a0a35a0d050619-526747309109c016
-          restore-keys: |
-            translategemma-4b-q4_k_m-b10948-${{ runner.os }}-
-      - name: Install translation dependencies
-        if: steps.refresh.outputs.action == 'translate'
-        run: python -m pip install -r requirements-translation.txt
+        run: |
+          npm install --global opencode-ai@1.18.30
+          opencode --version
       - name: Generate one translation
         if: steps.refresh.outputs.action == 'translate'
         shell: bash
@@ -167,19 +154,27 @@ jobs:
           SLUG: ${{ matrix.slug }}
           LOCALE: ${{ matrix.locale }}
           FORCE: ${{ matrix.force }}
+          TRANSLATION_API_KEY: ${{ secrets.TRANSLATION_API_KEY }}
+          TRANSLATION_MODEL: ${{ vars.TRANSLATION_MODEL }}
         run: |
           args=(--translate --slug "$SLUG" --locale "$LOCALE")
           if [[ "$FORCE" == "true" ]]; then args+=(--force); fi
           npm run translate -- "${args[@]}"
           npm run translate -- --assert-current --slug "$SLUG" --locale "$LOCALE"
       - name: Publish completed locale
+        id: publish
         if: steps.refresh.outputs.has_work == 'true'
         shell: bash
         env:
           SLUG: ${{ matrix.slug }}
           LOCALE: ${{ matrix.locale }}
           ACTION: ${{ steps.refresh.outputs.action }}
-        run: node scripts/publish-translation.mjs --slug "$SLUG" --locale "$LOCALE" --action "$ACTION"
+        run: node scripts/publish-translation.mjs --slug "$SLUG" --locale "$LOCALE" --action "$ACTION" --github-output "$GITHUB_OUTPUT"
+      - name: Request latest production deployment
+        if: steps.publish.outputs.result == 'pushed'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-pages.yml --ref main
       - name: Summarize locale
         if: always()
         shell: bash
@@ -196,27 +191,45 @@ jobs:
     if: inputs.smoke || needs.plan.outputs.engine_changed == 'true'
     needs: plan
     runs-on: ubuntu-latest
-    timeout-minutes: 90
-    env:
-      TRANSLATION_CACHE_DIR: ${{ github.workspace }}/.translation-cache
-      TRANSLATEGEMMA_THREADS: "2"
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Setup Python
-        uses: actions/setup-python@v6
+      - name: Setup Node
+        uses: actions/setup-node@v6
         with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements-translation.txt
-      - name: Restore model cache
-        uses: actions/cache@v5
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Run translation tests
+        run: |
+          npm run test:protected-syntax
+          npm run test:translation-provider
+          npm run test:translation-validation
+          npm run test:translation-scheduler
+
+  integration:
+    if: inputs.smoke
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Node
+        uses: actions/setup-node@v6
         with:
-          path: ${{ github.workspace }}/.translation-cache
-          key: translategemma-4b-q4_k_m-b10948-${{ runner.os }}-cd39c30302f20fb8b788234d86a0a35a0d050619-526747309109c016
-          restore-keys: |
-            translategemma-4b-q4_k_m-b10948-${{ runner.os }}-
-      - name: Install translation dependencies
-        run: python -m pip install -r requirements-translation.txt
-      - name: Run TranslateGemma quality suite
-        run: python scripts/translation-worker.py --quality-test
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Install translation runtime
+        run: |
+          npm install --global opencode-ai@1.18.30
+          opencode --version
+      - name: Run authenticated integration fixture
+        env:
+          TRANSLATION_API_KEY: ${{ secrets.TRANSLATION_API_KEY }}
+          TRANSLATION_MODEL: ${{ vars.TRANSLATION_MODEL }}
+        run: npm run test:translation-integration
