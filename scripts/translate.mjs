@@ -741,6 +741,9 @@ function semanticHeuristicIssues(sourceBody, targetBody, locale) {
   const frenchTokens = lower.match(/\b(?:avec|dans|pour|mais|cette|aucune?|toujours|jamais|alors|comme|dont|leurs?|nous|vous|elles?|étaient|serait|aurait|pourrait)\b/gi)?.length || 0;
   const words = lower.match(/\p{Letter}+/gu)?.length || 1;
   if (frenchTokens >= 8 && frenchTokens / words > 0.02) issues.push(`unexpected French prose detected (${frenchTokens} high-confidence tokens)`);
+  if (locale === "en" && /\b(?:a first infrastructure|a second question now adds itself|he presents her with)\b/i.test(lower)) {
+    issues.push("English contains a known non-native calque or broken pronoun construction");
+  }
   return issues;
 }
 

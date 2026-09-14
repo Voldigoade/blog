@@ -91,6 +91,13 @@ assert.equal(issues.some((issue) => /fourteen days/i.test(issue)), true);
 assert.equal(issues.some((issue) => /prompts or queries/i.test(issue)), true);
 assert.equal(issues.some((issue) => /semiconductor/i.test(issue)), true);
 
+const badEnglish = structuredClone(values.en);
+badEnglish.body = badEnglish.body.replace("The company says", "A second question now adds itself. The company says");
+assert.equal(
+  deterministicTranslationIssues(source, badEnglish, "en").some((issue) => /non-native calque/i.test(issue)),
+  true,
+);
+
 let calls = 0;
 const repaired = await generateTranslatedPublication(source, "en", async (prepared, context, options) => {
   calls += 1;
