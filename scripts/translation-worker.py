@@ -695,6 +695,12 @@ class TranslateGemmaEngine:
         )
         return translations, stats
 
+
+def respond(payload):
+    sys.stdout.write(json.dumps(payload, ensure_ascii=True) + "\n")
+    sys.stdout.flush()
+
+
 def serve():
     engine = TranslateGemmaEngine()
     respond(
