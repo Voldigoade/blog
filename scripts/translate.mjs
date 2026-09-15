@@ -633,7 +633,7 @@ export function extractQuantities(text, locale = "fr") {
     de: { milliarde: 1e9, milliarden: 1e9, million: 1e6, millionen: 1e6, tausend: 1e3 },
   };
   const values = [];
-  const pattern = /(?<![\p{Letter}\d_])(\d+(?:[,\. \u00a0\u202f]\d{3})*(?:[,\.]\d+)?)(?:\s*([\p{Letter}]+(?:\s+[\p{Letter}]+)?))?/gu;
+  const pattern = /(?<![\p{Letter}\d_])(\d+(?:[,\. \u00a0\u202f]\d{3})*(?:[,\.]\d+)?)(?:[\s-]*([\p{Letter}]+(?:[\s-]+[\p{Letter}]+)?))?/gu;
   for (const match of text.matchAll(pattern)) {
     const base = numericValue(match[1], locale);
     if (!Number.isFinite(base)) continue;
