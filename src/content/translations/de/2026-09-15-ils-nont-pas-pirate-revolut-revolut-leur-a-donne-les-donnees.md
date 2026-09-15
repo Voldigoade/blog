@@ -49,7 +49,7 @@ Ein Angreifer besitzt nicht mehr nur deine E-Mail-Adresse. Er kann potenziell wi
 
 Damit wird ein KYC-Dossier zu idealem Material für extrem personalisierten Betrug.
 
-![](/blog/images/posts/7a3529fd-9704-40c3-b765-9411e7c16e80.png)
+![](/images/posts/7a3529fd-9704-40c3-b765-9411e7c16e80.png)
 
 Ein falscher Bankberater, der deine letzten Transaktionen kennt, wirkt glaubwürdiger. Ein Konto-Wiederherstellungsversuch mit deinem Ausweisdokument wird ernster genommen. Für einen bedeutenden Kryptowährungsinhaber fügt die Verknüpfung von physischer Identität, Wohnsitz und Finanzhistorie sogar eine persönliche Sicherheitsdimension hinzu.
 
@@ -71,7 +71,7 @@ Und diese Technik ist nicht einmal neu.
 
 ## Das FBI hatte 2024 fast genau dieses Szenario beschrieben
 
-![image.png](/blog/images/posts/image-1.png)
+![image.png](/images/posts/image-1.png)
 
 Am 4. November 2024 veröffentlichte das FBI eine bemerkenswerte Warnung.
 

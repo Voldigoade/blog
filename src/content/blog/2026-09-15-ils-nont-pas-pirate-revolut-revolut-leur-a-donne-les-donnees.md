@@ -48,7 +48,7 @@ Un attaquant ne possède plus seulement ton adresse e-mail. Il peut potentiellem
 
 Cela transforme un dossier KYC en matériel idéal pour une fraude extrêmement personnalisée.
 
-![](/blog/images/posts/7a3529fd-9704-40c3-b765-9411e7c16e80.png)
+![](/images/posts/7a3529fd-9704-40c3-b765-9411e7c16e80.png)
 
 Un faux conseiller bancaire connaissant tes dernières transactions paraît plus crédible. Une tentative de récupération de compte utilisant ton document d’identité devient plus sérieuse. Pour un détenteur important de cryptomonnaies, l’association entre identité physique, domicile et historique financier ajoute même une dimension de sécurité personnelle.
 
@@ -70,7 +70,7 @@ Et cette technique n’est même pas nouvelle.
 
 ## Le FBI avait décrit presque exactement ce scénario en 2024
 
-![image.png](/blog/images/posts/image-1.png)
+![image.png](/images/posts/image-1.png)
 
 Le 4 novembre 2024, le FBI publiait une alerte assez remarquable.
 

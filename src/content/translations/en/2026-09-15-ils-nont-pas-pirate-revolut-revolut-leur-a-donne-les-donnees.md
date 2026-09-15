@@ -49,7 +49,7 @@ An attacker no longer possesses just your email address. They can potentially kn
 
 This turns a KYC file into ideal material for extremely personalized fraud.
 
-![](/blog/images/posts/7a3529fd-9704-40c3-b765-9411e7c16e80.png)
+![](/images/posts/7a3529fd-9704-40c3-b765-9411e7c16e80.png)
 
 A fake bank advisor knowing your latest transactions appears more credible. An account recovery attempt using your identity document becomes more serious. For a major cryptocurrency holder, the association between physical identity, home address, and financial history even adds a personal safety dimension.
 
@@ -71,7 +71,7 @@ And this technique isn't even new.
 
 ## The FBI had described almost exactly this scenario in 2024
 
-![image.png](/blog/images/posts/image-1.png)
+![image.png](/images/posts/image-1.png)
 
 On November 4, 2024, the FBI published a rather remarkable alert.
 
