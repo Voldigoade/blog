@@ -1,7 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join, resolve, basename } from "node:path";
 import { execFileSync } from "node:child_process";
-import yaml from "js-yaml";
 
 const HOST = "voldigoade.xyz";
 const ORIGIN = `https://${HOST}`;
@@ -123,13 +122,28 @@ export function chunkUrls(urls, size = MAX_URLS_PER_REQUEST) {
   return chunks;
 }
 
+function frontmatterBlock(text) {
+  const match = String(text || "").match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  return match ? match[1] : "";
+}
+
+function frontmatterField(block, field) {
+  const match = block.match(new RegExp(`^\\s*${field}\\s*:\\s*(.+?)\\s*$`, "m"));
+  if (!match) return undefined;
+  return match[1].trim().replace(/^["']|["']$/g, "");
+}
+
 function readFrontmatterData(absolutePath) {
   try {
     const text = readFileSync(absolutePath, "utf8");
-    const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-    if (!match) return {};
-    const data = yaml.load(match[1], { schema: yaml.JSON_SCHEMA });
-    return data && typeof data === "object" && !Array.isArray(data) ? data : {};
+    const block = frontmatterBlock(text);
+    if (!block) return {};
+    const data = {};
+    const draft = frontmatterField(block, "draft");
+    if (draft !== undefined) data.draft = draft === "true";
+    const sourceSlug = frontmatterField(block, "sourceSlug");
+    if (sourceSlug !== undefined) data.sourceSlug = sourceSlug;
+    return data;
   } catch {
     return {};
   }
