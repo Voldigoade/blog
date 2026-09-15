@@ -60,32 +60,29 @@ export interface ScorablePost {
 export function getRelatedPosts<T extends ScorablePost>(current: T, allPosts: T[], limit = 4): T[] {
   const others = allPosts.filter((p) => p.id !== current.id);
   const scored = others.map((candidate) => {
-    let score = 0;
-    if (candidate.data.section === current.data.section) score += 3;
-    if (
+    const sameSeries = Boolean(
       current.data.series &&
-      candidate.data.series &&
-      current.data.series.id === candidate.data.series.id
-    ) {
-      score += 6;
-    }
+        candidate.data.series &&
+        current.data.series.id === candidate.data.series.id,
+    );
     const commonTags = candidate.data.tags.filter((t) =>
       current.data.tags.some((ct) => tagSlug(ct) === tagSlug(t)),
-    );
-    score += commonTags.length * 2;
-    return { post: candidate, score };
+    ).length;
+    const sameSection = candidate.data.section === current.data.section;
+    const score = commonTags > 0 || sameSection || sameSeries ? 1 : 0;
+    return { post: candidate, sameSeries, commonTags, sameSection, score };
   });
 
-  const matching = scored
+  return scored
     .filter((item) => item.score > 0)
-    .sort((a, b) => b.score - a.score || b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf())
-    .map((item) => item.post);
-
-  if (matching.length >= limit) return matching.slice(0, limit);
-
-  const remaining = others
-    .filter((candidate) => !matching.some((m) => m.id === candidate.id))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-  return [...matching, ...remaining].slice(0, limit);
+    .sort(
+      (a, b) =>
+        Number(b.sameSeries) - Number(a.sameSeries) ||
+        b.commonTags - a.commonTags ||
+        Number(b.sameSection) - Number(a.sameSection) ||
+        b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf() ||
+        a.post.id.localeCompare(b.post.id),
+    )
+    .map((item) => item.post)
+    .slice(0, limit);
 }

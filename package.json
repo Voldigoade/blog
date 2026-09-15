@@ -42,6 +42,9 @@
     "test:translation-scheduler": "node scripts/test-translation-scheduler.mjs",
     "test:translation-validation": "node scripts/test-translation-validation.mjs",
     "test:legacy-media": "node scripts/test-legacy-media.mjs",
+    "test:indexnow": "node scripts/test-indexnow.mjs",
+    "test:related-posts": "node scripts/test-related-posts.mjs",
+    "test:news-sitemap": "node scripts/test-news-sitemap.mjs",
     "test:seo": "node scripts/test-seo.mjs",
     "astro": "astro"
   },

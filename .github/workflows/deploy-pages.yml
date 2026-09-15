@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: "17 3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -61,6 +63,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
@@ -68,4 +72,8 @@ jobs:
           cache: npm
       - name: Submit IndexNow
         continue-on-error: true
-        run: node scripts/indexnow.mjs
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          EVENT: ${{ github.event_name }}
+        run: node scripts/indexnow.mjs --before "$BEFORE" --after "$AFTER" --event "$EVENT"

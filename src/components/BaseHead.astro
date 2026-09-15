@@ -148,11 +148,6 @@ const monoFont = withBase("/fonts/jetbrains-mono-latin.woff2");
 <meta name="description" content={description} />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <link rel="canonical" href={canonical} />
-<script is:inline>
-  if (location.hostname === "www.voldigoade.xyz") {
-    location.replace("https://voldigoade.xyz" + location.pathname + location.search + location.hash);
-  }
-</script>
 {alternates.map((alt) => (
   <link rel="alternate" hreflang={alt.lang} href={absoluteHref(alt.href)} />
 ))}
