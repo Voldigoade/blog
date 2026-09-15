@@ -611,18 +611,46 @@ function restorePublication(candidate, prepared) {
 }
 
 function numericValue(raw, locale) {
+  // Locale-aware decimal/thousands handling. French, Spanish and German write
+  // decimals with a comma (10,4) and thousands with a space or dot (10 400,
+  // 10.400); English does the opposite (10.4 vs 10,400). A comma followed by
+  // exactly three digits is therefore a decimal fraction in fr/es/de but a
+  // thousands group in en — never assume one convention for all locales.
   const compact = raw.replace(/[\s\u00a0\u202f]/g, "");
-  if (!/[,.]/.test(compact)) return Number(compact);
-  const separator = compact.lastIndexOf(",") > compact.lastIndexOf(".") ? "," : ".";
-  const parts = compact.split(separator);
-  const decimal = parts.at(-1);
-  const thousands = decimal.length === 3 && parts[0] !== "0";
-  if (thousands) return Number(compact.replace(/[,.]/g, ""));
-  const normalized = compact.replace(separator === "," ? /\./g : /,/g, "").replace(separator, ".");
-  const value = Number(normalized);
-  if (!Number.isFinite(value)) return Number.NaN;
-  if (locale === "en" && separator === "," && decimal.length !== 3) return Number(compact.replace(/,/g, "."));
-  return value;
+  const hasComma = compact.includes(",");
+  const hasDot = compact.includes(".");
+  if (!hasComma && !hasDot) return Number(compact);
+  if (locale !== "en") {
+    if (hasComma) {
+      const index = compact.lastIndexOf(",");
+      const int = compact.slice(0, index).replace(/\./g, "");
+      const frac = compact.slice(index + 1);
+      if (!/^\d+$/.test(int) || !/^\d+$/.test(frac)) return Number.NaN;
+      return Number(`${int}.${frac}`);
+    }
+    const groups = compact.split(".");
+    if (groups.length > 1 && groups[0] !== "" && groups.slice(1).every((part) => /^\d{3}$/.test(part))) {
+      return Number(groups.join(""));
+    }
+    const value = Number(compact);
+    return Number.isFinite(value) ? value : Number.NaN;
+  }
+  if (hasDot) {
+    const index = compact.lastIndexOf(".");
+    const int = compact.slice(0, index).replace(/,/g, "");
+    const frac = compact.slice(index + 1);
+    if (!/^\d+$/.test(int) || !/^\d+$/.test(frac)) return Number.NaN;
+    return Number(`${int}.${frac}`);
+  }
+  const groups = compact.split(",");
+  if (groups.length > 1 && groups[0] !== "" && groups[0] !== "0" && groups.slice(1).every((part) => /^\d{3}$/.test(part))) {
+    return Number(groups.join(""));
+  }
+  if (groups.length === 2 && /^\d+$/.test(groups[0]) && /^\d+$/.test(groups[1])) {
+    return Number(`${groups[0]}.${groups[1]}`);
+  }
+  const value = Number(compact.replace(/,/g, ""));
+  return Number.isFinite(value) ? value : Number.NaN;
 }
 
 export function extractQuantities(text, locale = "fr") {
@@ -632,10 +660,10 @@ export function extractQuantities(text, locale = "fr") {
   // "mil millones" remains the unambiguous 10^9. Keys are matched against
   // locale-lowercased words, longest first, so e.g. "millones" wins over "mil".
   const scales = {
-    fr: { billions: 1e12, billion: 1e12, trillion: 1e18, trillions: 1e18, milliard: 1e9, milliards: 1e9, million: 1e6, millions: 1e6, mille: 1e3, millier: 1e3, milliers: 1e3 },
-    en: { trillion: 1e12, trillions: 1e12, billion: 1e9, billions: 1e9, million: 1e6, millions: 1e6, thousand: 1e3, thousands: 1e3 },
+    fr: { billions: 1e12, billion: 1e12, trillion: 1e18, trillions: 1e18, milliard: 1e9, milliards: 1e9, million: 1e6, millions: 1e6, mille: 1e3, millier: 1e3, milliers: 1e3, mds: 1e9, md: 1e9 },
+    en: { trillion: 1e12, trillions: 1e12, billion: 1e9, billions: 1e9, bln: 1e9, bn: 1e9, million: 1e6, millions: 1e6, thousand: 1e3, thousands: 1e3 },
     es: { trillones: 1e18, "trillón": 1e18, billones: 1e12, "billón": 1e12, "mil millones": 1e9, millones: 1e6, "millón": 1e6, miles: 1e3, mil: 1e3 },
-    de: { trillionen: 1e18, trillion: 1e18, billiarden: 1e15, billiarde: 1e15, billionen: 1e12, billion: 1e12, milliarden: 1e9, milliarde: 1e9, millionen: 1e6, million: 1e6, tausend: 1e3 },
+    de: { trillionen: 1e18, trillion: 1e18, billiarden: 1e15, billiarde: 1e15, billionen: 1e12, billion: 1e12, milliarden: 1e9, milliarde: 1e9, mrd: 1e9, millionen: 1e6, million: 1e6, tausend: 1e3 },
   };
   const values = [];
   const pattern = /(?<![\p{Letter}\d_])(\d+(?:[,\. \u00a0\u202f]\d{3})*(?:[,\.]\d+)?)(?:[\s-]*([\p{Letter}]+(?:[\s-]+[\p{Letter}]+)?))?/gu;

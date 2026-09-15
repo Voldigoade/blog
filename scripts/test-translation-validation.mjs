@@ -136,12 +136,27 @@ assert.deepEqual(extractQuantities("2 300 milliards", "fr"), [2_300_000_000_000]
 assert.deepEqual(extractQuantities("2,3 billones", "es"), [2_300_000_000_000]);
 
 // Locale number formats: thin spaces, decimal commas and thousand dots.
+// A comma with three trailing digits is a decimal fraction in fr/es/de
+// (5,682 = 5.682) but a thousands group in en (5,682 = 5682), and vice versa.
 assert.deepEqual(extractQuantities("10 400,5 milliards", "fr"), [10_400_500_000_000]);
 assert.deepEqual(extractQuantities("6 429,3 milliards", "fr"), [6_429_300_000_000]);
 assert.deepEqual(extractQuantities("6.429,3 mil millones", "es"), [6_429_300_000_000]);
 assert.deepEqual(extractQuantities("688,8 milliards", "fr"), [688_800_000_000]);
 assert.deepEqual(extractQuantities("230 milliards", "fr"), [230_000_000_000]);
 assert.deepEqual(extractQuantities("230 billones", "es"), [230_000_000_000_000]);
+assert.deepEqual(extractQuantities("5,682 billones", "es"), [5_682_000_000_000]);
+assert.deepEqual(extractQuantities("5.682 trillion", "en"), [5_682_000_000_000]);
+assert.deepEqual(extractQuantities("5,682 billion", "en"), [5_682_000_000_000]);
+assert.deepEqual(extractQuantities("10.400 mil millones", "es"), [10_400_000_000_000]);
+assert.deepEqual(extractQuantities("10,400 billion", "en"), [10_400_000_000_000]);
+
+// French press abbreviation "Mds" (milliards), as used in data tables.
+assert.deepEqual(extractQuantities("8 494 Mds", "fr"), [8_494_000_000_000]);
+assert.deepEqual(extractQuantities("18 914 Mds", "fr"), [18_914_000_000_000]);
+assert.deepEqual(extractQuantities("8,494 billones", "es"), [8_494_000_000_000]);
+// English "Bln"/"bn" and German "Mrd." press abbreviations for a billion.
+assert.deepEqual(extractQuantities("8 494 Bln", "en"), [8_494_000_000_000]);
+assert.deepEqual(extractQuantities("8 494 Mrd.", "de"), [8_494_000_000_000]);
 
 // Pre-existing singular/plural and hyphenated-compound behavior is preserved.
 assert.deepEqual(extractQuantities("66 million years", "en"), [66_000_000]);
@@ -154,7 +169,7 @@ assert.deepEqual(extractQuantities("66 Millionen Jahren", "de"), [66_000_000]);
 const yenSource = {
   slug: "fixture-yen",
   data: { title: "Pertes estimées", description: "Montants en jeu.", coverAlt: "" },
-  body: "# Pertes estimées\n\nLe total atteint 10 400 milliards de yens, dont 5 700 milliards pour le numérique et 2 300 milliards pour la vidéo.\n",
+  body: "# Pertes estimées\n\nLe total atteint 10 400 milliards de yens, dont 5 700 milliards pour le numérique et 2 300 milliards pour la vidéo. Le tableau récapitule 18 914 Mds ¥.\n",
 };
 const yenSpanish = {
   title: "Pérdidas estimadas",
@@ -162,7 +177,7 @@ const yenSpanish = {
   heroImageAlt: "",
   coverAlt: "",
   seriesTitle: "",
-  body: "# Pérdidas estimadas\n\nEl total alcanza los 10,4 billones de yenes, con 5,7 billones para el sector digital y 2,3 billones para el vídeo.\n",
+  body: "# Pérdidas estimadas\n\nEl total alcanza los 10,4 billones de yenes, con 5,7 billones para el sector digital y 2,3 billones para el vídeo. La tabla resume 18,914 billones de yenes.\n",
 };
 assert.deepEqual(deterministicTranslationIssues(yenSource, yenSpanish, "es"), []);
 
