@@ -9,6 +9,7 @@ pubDate: 2026-09-15
 draft: false
 featured: false
 section: anime-manga
+news: true
 contentType: article
 tags:
   - anime
@@ -18,7 +19,7 @@ tags:
   - industrie de l'animation
   - studios japonais
   - production anime
-coverImage: /blog/images/posts/cbaccb30-9d1c-4458-bc9c-932e4c8f1719.png
+coverImage: /images/posts/cbaccb30-9d1c-4458-bc9c-932e4c8f1719.png
 coverAlt: Plusieurs équipes de production d’anime travaillent dans un grand
   studio commun regroupant différents métiers de l’animation.
 author: Voldigoade

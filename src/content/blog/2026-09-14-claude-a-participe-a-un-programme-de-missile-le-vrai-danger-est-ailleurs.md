@@ -18,7 +18,7 @@ tags:
   - Cybersécurité
   - Renseignements
   - Agent IA
-coverImage: /blog/images/posts/C335D4D2-D1B8-492A-9CBD-55FF2951BCC5.png
+coverImage: /images/posts/C335D4D2-D1B8-492A-9CBD-55FF2951BCC5.png
 coverAlt: Plusieurs agents logiciels travaillent en parallèle dans un
   laboratoire d’ingénierie lié à un programme d’armement.
 author: Voldigoade

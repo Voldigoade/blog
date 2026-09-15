@@ -14,7 +14,7 @@ tags:
   - Zero-Day
   - sécurité informatique
   - agents IA
-coverImage: /blog/images/posts/6135a580-bb11-43a5-b9ef-6b292bf80d6c.png
+coverImage: /images/posts/6135a580-bb11-43a5-b9ef-6b292bf80d6c.png
 coverAlt: Un sistema de inteligencia artificial analiza de forma autónoma código y sistemas informáticos en busca de vulnerabilidades.
 author: Voldigoade
 locale: es

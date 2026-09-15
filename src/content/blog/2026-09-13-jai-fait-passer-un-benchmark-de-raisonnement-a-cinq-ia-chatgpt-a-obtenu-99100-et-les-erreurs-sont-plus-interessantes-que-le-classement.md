@@ -22,7 +22,7 @@ tags:
   - DeepSeek V4.1 Flash
   - Kimi K3
   - Grok
-coverImage: /blog/images/posts/831d1e06-afc2-40ec-85b9-b809652bb405.png
+coverImage: /images/posts/831d1e06-afc2-40ec-85b9-b809652bb405.png
 coverAlt: Cinq modèles d’intelligence artificielle confrontés à un benchmark
   complexe de raisonnement en dix épreuves.
 author: Voldigoade
@@ -37,7 +37,7 @@ J’ai donc demandé à **GPT-6 Astra de concevoir une véritable épreuve de ra
 
 Le résultat brut est spectaculaire :
 
-![](/blog/images/posts/62bcea35-2252-40b6-97e4-1c574241a495.png)
+![](/images/posts/62bcea35-2252-40b6-97e4-1c574241a495.png)
 
 Mais ce tableau est presque la partie la moins intéressante de l’expérience.
 

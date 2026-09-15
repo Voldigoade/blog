@@ -19,7 +19,7 @@ series:
   id: sss-class-revival-hunter-anime
   order: 1
   title: "SSS-Class Revival Hunter : l’anime"
-coverImage: /blog/images/posts/3846592f-f493-4a03-a3ab-7c40988d41d8.png
+coverImage: /images/posts/3846592f-f493-4a03-a3ab-7c40988d41d8.png
 coverAlt: Une silhouette face à une immense tour sombre évoquant SSS-Class
   Revival Hunter.
 author: Voldigoade

@@ -57,7 +57,7 @@ export interface ScorablePost {
   };
 }
 
-export function getRelatedPosts<T extends ScorablePost>(current: T, allPosts: T[], limit = 3): T[] {
+export function getRelatedPosts<T extends ScorablePost>(current: T, allPosts: T[], limit = 4): T[] {
   const others = allPosts.filter((p) => p.id !== current.id);
   const scored = others.map((candidate) => {
     let score = 0;
@@ -76,9 +76,16 @@ export function getRelatedPosts<T extends ScorablePost>(current: T, allPosts: T[
     return { post: candidate, score };
   });
 
-  return scored
+  const matching = scored
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score || b.post.data.pubDate.valueOf() - a.post.data.pubDate.valueOf())
-    .slice(0, limit)
     .map((item) => item.post);
+
+  if (matching.length >= limit) return matching.slice(0, limit);
+
+  const remaining = others
+    .filter((candidate) => !matching.some((m) => m.id === candidate.id))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  return [...matching, ...remaining].slice(0, limit);
 }

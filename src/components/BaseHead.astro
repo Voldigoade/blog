@@ -6,6 +6,8 @@ export interface ArticleMeta {
   publishedTime: string;
   modifiedTime?: string;
   tags: string[];
+  isNews?: boolean;
+  section?: string;
 }
 
 export interface AlternateLink {
@@ -59,6 +61,16 @@ const person = {
   url: AUTHOR.url,
 };
 
+const publisher = {
+  "@type": "Organization",
+  name: SITE.title,
+  url: publicHome,
+  logo: {
+    "@type": "ImageObject",
+    url: new URL(withBase("/favicon.svg"), Astro.site).href,
+  },
+};
+
 const pathSegments = withoutBase(Astro.url.pathname).split("/").filter(Boolean);
 const breadcrumbs =
   pathSegments.length > 0
@@ -86,27 +98,29 @@ const structuredData = [
   article
     ? {
         "@context": "https://schema.org",
-        "@type": "BlogPosting",
+        "@type": article.isNews ? "NewsArticle" : "Article",
         headline: title,
         description,
         url: canonical.href,
-        image: image.href,
+        image: [image.href],
         datePublished: article.publishedTime,
         dateModified: article.modifiedTime ?? article.publishedTime,
         keywords: article.tags.join(", "),
         inLanguage: lang,
         author: person,
-        publisher: person,
+        publisher,
         mainEntityOfPage: { "@type": "WebPage", "@id": canonical.href },
+        ...(article.section ? { articleSection: article.section } : {}),
       }
     : {
         "@context": "https://schema.org",
         "@type": "WebSite",
         name: SITE.title,
+        alternateName: ["voldigoade.xyz"],
         description: SITE.description,
         url: publicHome,
         inLanguage: lang,
-        author: person,
+        publisher,
       },
   breadcrumbs,
 ].filter(Boolean);
@@ -132,7 +146,13 @@ const monoFont = withBase("/fonts/jetbrains-mono-latin.woff2");
 
 <title>{title}</title>
 <meta name="description" content={description} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <link rel="canonical" href={canonical} />
+<script is:inline>
+  if (location.hostname === "www.voldigoade.xyz") {
+    location.replace("https://voldigoade.xyz" + location.pathname + location.search + location.hash);
+  }
+</script>
 {alternates.map((alt) => (
   <link rel="alternate" hreflang={alt.lang} href={absoluteHref(alt.href)} />
 ))}

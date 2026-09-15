@@ -18,7 +18,7 @@ series:
   id: internet-face-au-quantique
   order: 1
   title: Das Internet im Angesicht des Quantens
-coverImage: /blog/images/posts/68974f6a-7fbc-457d-bd8d-ebaf89c49a16.png
+coverImage: /images/posts/68974f6a-7fbc-457d-bd8d-ebaf89c49a16.png
 coverAlt: Ein digitales Schloss, geschützt durch eine neue kryptografische Schicht, einem Quantencomputer gegenüber.
 author: Voldigoade
 locale: de

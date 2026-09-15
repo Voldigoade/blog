@@ -16,7 +16,7 @@ tags:
   - DeepSeek V4.1 Flash
   - Kimi K3
   - Grok
-coverImage: /blog/images/posts/831d1e06-afc2-40ec-85b9-b809652bb405.png
+coverImage: /images/posts/831d1e06-afc2-40ec-85b9-b809652bb405.png
 coverAlt: Five artificial intelligence models confronted with a complex ten-test reasoning benchmark.
 author: Voldigoade
 locale: en
@@ -35,7 +35,7 @@ So I asked **GPT-6 Astra to design a genuine reasoning trial**, with a private a
 
 The raw result is spectacular:
 
-![](/blog/images/posts/62bcea35-2252-40b6-97e4-1c574241a495.png)
+![](/images/posts/62bcea35-2252-40b6-97e4-1c574241a495.png)
 
 But that table is almost the least interesting part of the experiment.
 

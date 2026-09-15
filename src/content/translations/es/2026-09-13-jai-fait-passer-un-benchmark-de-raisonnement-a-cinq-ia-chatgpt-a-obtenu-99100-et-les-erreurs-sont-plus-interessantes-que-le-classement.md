@@ -16,7 +16,7 @@ tags:
   - DeepSeek V4.1 Flash
   - Kimi K3
   - Grok
-coverImage: /blog/images/posts/831d1e06-afc2-40ec-85b9-b809652bb405.png
+coverImage: /images/posts/831d1e06-afc2-40ec-85b9-b809652bb405.png
 coverAlt: Cinco modelos de inteligencia artificial confrontados a un benchmark complejo de razonamiento en diez pruebas.
 author: Voldigoade
 locale: es
@@ -35,7 +35,7 @@ Por eso pedí a **GPT-6 Astra que diseñara una verdadera prueba de razonamiento
 
 El resultado en bruto es espectacular:
 
-![](/blog/images/posts/62bcea35-2252-40b6-97e4-1c574241a495.png)
+![](/images/posts/62bcea35-2252-40b6-97e4-1c574241a495.png)
 
 Pero esa tabla es casi la parte menos interesante del experimento.
 

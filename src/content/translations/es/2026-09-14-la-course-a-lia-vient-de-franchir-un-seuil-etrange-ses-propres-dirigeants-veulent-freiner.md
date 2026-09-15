@@ -14,7 +14,7 @@ tags:
   - sécurité IA
   - Superintelligence
   - régulation
-coverImage: /blog/images/posts/D2FA1DC9-6FE9-45CE-AF52-409EFD4D03EC.png
+coverImage: /images/posts/D2FA1DC9-6FE9-45CE-AF52-409EFD4D03EC.png
 coverAlt: Varios sistemas de inteligencia artificial lanzados en una carrera tecnológica comienzan a frenar simultáneamente.
 author: Voldigoade
 locale: es

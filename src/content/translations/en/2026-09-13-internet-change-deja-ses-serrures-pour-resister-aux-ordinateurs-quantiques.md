@@ -18,7 +18,7 @@ series:
   id: internet-face-au-quantique
   order: 1
   title: The Internet facing the quantum
-coverImage: /blog/images/posts/68974f6a-7fbc-457d-bd8d-ebaf89c49a16.png
+coverImage: /images/posts/68974f6a-7fbc-457d-bd8d-ebaf89c49a16.png
 coverAlt: A digital padlock protected by a new cryptographic layer facing a quantum computer.
 author: Voldigoade
 locale: en

@@ -19,7 +19,7 @@ tags:
   - Cosmologie
   - Physique des particules
   - Détection
-coverImage: /blog/images/posts/f01a6916-f02c-479c-ad34-329f872429db.png
+coverImage: /images/posts/f01a6916-f02c-479c-ad34-329f872429db.png
 coverAlt: Un unique événement lumineux au cœur d’un détecteur souterrain de
   xénon liquide symbolisant le signal inhabituel observé par LUX-ZEPLIN.
 author: Voldigoade

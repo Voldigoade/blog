@@ -16,7 +16,7 @@ tags:
   - DeepSeek V4.1 Flash
   - Kimi K3
   - Grok
-coverImage: /blog/images/posts/831d1e06-afc2-40ec-85b9-b809652bb405.png
+coverImage: /images/posts/831d1e06-afc2-40ec-85b9-b809652bb405.png
 coverAlt: Fünf KI-Modelle, konfrontiert mit einem komplexen Reasoning-Benchmark in zehn Prüfungen.
 author: Voldigoade
 locale: de
@@ -35,7 +35,7 @@ Also bat ich **GPT-6 Astra, eine echte Reasoning-Prüfung zu entwerfen**, mit ei
 
 Das rohe Ergebnis ist spektakulär:
 
-![](/blog/images/posts/62bcea35-2252-40b6-97e4-1c574241a495.png)
+![](/images/posts/62bcea35-2252-40b6-97e4-1c574241a495.png)
 
 Doch diese Tabelle ist fast der uninteressanteste Teil des Experiments.
 

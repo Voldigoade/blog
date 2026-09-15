@@ -21,7 +21,7 @@ series:
   id: sss-class-revival-hunter-anime
   order: 2
   title: "SSS-Class Revival Hunter : l’anime"
-coverImage: /blog/images/posts/f16f59b0-b857-45eb-93d7-86347202c61b.png
+coverImage: /images/posts/f16f59b0-b857-45eb-93d7-86347202c61b.png
 coverAlt: Documents de production et dessins d’animation évoquant la création de
   SSS-Class Revival Hunter.
 author: Voldigoade

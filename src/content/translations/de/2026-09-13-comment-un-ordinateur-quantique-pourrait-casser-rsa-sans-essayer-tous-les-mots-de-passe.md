@@ -17,7 +17,7 @@ series:
   id: internet-face-au-quantique
   order: 2
   title: Das Internet im Angesicht des Quantens
-coverImage: /blog/images/posts/8c6ab339-ddae-4116-b264-2455d5ef0f4d.png
+coverImage: /images/posts/8c6ab339-ddae-4116-b264-2455d5ef0f4d.png
 coverAlt: Darstellung eines Quantencomputers, der die mathematische Struktur eines RSA-Schlüssels analysiert.
 author: Voldigoade
 locale: de

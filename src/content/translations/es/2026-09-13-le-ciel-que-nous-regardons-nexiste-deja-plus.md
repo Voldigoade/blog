@@ -15,7 +15,7 @@ tags:
   - Big Bang
   - Univers
   - cosmologie
-coverImage: /blog/images/posts/univers.png
+coverImage: /images/posts/univers.png
 coverAlt: Ilustración que muestra que cuanto más lejos miramos en el Universo, más antigua es la época de su historia que observamos.
 author: Voldigoade
 locale: es

@@ -14,7 +14,7 @@ tags:
   - Atmosphères planétaires
   - Système solaire
   - Dynamique des fluides
-coverImage: /blog/images/posts/Decagon_on_Saturn_s_south_pole_colour_image_pillars.jpg
+coverImage: /images/posts/Decagon_on_Saturn_s_south_pole_colour_image_pillars.jpg
 coverAlt: Ansicht des Südpols des Saturn, die eine riesige atmosphärische Zehneck-Struktur zeigt, entdeckt mithilfe des Hubble-Weltraumteleskops.
 author: Voldigoade
 locale: de

@@ -32,6 +32,8 @@ jobs:
         run: npm run build
       - name: Verify production output
         run: npm run verify
+      - name: Verify SEO
+        run: npm run test:seo
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
@@ -52,3 +54,18 @@ jobs:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - name: Submit IndexNow
+        continue-on-error: true
+        run: node scripts/indexnow.mjs

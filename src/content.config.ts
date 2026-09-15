@@ -32,6 +32,10 @@ const blog = defineCollection({
       coverAlt: z.string().optional(),
       author: z.string().default("Voldigoade"),
       canonicalUrl: z.string().optional(),
+      news: z.boolean().default(false),
+      seoTitle: z.string().optional(),
+      seoDescription: z.string().optional(),
+      seoTargetQuery: z.string().optional(),
     }),
 });
 
@@ -67,6 +71,10 @@ const translations = defineCollection({
       coverAlt: z.string().optional(),
       author: z.string().default("Voldigoade"),
       canonicalUrl: z.string().optional(),
+      news: z.boolean().default(false),
+      seoTitle: z.string().optional(),
+      seoDescription: z.string().optional(),
+      seoTargetQuery: z.string().optional(),
     }),
 });
 

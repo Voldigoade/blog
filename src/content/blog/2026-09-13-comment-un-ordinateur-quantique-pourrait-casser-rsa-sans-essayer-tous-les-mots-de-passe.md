@@ -21,7 +21,7 @@ series:
   id: internet-face-au-quantique
   order: 2
   title: Internet face au quantique
-coverImage: /blog/images/posts/8c6ab339-ddae-4116-b264-2455d5ef0f4d.png
+coverImage: /images/posts/8c6ab339-ddae-4116-b264-2455d5ef0f4d.png
 coverAlt: Représentation d’un ordinateur quantique analysant la structure
   mathématique d’une clé RSA.
 author: Voldigoade

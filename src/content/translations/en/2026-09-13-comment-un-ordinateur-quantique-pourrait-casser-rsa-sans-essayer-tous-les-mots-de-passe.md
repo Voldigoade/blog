@@ -17,7 +17,7 @@ series:
   id: internet-face-au-quantique
   order: 2
   title: The Internet facing the quantum era
-coverImage: /blog/images/posts/8c6ab339-ddae-4116-b264-2455d5ef0f4d.png
+coverImage: /images/posts/8c6ab339-ddae-4116-b264-2455d5ef0f4d.png
 coverAlt: Representation of a quantum computer analyzing the mathematical structure of an RSA key.
 author: Voldigoade
 locale: en

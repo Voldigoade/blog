@@ -18,7 +18,7 @@ series:
   id: internet-face-au-quantique
   order: 1
   title: Internet frente a lo cuántico
-coverImage: /blog/images/posts/68974f6a-7fbc-457d-bd8d-ebaf89c49a16.png
+coverImage: /images/posts/68974f6a-7fbc-457d-bd8d-ebaf89c49a16.png
 coverAlt: Un candado digital protegido por una nueva capa criptográfica frente a un ordenador cuántico.
 author: Voldigoade
 locale: es

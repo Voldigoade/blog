@@ -4,8 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const dist = new URL("../dist/", import.meta.url);
 const distPath = fileURLToPath(dist);
-const origin = "https://voldigoade.github.io";
-const base = "/blog";
+const origin = "https://voldigoade.xyz";
+const indexNowKey = "c7489a69ef494db8b8de316886e6da48";
 const requiredRoutes = [
   "index.html",
   "publications/index.html",
@@ -19,6 +19,9 @@ const requiredRoutes = [
   "llms.txt",
   "sitemap-index.xml",
   "sitemap-0.xml",
+  "news-sitemap.xml",
+  "CNAME",
+  `${indexNowKey}.txt`,
   "pagefind/pagefind.js",
   "favicon.svg",
   "fonts/source-serif-4-latin.woff2",
@@ -34,8 +37,7 @@ function walk(directory) {
 }
 
 function fileForPublicPath(pathname) {
-  if (!pathname.startsWith(`${base}/`) && pathname !== base) return undefined;
-  const local = pathname.slice(base.length).replace(/^\/+/, "");
+  const local = pathname.replace(/^\/+/, "");
   const direct = join(distPath, local);
   if (local === "404" || local === "404/") {
     const errorPage = join(distPath, "404.html");
@@ -53,10 +55,10 @@ function fileForPublicPath(pathname) {
 
 function publicUrlForHtml(file) {
   const rel = relative(distPath, file).split(sep).join("/");
-  if (rel === "index.html") return `${origin}${base}/`;
-  if (rel.endsWith("/index.html")) return `${origin}${base}/${rel.slice(0, -"index.html".length)}`;
-  if (rel === "404.html") return `${origin}${base}/404/`;
-  return `${origin}${base}/${rel}`;
+  if (rel === "index.html") return `${origin}/`;
+  if (rel.endsWith("/index.html")) return `${origin}/${rel.slice(0, -"index.html".length)}`;
+  if (rel === "404.html") return `${origin}/404/`;
+  return `${origin}/${rel}`;
 }
 
 if (!existsSync(dist)) errors.push("dist directory is missing");
@@ -76,15 +78,17 @@ for (const file of textFiles) {
   const rel = relative(distPath, file).split(sep).join("/");
   const text = readFileSync(file, "utf8");
   if (text.includes("voldigoade.com")) errors.push(`${rel} contains voldigoade.com`);
-  if (text.includes("/blog/blog/")) errors.push(`${rel} contains a legacy article URL`);
+  if (text.includes("voldigoade.github.io")) errors.push(`${rel} contains legacy host voldigoade.github.io`);
+  if (text.includes("/blog/blog/")) errors.push(`${rel} contains duplicate /blog/blog/`);
+  if (text.includes("/blog/_astro/")) errors.push(`${rel} contains legacy asset path /blog/_astro/`);
+  if (text.includes("/blog/publications/")) errors.push(`${rel} contains legacy route /blog/publications/`);
+  if (text.includes("/blog/sections/")) errors.push(`${rel} contains legacy route /blog/sections/`);
+  if (text.includes("/blog/images/")) errors.push(`${rel} contains legacy image path /blog/images/`);
   for (const locale of retiredLocales) {
-    if (text.includes(`/blog/${locale}/`)) errors.push(`${rel} advertises retired locale ${locale}`);
+    if (text.includes(`/${locale}/`)) errors.push(`${rel} advertises retired locale ${locale}`);
   }
   if ([".html", ".xml", ".txt", ".css"].includes(extname(file))) for (const match of text.matchAll(/(?:href|src)=["']([^"']+)["']/g)) {
     const value = match[1];
-    if (value.startsWith("/") && value !== base && !value.startsWith(`${base}/`)) {
-      errors.push(`${rel} contains root-escaping asset or link: ${value}`);
-    }
     let url;
     try {
       url = new URL(value, publicUrlForHtml(file));
@@ -93,12 +97,6 @@ for (const file of textFiles) {
     }
     if (url.origin === origin && !fileForPublicPath(url.pathname)) {
       errors.push(`${rel} links to missing output: ${url.pathname}`);
-    }
-  }
-  if (extname(file) === ".css") for (const match of text.matchAll(/url\(["']?(\/[^)'"\s]+)["']?\)/g)) {
-    const value = match[1];
-    if (value !== base && !value.startsWith(`${base}/`)) {
-      errors.push(`${rel} contains root-escaping CSS asset: ${value}`);
     }
   }
 }
@@ -113,8 +111,8 @@ for (const file of files.filter((item) => extname(item) === ".html")) {
   const alternates = [...text.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/gi)];
   for (const [, alternateLang, href] of alternates) {
     const url = new URL(href);
-    if (url.origin !== origin || !url.pathname.startsWith(`${base}/`)) {
-      errors.push(`${relative(distPath, file)} has invalid ${alternateLang} alternate: ${href}`);
+    if (url.origin !== origin) {
+      errors.push(`${relative(distPath, file)} has invalid ${alternateLang} alternate origin: ${href}`);
       continue;
     }
     const target = fileForPublicPath(url.pathname);
@@ -131,8 +129,9 @@ for (const file of files.filter((item) => extname(item) === ".html")) {
 if (existsSync(new URL("sitemap-0.xml", dist))) {
   const sitemap = readFileSync(new URL("sitemap-0.xml", dist), "utf8");
   for (const match of sitemap.matchAll(/https:\/\/voldigoade\.github\.io[^<"]*/g)) {
-    if (!match[0].startsWith(`${origin}${base}/`)) errors.push(`sitemap URL escapes the base: ${match[0]}`);
+    errors.push(`sitemap retains legacy host URL: ${match[0]}`);
   }
+  if (sitemap.includes("/blog/")) errors.push("sitemap retains /blog/ base path");
   if (/\/404(?:\/|<)/.test(sitemap)) errors.push("sitemap includes a 404 route");
   const sitemapLanguages = new Set([...sitemap.matchAll(/hreflang="([^"]+)"/g)].map((match) => match[1]));
   for (const language of ["fr", "en", "es", "de", "x-default"]) {
@@ -143,14 +142,33 @@ if (existsSync(new URL("sitemap-0.xml", dist))) {
   }
 }
 
+if (existsSync(new URL("news-sitemap.xml", dist))) {
+  const newsSitemap = readFileSync(new URL("news-sitemap.xml", dist), "utf8");
+  if (newsSitemap.includes("voldigoade.github.io")) errors.push("news-sitemap retains legacy host");
+  if (newsSitemap.includes("/blog/")) errors.push("news-sitemap retains /blog/ base path");
+  if (!newsSitemap.includes("<news:publication>")) errors.push("news-sitemap missing publication tag");
+}
+
 if (existsSync(new URL("robots.txt", dist))) {
   const robots = readFileSync(new URL("robots.txt", dist), "utf8");
-  if (!robots.includes(`Sitemap: ${origin}${base}/sitemap-index.xml`)) errors.push("robots.txt has the wrong sitemap URL");
+  if (!robots.includes(`Sitemap: ${origin}/sitemap-index.xml`)) errors.push("robots.txt has the wrong sitemap URL");
+  if (!robots.includes(`Sitemap: ${origin}/news-sitemap.xml`)) errors.push("robots.txt has the wrong news sitemap URL");
 }
 
 if (existsSync(new URL("rss.xml", dist))) {
   const rss = readFileSync(new URL("rss.xml", dist), "utf8");
-  if (!rss.includes(`<link>${origin}${base}/</link>`)) errors.push("RSS channel link does not include the project base");
+  if (!rss.includes(`<link>${origin}/</link>`)) errors.push("RSS channel link does not point to apex origin");
+  if (rss.includes("voldigoade.github.io")) errors.push("RSS contains legacy host");
+}
+
+if (existsSync(new URL("CNAME", dist))) {
+  const cname = readFileSync(new URL("CNAME", dist), "utf8").trim();
+  if (cname !== "voldigoade.xyz") errors.push(`CNAME content mismatch: ${cname}`);
+}
+
+if (existsSync(new URL(`${indexNowKey}.txt`, dist))) {
+  const keyContent = readFileSync(new URL(`${indexNowKey}.txt`, dist), "utf8").trim();
+  if (keyContent !== indexNowKey) errors.push("IndexNow key file in dist has incorrect content");
 }
 
 const tracked = readFileSync(new URL("../package-lock.json", import.meta.url), "utf8");
@@ -161,4 +179,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Verified ${files.length} generated files, ${files.filter((file) => extname(file) === ".html").length} HTML pages, base-path integrity, metadata, internal links and discovery files.`);
+console.log(`Verified ${files.length} generated files, ${files.filter((file) => extname(file) === ".html").length} HTML pages, apex origin integrity, metadata, internal links and discovery files.`);

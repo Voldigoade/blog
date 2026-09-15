@@ -1,6 +1,6 @@
-﻿media:
+media:
   input: public/images/posts
-  output: /blog/images/posts
+  output: /images/posts
 
 content:
   - name: blog
@@ -105,6 +105,26 @@ content:
         label: URL canonique
         type: string
         description: Laissez vide pour une publication originale sur Voldigoade. À renseigner uniquement si une autre URL doit être considérée comme la source canonique.
+      - name: news
+        label: Article d'actualité (Google News)
+        type: boolean
+        default: false
+        description: Activer pour les articles d'actualité récents (< 48h) éligibles à Google News.
+      - name: seoTitle
+        label: Titre SEO (Optionnel)
+        type: string
+        default: ""
+        description: Titre alternatif pour les moteurs de recherche. Laisser vide pour utiliser le titre principal.
+      - name: seoDescription
+        label: Description SEO (Optionnelle)
+        type: string
+        default: ""
+        description: Description alternative pour les moteurs de recherche. Laisser vide pour utiliser la description principale.
+      - name: seoTargetQuery
+        label: Requête cible (Éditorial uniquement)
+        type: string
+        default: ""
+        description: Note éditoriale interne sur l'intention de recherche visée. Ne sera jamais exposée publiquement.
       - name: body
         label: Corps du texte
         type: rich-text

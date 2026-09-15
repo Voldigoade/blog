@@ -14,7 +14,7 @@ tags:
   - Atmosphères planétaires
   - Système solaire
   - Dynamique des fluides
-coverImage: /blog/images/posts/Decagon_on_Saturn_s_south_pole_colour_image_pillars.jpg
+coverImage: /images/posts/Decagon_on_Saturn_s_south_pole_colour_image_pillars.jpg
 coverAlt: View of Saturn's south pole showing an immense ten-sided atmospheric structure discovered thanks to the Hubble telescope.
 author: Voldigoade
 locale: en

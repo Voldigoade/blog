@@ -15,7 +15,7 @@ tags:
   - cybersécurité
   - kimi
   - model extraction
-coverImage: /blog/images/posts/20c92b74-6820-4ef9-929d-bfdb9fcd4971.png
+coverImage: /images/posts/20c92b74-6820-4ef9-929d-bfdb9fcd4971.png
 coverAlt: Ein KI-Modell lernt heimlich Fähigkeiten eines anderen Modells durch Millionen von Anfragen.
 author: Voldigoade
 locale: de
@@ -92,7 +92,7 @@ Eine Verwirrung zieht sich durch diese ganze Affäre: Die Antworten einer KI fü
 
 Man muss mehrere Ebenen unterscheiden.
 
-![](/blog/images/posts/045cda8d-31fb-4a0e-a46e-0b9914450a09.png)
+![](/images/posts/045cda8d-31fb-4a0e-a46e-0b9914450a09.png)
 
 Der Begriff **model extraction** wurde übrigens nicht für den aktuellen Krieg zwischen den KI-Laboren erfunden.
 
@@ -118,7 +118,7 @@ Aber die beanstandeten Volumen sind groß genug, um die Natur des Themas komplet
 
 In seinem Bericht vom September 2026 behauptet Anthropic unter anderem, Folgendes identifiziert zu haben:
 
-![](/blog/images/posts/5d5908f7-a26f-431f-9e6c-69ad9e63e8ee.png)
+![](/images/posts/5d5908f7-a26f-431f-9e6c-69ad9e63e8ee.png)
 
 Man ist nicht mehr wirklich in dem Szenario eines Forschers, der ein paar tausend Prompts schickt, um einen Konkurrenten zu studieren.
 

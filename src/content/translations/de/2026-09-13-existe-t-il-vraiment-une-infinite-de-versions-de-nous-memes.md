@@ -14,7 +14,7 @@ tags:
   - cosmologie
   - dimensions
   - Hugh Everett
-coverImage: /blog/images/posts/6b2fdeee-4466-4c43-9ae5-2f7f2672706b.png
+coverImage: /images/posts/6b2fdeee-4466-4c43-9ae5-2f7f2672706b.png
 coverAlt: Eine Person, deren einziger Lebensweg sich in mehrere mögliche Zukünfte verzweigt, was die Viele-Welten-Interpretation der Quantenmechanik darstellt.
 author: Voldigoade
 locale: de

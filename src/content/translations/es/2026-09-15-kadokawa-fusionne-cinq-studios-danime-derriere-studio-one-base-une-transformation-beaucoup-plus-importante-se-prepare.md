@@ -14,7 +14,7 @@ tags:
   - industrie de l'animation
   - studios japonais
   - production anime
-coverImage: /blog/images/posts/cbaccb30-9d1c-4458-bc9c-932e4c8f1719.png
+coverImage: /images/posts/cbaccb30-9d1c-4458-bc9c-932e4c8f1719.png
 coverAlt: Varios equipos de producción de anime trabajan en un gran estudio común que agrupa diferentes oficios de la animación.
 author: Voldigoade
 locale: es

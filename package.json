@@ -5,7 +5,7 @@
   "description": "Voldigoade personal publication in ink and washi paper. Astro 7 static site with French, English, Spanish and German interfaces.",
   "license": "MIT",
   "author": "Voldigoade",
-  "homepage": "https://voldigoade.github.io/blog/",
+  "homepage": "https://voldigoade.xyz/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Voldigoade/blog.git"
@@ -40,6 +40,7 @@
     "test:translation-integration": "node scripts/translation-cli-smoke.mjs",
     "test:translation-scheduler": "node scripts/test-translation-scheduler.mjs",
     "test:translation-validation": "node scripts/test-translation-validation.mjs",
+    "test:seo": "node scripts/test-seo.mjs",
     "astro": "astro"
   },
   "dependencies": {

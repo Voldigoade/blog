@@ -14,7 +14,7 @@ tags:
   - Cybersécurité
   - Renseignements
   - Agent IA
-coverImage: /blog/images/posts/C335D4D2-D1B8-492A-9CBD-55FF2951BCC5.png
+coverImage: /images/posts/C335D4D2-D1B8-492A-9CBD-55FF2951BCC5.png
 coverAlt: Mehrere Software-Agenten arbeiten parallel in einem Ingenieurlabor, das mit einem Rüstungsprogramm verbunden ist.
 author: Voldigoade
 locale: de

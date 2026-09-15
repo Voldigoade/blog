@@ -19,7 +19,7 @@ tags:
   - cybersécurité
   - kimi
   - model extraction
-coverImage: /blog/images/posts/20c92b74-6820-4ef9-929d-bfdb9fcd4971.png
+coverImage: /images/posts/20c92b74-6820-4ef9-929d-bfdb9fcd4971.png
 coverAlt: Un modèle d’intelligence artificielle apprend secrètement des
   capacités d’un autre modèle à travers des millions de requêtes.
 author: Voldigoade
@@ -92,7 +92,7 @@ Une confusion revient constamment dans cette affaire : utiliser les réponses d�
 
 Il faut distinguer plusieurs niveaux.
 
-![](/blog/images/posts/045cda8d-31fb-4a0e-a46e-0b9914450a09.png)
+![](/images/posts/045cda8d-31fb-4a0e-a46e-0b9914450a09.png)
 
 Le terme **model extraction** n’a d’ailleurs pas été inventé pour la guerre actuelle entre les laboratoires d’IA.
 
@@ -118,7 +118,7 @@ Mais les volumes allégués sont suffisamment énormes pour changer complètemen
 
 Dans son rapport de septembre 2026, Anthropic affirme notamment avoir identifié :
 
-![](/blog/images/posts/5d5908f7-a26f-431f-9e6c-69ad9e63e8ee.png)
+![](/images/posts/5d5908f7-a26f-431f-9e6c-69ad9e63e8ee.png)
 
 On n’est plus vraiment dans le scénario d’un chercheur envoyant quelques milliers de prompts pour étudier un concurrent.
 

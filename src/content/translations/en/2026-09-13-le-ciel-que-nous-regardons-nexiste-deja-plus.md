@@ -15,7 +15,7 @@ tags:
   - Big Bang
   - Univers
   - cosmologie
-coverImage: /blog/images/posts/univers.png
+coverImage: /images/posts/univers.png
 coverAlt: Illustration showing that the further we look into the Universe, the more we observe a distant period in its history.
 author: Voldigoade
 locale: en

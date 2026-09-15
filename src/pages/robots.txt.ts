@@ -7,6 +7,7 @@ export const GET: APIRoute = ({ site }) => {
     "Allow: /",
     "",
     `Sitemap: ${new URL(withBase("/sitemap-index.xml"), site)}`,
+    `Sitemap: ${new URL(withBase("/news-sitemap.xml"), site)}`,
     "",
   ].join("\n");
 

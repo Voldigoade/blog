@@ -14,7 +14,7 @@ tags:
   - cosmologie
   - dimensions
   - Hugh Everett
-coverImage: /blog/images/posts/6b2fdeee-4466-4c43-9ae5-2f7f2672706b.png
+coverImage: /images/posts/6b2fdeee-4466-4c43-9ae5-2f7f2672706b.png
 coverAlt: A person whose unique trajectory splits into multiple possible futures, representing the many-worlds interpretation of quantum mechanics.
 author: Voldigoade
 locale: en

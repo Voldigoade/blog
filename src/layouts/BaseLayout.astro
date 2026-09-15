@@ -14,6 +14,8 @@ import { localesWithPublications } from "../i18n/posts";
 interface Props {
   title?: string;
   description?: string;
+  seoTitle?: string;
+  seoDescription?: string;
   ogImage?: string;
   article?: ArticleMeta;
   author?: string;
@@ -30,6 +32,8 @@ interface Props {
 const {
   title,
   description,
+  seoTitle,
+  seoDescription,
   ogImage,
   article,
   author,
@@ -66,10 +70,13 @@ const feedPath =
       ? localizedPath("/rss.xml", locale)
       : undefined;
 
-const pageTitle = title
-  ? `${title} — ${SITE.title}`
+const effectiveTitle = seoTitle || title;
+const pageTitle = effectiveTitle
+  ? effectiveTitle.includes(SITE.title)
+    ? effectiveTitle
+    : `${effectiveTitle} — ${SITE.title}`
   : `${SITE.title} — ${dict.siteTagline}`;
-const pageDescription = description ?? dict.siteDescription;
+const pageDescription = seoDescription || description || dict.siteDescription;
 ---
 
 <!doctype html>

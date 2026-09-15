@@ -16,8 +16,8 @@ export interface SectionMeta {
 }
 
 export const SITE = {
-  url: "https://voldigoade.github.io",
-  base: "/blog",
+  url: "https://voldigoade.xyz",
+  base: "",
   title: "Voldigoade",
   titleMark: "墨",
   tagline: "Sciences, informatique & culture visuelle",
@@ -30,7 +30,7 @@ export const SITE = {
 
 export const AUTHOR = {
   name: "Voldigoade",
-  url: "https://voldigoade.github.io/blog/",
+  url: "https://voldigoade.xyz/about/",
   bio: "Publication personnelle consacrée à l'exploration rigoureuse des sciences exactes, des architectures informatiques et des arts visuels.",
 } as const;
 

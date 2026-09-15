@@ -14,7 +14,7 @@ tags:
   - sécurité IA
   - Superintelligence
   - régulation
-coverImage: /blog/images/posts/D2FA1DC9-6FE9-45CE-AF52-409EFD4D03EC.png
+coverImage: /images/posts/D2FA1DC9-6FE9-45CE-AF52-409EFD4D03EC.png
 coverAlt: Mehrere Systeme künstlicher Intelligenz, die in einem technologischen Wettlauf gestartet sind, beginnen gleichzeitig zu bremsen.
 author: Voldigoade
 locale: de

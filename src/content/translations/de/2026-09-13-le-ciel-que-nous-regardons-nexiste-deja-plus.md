@@ -15,7 +15,7 @@ tags:
   - Big Bang
   - Univers
   - cosmologie
-coverImage: /blog/images/posts/univers.png
+coverImage: /images/posts/univers.png
 coverAlt: Illustration, die zeigt, dass wir je weiter wir in das Universum blicken, desto frühere Epochen seiner Geschichte beobachten.
 author: Voldigoade
 locale: de

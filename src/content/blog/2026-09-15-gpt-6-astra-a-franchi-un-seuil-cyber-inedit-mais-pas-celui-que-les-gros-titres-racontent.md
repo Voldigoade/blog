@@ -9,6 +9,7 @@ pubDate: 2026-09-15
 draft: false
 featured: false
 section: computing
+news: true
 contentType: article
 tags:
   - intelligence artificielle
@@ -18,7 +19,7 @@ tags:
   - Zero-Day
   - sécurité informatique
   - agents IA
-coverImage: /blog/images/posts/6135a580-bb11-43a5-b9ef-6b292bf80d6c.png
+coverImage: /images/posts/6135a580-bb11-43a5-b9ef-6b292bf80d6c.png
 coverAlt: Un système d’intelligence artificielle analyse de manière autonome du
   code et des systèmes informatiques à la recherche de vulnérabilités.
 author: Voldigoade

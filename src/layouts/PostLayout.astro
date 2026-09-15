@@ -48,12 +48,14 @@ const {
 const dict = getDict(locale);
 const minutes = readingTime(post.body);
 const pool: (Post | TranslatedPost)[] = locale === DEFAULT_LOCALE ? await getPublishedPosts() : await getTranslatedPosts(locale);
-const related = getRelatedPosts(post, pool, 2);
+const related = getRelatedPosts(post, pool, 4);
 
 const article = {
   publishedTime: isoDate(pubDate),
   modifiedTime: updatedDate ? isoDate(updatedDate) : undefined,
   tags,
+  isNews: post.data.news === true,
+  section,
 };
 
 const sectionInfo = section ? sectionText(locale, section) : undefined;
@@ -66,6 +68,8 @@ const neighborHref = (entry: Post | TranslatedPost) => {
 <BaseLayout
   title={title}
   description={description}
+  seoTitle={post.data.seoTitle}
+  seoDescription={post.data.seoDescription}
   ogImage={OG.enabled && locale === DEFAULT_LOCALE ? `/og/${post.id}.png` : undefined}
   article={article}
   author={author}
