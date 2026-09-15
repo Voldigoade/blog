@@ -150,6 +150,17 @@ assert.deepEqual(extractQuantities("5,682 billion", "en"), [5_682_000_000_000]);
 assert.deepEqual(extractQuantities("10.400 mil millones", "es"), [10_400_000_000_000]);
 assert.deepEqual(extractQuantities("10,400 billion", "en"), [10_400_000_000_000]);
 
+// Elliptical units distribute over conjunctions and ranges: "entre 5 682 et
+// 6 523 milliards" means both figures are scaled, in every locale.
+assert.deepEqual(extractQuantities("entre 5 682 et 6 523 milliards", "fr"), [5_682_000_000_000, 6_523_000_000_000]);
+assert.deepEqual(extractQuantities("entre 5,682 y 6,523 billones", "es"), [5_682_000_000_000, 6_523_000_000_000]);
+assert.deepEqual(extractQuantities("from 2,000 to 5,700 billion", "en"), [2_000_000_000_000, 5_700_000_000_000]);
+assert.deepEqual(extractQuantities("von 2.000 bis 5.700 Milliarden", "de"), [2_000_000_000_000, 5_700_000_000_000]);
+assert.deepEqual(extractQuantities("von etwa 2 000 auf 5 700 Milliarden", "de"), [2_000_000_000_000, 5_700_000_000_000]);
+// No propagation without a conjunction or an explicit scale on the second number.
+assert.deepEqual(extractQuantities("30 000 répondants", "fr"), [30_000]);
+assert.deepEqual(extractQuantities("5 700 et 4 700", "fr"), [5_700, 4_700]);
+assert.deepEqual(extractQuantities("résultat 1 pour 1", "fr"), [1, 1]);
 // French press abbreviation "Mds" (milliards), as used in data tables.
 assert.deepEqual(extractQuantities("8 494 Mds", "fr"), [8_494_000_000_000]);
 assert.deepEqual(extractQuantities("18 914 Mds", "fr"), [18_914_000_000_000]);

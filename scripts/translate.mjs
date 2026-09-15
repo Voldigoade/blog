@@ -653,6 +653,45 @@ function numericValue(raw, locale) {
   return Number.isFinite(value) ? value : Number.NaN;
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// Units distribute over conjunctions and ranges: "entre 5 682 et 6 523
+// milliards" means 5.682e12 and 6.523e12, just like Spanish "entre 5.682 y
+// 6,523 billones". Copy an explicit scale word back onto a bare number only
+// when the two are joined by a conjunction or range dash and the second number
+// carries the scale. Anything else stays untouched, so a wrong guess can only
+// reject (fail closed), never silently accept a magnitude error.
+const ELLIPSIS_CONJUNCTIONS = {
+  fr: ["et", "ou", "à"],
+  es: ["y", "e", "o", "u", "a"],
+  en: ["and", "or", "to"],
+  de: ["und", "oder", "bis", "auf"],
+};
+
+function propagateEllipticalScale(text, locale, scales) {
+  const conjunctions = ELLIPSIS_CONJUNCTIONS[locale];
+  if (!conjunctions || !scales) return text;
+  const scaleNames = Object.keys(scales)
+    .sort((a, b) => b.length - a.length)
+    .map((name) => escapeRegExp(name).replace(/ /g, "\\s+"))
+    .join("|");
+  const wordConjunctions = conjunctions.map(escapeRegExp).join("|");
+  const number = "\\d+(?:[,. \\u00a0\\u202f]\\d+)*";
+  const pattern = new RegExp(
+    `(?<![\\p{Letter}\\d_])(${number})(\\s+(?:${wordConjunctions})\\s+|\\s*[-–—]\\s*)(${number}\\s*((?:${scaleNames})))`,
+    "giu",
+  );
+  let current = text;
+  for (let round = 0; round < 3; round += 1) {
+    const next = current.replace(pattern, "$1 $4$2$3");
+    if (next === current) return current;
+    current = next;
+  }
+  return current;
+}
+
 export function extractQuantities(text, locale = "fr") {
   // Long-scale vs short-scale aware magnitudes. French/Spanish/German use the
   // long scale (billion = 10^12); English uses the short scale (billion = 10^9).
@@ -666,8 +705,9 @@ export function extractQuantities(text, locale = "fr") {
     de: { trillionen: 1e18, trillion: 1e18, billiarden: 1e15, billiarde: 1e15, billionen: 1e12, billion: 1e12, milliarden: 1e9, milliarde: 1e9, mrd: 1e9, millionen: 1e6, million: 1e6, tausend: 1e3 },
   };
   const values = [];
+  const body = propagateEllipticalScale(text, locale, scales[locale]);
   const pattern = /(?<![\p{Letter}\d_])(\d+(?:[,\. \u00a0\u202f]\d{3})*(?:[,\.]\d+)?)(?:[\s-]*([\p{Letter}]+(?:[\s-]+[\p{Letter}]+)?))?/gu;
-  for (const match of text.matchAll(pattern)) {
+  for (const match of body.matchAll(pattern)) {
     const base = numericValue(match[1], locale);
     if (!Number.isFinite(base)) continue;
     const words = (match[2] || "").toLocaleLowerCase(locale);
@@ -681,7 +721,7 @@ export function extractQuantities(text, locale = "fr") {
     es: /\bcatorce\s+días\b/gi,
     de: /\bvierzehn\s+tagen?\b/gi,
   };
-  const wordDurations = text.match(durationWords[locale])?.length || 0;
+  const wordDurations = body.match(durationWords[locale])?.length || 0;
   for (let index = 0; index < wordDurations; index += 1) values.push(14);
   return values;
 }
