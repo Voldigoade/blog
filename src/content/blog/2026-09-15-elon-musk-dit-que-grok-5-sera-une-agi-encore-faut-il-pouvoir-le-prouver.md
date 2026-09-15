@@ -54,7 +54,7 @@ Les confondre transformerait des prédictions en résultats.
 
 ## La roadmap est devenue extraordinairement agressive
 
-Selon Musk, Grok 4.8 serait un modèle de **2,5 trillions de paramètres**, entraîné avec une nouvelle stack logicielle en C++, dont la phase principale d’entraînement doit se terminer cette semaine avant le reinforcement learning. 
+Selon Musk, Grok 4.8 serait un modèle de **2 500 milliards de paramètres**, entraîné avec une nouvelle stack logicielle en C++, dont la phase principale d’entraînement doit se terminer cette semaine avant le reinforcement learning.
 
 Puis viendraient Grok 4.9 et Grok 5.
 
@@ -74,7 +74,7 @@ Mais l’AGI n’est pas une version logicielle.
 
 Et aucun nombre de paramètres n’en constitue la définition.
 
-## Un modèle de 2,5 trillions de paramètres peut encore ne rien prouver
+## Un modèle de 2 500 milliards de paramètres peut encore ne rien prouver
 
 La taille d’un modèle est intéressante pour comprendre son architecture et son coût.
 
@@ -84,7 +84,7 @@ Un modèle plus grand peut être sous-entraîné. Un modèle plus petit peut dis
 
 La propre présentation de Grok 4.6 par SpaceXAI attribue ses progrès à un entraînement supplémentaire plus long, des données synthétiques sélectionnées, des données d’ingénierie de meilleure qualité et une recette d’optimisation améliorée pas simplement à un nombre de paramètres. 
 
-Même si Grok 4.8 possède réellement 2,5 trillions de paramètres, cette information dit essentiellement :
+Même si Grok 4.8 possède réellement 2 500 milliards de paramètres, cette information dit essentiellement :
 
 **« xAI entraîne un très gros modèle ».**
 
