@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { deterministicTranslationIssues, generateTranslatedPublication } from "./translate.mjs";
+import { deterministicTranslationIssues, extractQuantities, generateTranslatedPublication } from "./translate.mjs";
 
 const source = {
   slug: "fixture",
@@ -116,5 +116,54 @@ const repaired = await generateTranslatedPublication(source, "en", async (prepar
 assert.equal(calls, 2);
 assert.equal(repaired.body.includes("Not 151 million tokens"), true);
 assert.equal(repaired.body.includes("`Problème → excellente réponse attendue`"), true);
+
+// Long-scale vs short-scale regression: 10 400 milliards de yens = 10.4e12.
+// Spanish "billón" is 10^12 per the RAE (10^9 is only US Spanish usage).
+const TEN_TRILLION = 10_400_000_000_000;
+assert.deepEqual(extractQuantities("10 400 milliards", "fr"), [TEN_TRILLION]);
+assert.deepEqual(extractQuantities("10,4 billones", "es"), [TEN_TRILLION]);
+assert.deepEqual(extractQuantities("10.400 mil millones", "es"), [TEN_TRILLION]);
+assert.deepEqual(extractQuantities("10.4 trillion", "en"), [TEN_TRILLION]);
+assert.deepEqual(extractQuantities("10,400 billion", "en"), [TEN_TRILLION]);
+assert.deepEqual(extractQuantities("10,4 Billionen", "de"), [TEN_TRILLION]);
+assert.deepEqual(extractQuantities("10.400 Milliarden", "de"), [TEN_TRILLION]);
+
+assert.deepEqual(extractQuantities("5 700 milliards", "fr"), [5_700_000_000_000]);
+assert.deepEqual(extractQuantities("5,7 billones", "es"), [5_700_000_000_000]);
+assert.deepEqual(extractQuantities("5.7 trillion", "en"), [5_700_000_000_000]);
+assert.deepEqual(extractQuantities("5,7 Billionen", "de"), [5_700_000_000_000]);
+assert.deepEqual(extractQuantities("2 300 milliards", "fr"), [2_300_000_000_000]);
+assert.deepEqual(extractQuantities("2,3 billones", "es"), [2_300_000_000_000]);
+
+// Locale number formats: thin spaces, decimal commas and thousand dots.
+assert.deepEqual(extractQuantities("10 400,5 milliards", "fr"), [10_400_500_000_000]);
+assert.deepEqual(extractQuantities("6 429,3 milliards", "fr"), [6_429_300_000_000]);
+assert.deepEqual(extractQuantities("6.429,3 mil millones", "es"), [6_429_300_000_000]);
+assert.deepEqual(extractQuantities("688,8 milliards", "fr"), [688_800_000_000]);
+assert.deepEqual(extractQuantities("230 milliards", "fr"), [230_000_000_000]);
+assert.deepEqual(extractQuantities("230 billones", "es"), [230_000_000_000_000]);
+
+// Pre-existing singular/plural and hyphenated-compound behavior is preserved.
+assert.deepEqual(extractQuantities("66 million years", "en"), [66_000_000]);
+assert.deepEqual(extractQuantities("a 66-million-year-old Earth", "en"), [66_000_000]);
+assert.deepEqual(extractQuantities("66 millions d'années", "fr"), [66_000_000]);
+assert.deepEqual(extractQuantities("66 millones de años", "es"), [66_000_000]);
+assert.deepEqual(extractQuantities("66 Millionen Jahren", "de"), [66_000_000]);
+
+// End-to-end: a correctly localized Spanish rendering passes validation.
+const yenSource = {
+  slug: "fixture-yen",
+  data: { title: "Pertes estimées", description: "Montants en jeu.", coverAlt: "" },
+  body: "# Pertes estimées\n\nLe total atteint 10 400 milliards de yens, dont 5 700 milliards pour le numérique et 2 300 milliards pour la vidéo.\n",
+};
+const yenSpanish = {
+  title: "Pérdidas estimadas",
+  description: "Cantidades en juego.",
+  heroImageAlt: "",
+  coverAlt: "",
+  seriesTitle: "",
+  body: "# Pérdidas estimadas\n\nEl total alcanza los 10,4 billones de yenes, con 5,7 billones para el sector digital y 2,3 billones para el vídeo.\n",
+};
+assert.deepEqual(deterministicTranslationIssues(yenSource, yenSpanish, "es"), []);
 
 console.log("Deterministic translation and bounded repair tests passed.");

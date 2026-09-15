@@ -626,11 +626,16 @@ function numericValue(raw, locale) {
 }
 
 export function extractQuantities(text, locale = "fr") {
+  // Long-scale vs short-scale aware magnitudes. French/Spanish/German use the
+  // long scale (billion = 10^12); English uses the short scale (billion = 10^9).
+  // Spanish "billón" is 10^12 per the RAE (10^9 is only US Spanish usage);
+  // "mil millones" remains the unambiguous 10^9. Keys are matched against
+  // locale-lowercased words, longest first, so e.g. "millones" wins over "mil".
   const scales = {
-    fr: { milliard: 1e9, milliards: 1e9, million: 1e6, millions: 1e6, millier: 1e3, milliers: 1e3 },
-    en: { billion: 1e9, billions: 1e9, million: 1e6, millions: 1e6, thousand: 1e3, thousands: 1e3 },
-    es: { billón: 1e9, billones: 1e9, "mil millones": 1e9, millón: 1e6, millones: 1e6, mil: 1e3 },
-    de: { milliarde: 1e9, milliarden: 1e9, million: 1e6, millionen: 1e6, tausend: 1e3 },
+    fr: { billions: 1e12, billion: 1e12, trillion: 1e18, trillions: 1e18, milliard: 1e9, milliards: 1e9, million: 1e6, millions: 1e6, mille: 1e3, millier: 1e3, milliers: 1e3 },
+    en: { trillion: 1e12, trillions: 1e12, billion: 1e9, billions: 1e9, million: 1e6, millions: 1e6, thousand: 1e3, thousands: 1e3 },
+    es: { trillones: 1e18, "trillón": 1e18, billones: 1e12, "billón": 1e12, "mil millones": 1e9, millones: 1e6, "millón": 1e6, miles: 1e3, mil: 1e3 },
+    de: { trillionen: 1e18, trillion: 1e18, billiarden: 1e15, billiarde: 1e15, billionen: 1e12, billion: 1e12, milliarden: 1e9, milliarde: 1e9, millionen: 1e6, million: 1e6, tausend: 1e3 },
   };
   const values = [];
   const pattern = /(?<![\p{Letter}\d_])(\d+(?:[,\. \u00a0\u202f]\d{3})*(?:[,\.]\d+)?)(?:[\s-]*([\p{Letter}]+(?:[\s-]+[\p{Letter}]+)?))?/gu;
