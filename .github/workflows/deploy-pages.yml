@@ -36,6 +36,8 @@ jobs:
         run: npm run verify
       - name: Verify SEO
         run: npm run test:seo
+      - name: Verify paginated alternates
+        run: npm run test:pagination
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact

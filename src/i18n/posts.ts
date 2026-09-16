@@ -2,7 +2,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
-import { DEFAULT_LOCALE, LOCALES, type LocaleRoute } from "./locales";
+import { DEFAULT_LOCALE, LOCALES, orderRoutes, type LocaleRoute } from "./locales";
 
 export type TranslatedPost = CollectionEntry<"translations">;
 
@@ -63,11 +63,6 @@ export async function translatedLocalesFor(slug: string): Promise<LocaleRoute[]>
   return orderRoutes(found);
 }
 
-function orderRoutes(found: LocaleRoute[]): LocaleRoute[] {
-  return (LOCALES as readonly { route: LocaleRoute }[])
-    .map(({ route }) => route)
-    .filter((route) => found.includes(route));
-}
 
 export async function localesWithPublications(): Promise<LocaleRoute[]> {
   const routes: LocaleRoute[] = [DEFAULT_LOCALE];

@@ -58,3 +58,11 @@ export function alternatesFor(path: string): { route: LocaleRoute; href: string 
     href: localizedPath(path, route),
   }));
 }
+
+export function orderRoutes(found: readonly string[]): LocaleRoute[] {
+  return (LOCALES as readonly { route: LocaleRoute }[])
+    .map(({ route }) => route)
+    .filter((route) => found.includes(route));
+}
+
+export { paginatedAlternateRoutes } from "./pagination";

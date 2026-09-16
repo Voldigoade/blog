@@ -11,12 +11,16 @@ interface Props {
 
 const { locale = DEFAULT_LOCALE, currentPath = "/", availableRoutes, position = "down" } = Astro.props;
 const dict = getDict(locale);
-const routes = (LOCALES as readonly { route: LocaleRoute; native: string }[]).map(({ route, native }) => ({
-  route,
-  native,
-  href: localizedPath(!availableRoutes || availableRoutes.includes(route) ? currentPath : "/", route),
-  current: route === locale,
-}));
+const routes = (LOCALES as readonly { route: LocaleRoute; native: string }[]).map(({ route, native }) => {
+  const isAvailable = !availableRoutes || availableRoutes.includes(route);
+  return {
+    route,
+    native,
+    href: localizedPath(currentPath, route),
+    current: route === locale,
+    disabled: !isAvailable,
+  };
+});
 const currentCode = (locale as string).toUpperCase();
 ---
 
@@ -33,19 +37,31 @@ const currentCode = (locale as string).toUpperCase();
     <span class="lang__code" aria-hidden="true">{currentCode}</span>
   </button>
   <ul class="lang__panel" data-lang-panel role="listbox" aria-label={dict.langLabel} hidden>
-    {routes.map(({ native, href, current }) => (
+    {routes.map(({ native, href, current, disabled }) => (
       <li role="none">
-        <a
-          class="lang__option"
-          role="option"
-          href={href}
-          aria-selected={current ? "true" : "false"}
-          aria-current={current ? "true" : undefined}
-          tabindex="-1"
-        >
-          <span class="lang__native">{native}</span>
-          {current && <span class="lang__mark" aria-hidden="true">●</span>}
-        </a>
+        {disabled ? (
+          <span
+            class="lang__option lang__option--disabled"
+            role="option"
+            aria-disabled="true"
+            aria-selected="false"
+            tabindex="-1"
+          >
+            <span class="lang__native">{native}</span>
+          </span>
+        ) : (
+          <a
+            class="lang__option"
+            role="option"
+            href={href}
+            aria-selected={current ? "true" : "false"}
+            aria-current={current ? "true" : undefined}
+            tabindex="-1"
+          >
+            <span class="lang__native">{native}</span>
+            {current && <span class="lang__mark" aria-hidden="true">●</span>}
+          </a>
+        )}
       </li>
     ))}
   </ul>
@@ -58,7 +74,7 @@ const currentCode = (locale as string).toUpperCase();
       const button = root.querySelector("[data-lang-button]");
       const panel = root.querySelector("[data-lang-panel]");
       if (!button || !panel) continue;
-      const options = Array.from(panel.querySelectorAll(".lang__option"));
+      const options = Array.from(panel.querySelectorAll("a.lang__option"));
       const close = (refocus) => {
         button.setAttribute("aria-expanded", "false");
         panel.hidden = true;
@@ -183,5 +199,15 @@ const currentCode = (locale as string).toUpperCase();
 
   .lang__mark {
     font-size: 0.5rem;
+  }
+
+  .lang__option--disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .lang__option--disabled:hover {
+    color: var(--color-fg-muted);
+    background: transparent;
   }
 </style>

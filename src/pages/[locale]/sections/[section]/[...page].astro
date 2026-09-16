@@ -7,22 +7,49 @@ import PostCard from "../../../../components/PostCard.astro";
 import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import { BLOG, SECTIONS } from "../../../../config";
 import { getDict, sectionPubsText, sectionText } from "../../../../i18n/dict";
-import { NON_DEFAULT_LOCALES, localizedPath } from "../../../../i18n/locales";
+import { DEFAULT_LOCALE, NON_DEFAULT_LOCALES, localizedPath, paginatedAlternateRoutes, type LocaleRoute } from "../../../../i18n/locales";
 import { getTranslatedPosts, type TranslatedPost } from "../../../../i18n/posts";
-import { postsBySection } from "../../../../utils/posts";
+import { getPublishedPosts, postsBySection } from "../../../../utils/posts";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const paths = [];
   const sectionKeys = Object.keys(SECTIONS) as Array<keyof typeof SECTIONS>;
+  const frenchPosts = await getPublishedPosts();
+  const postsByLocale = new Map(
+    await Promise.all(
+      NON_DEFAULT_LOCALES.map(async (loc) => [loc, await getTranslatedPosts(loc)] as const),
+    ),
+  );
+
   for (const locale of NON_DEFAULT_LOCALES) {
-    const posts = await getTranslatedPosts(locale);
+    const posts = postsByLocale.get(locale) || [];
     for (const key of sectionKeys) {
       const secPosts = postsBySection(posts, key);
+      const counts: Record<LocaleRoute, number> = {
+        [DEFAULT_LOCALE]: postsBySection(frenchPosts, key).length,
+        ...Object.fromEntries(
+          NON_DEFAULT_LOCALES.map((loc) => [
+            loc,
+            postsBySection(postsByLocale.get(loc) || [], key).length,
+          ]),
+        ) as Record<Exclude<LocaleRoute, typeof DEFAULT_LOCALE>, number>,
+      };
+
       paths.push(
         ...paginate(secPosts, {
           params: { locale, section: key },
           pageSize: BLOG.postsPerPage,
           props: { sectionKey: key },
+        }).map((path) => {
+          const pageNumber = path.props.page.currentPage;
+          const alternateRoutes = paginatedAlternateRoutes(pageNumber, counts, BLOG.postsPerPage);
+          return {
+            ...path,
+            props: {
+              ...path.props,
+              alternateRoutes,
+            },
+          };
         }),
       );
     }
@@ -33,9 +60,10 @@ export const getStaticPaths = (async ({ paginate }) => {
 interface Props {
   page: Page<TranslatedPost>;
   sectionKey: keyof typeof SECTIONS;
+  alternateRoutes: LocaleRoute[];
 }
 
-const { page, sectionKey } = Astro.props as Props;
+const { page, sectionKey, alternateRoutes } = Astro.props as Props;
 const locale = Astro.params.locale as string;
 const dict = getDict(locale);
 const sectionMeta = { id: sectionKey, ...sectionText(locale, sectionKey) };
@@ -52,6 +80,7 @@ const motifs: Record<string, string> = {
   title={`${sectionMeta.title}${suffix}`}
   description={sectionMeta.description}
   locale={locale}
+  alternateRoutes={alternateRoutes}
 >
   <div class="wrap">
     <PageHeader

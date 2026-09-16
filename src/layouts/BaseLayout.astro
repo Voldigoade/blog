@@ -58,8 +58,10 @@ const alternates: AlternateLink[] = alternateRoutes.map((route) => ({
 }));
 const xDefault =
   xDefaultProp !== undefined
-    ? xDefaultProp || undefined
-    : localizedPath(unprefixed === "" ? "/" : unprefixed, DEFAULT_LOCALE);
+    ? (xDefaultProp || undefined)
+    : alternateRoutes.includes(DEFAULT_LOCALE)
+      ? localizedPath(unprefixed === "" ? "/" : unprefixed, DEFAULT_LOCALE)
+      : undefined;
 const ogAlternates = alternateRoutes.filter((route) => route !== locale).map((route) => ogLocale(route));
 
 const feedLocales = await localesWithPublications();

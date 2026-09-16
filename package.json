@@ -41,6 +41,7 @@
     "test:translation-integration": "node scripts/translation-cli-smoke.mjs",
     "test:translation-scheduler": "node scripts/test-translation-scheduler.mjs",
     "test:translation-validation": "node scripts/test-translation-validation.mjs",
+    "test:pagination": "node scripts/test-paginated-alternates.mjs",
     "test:legacy-media": "node scripts/test-legacy-media.mjs",
     "test:indexnow": "node scripts/test-indexnow.mjs",
     "test:related-posts": "node scripts/test-related-posts.mjs",
